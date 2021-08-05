@@ -6,8 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Wonder Woman"
+        android:textSize="@dimen/bottom_navigation_text"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
