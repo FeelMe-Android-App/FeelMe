@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <activity
-            android:name=".OverlayActivity"
+            android:name=".features.overlay.view.OverlayActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity

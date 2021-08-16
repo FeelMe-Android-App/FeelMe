@@ -17,10 +17,17 @@
         android:id="@+id/btOpenOverlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Abrir"
+        android:text="Abrir Login"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
+    <Button
+        android:id="@+id/btOpenProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abrir Profile"
+        app:layout_constraintTop_toBottomOf="@+id/btOpenOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

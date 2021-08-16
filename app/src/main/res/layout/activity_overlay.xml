@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OverlayActivity">
+    tools:context=".features.overlay.view.OverlayActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,9 +17,21 @@
             android:id="@+id/ivDestaqImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bruna_silva"
+            android:src="@drawable/ic_signup"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_1"
+            android:textStyle="bold"
+            android:text="Entre"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"
+            android:background="@color/primary_color" />
 
         <TextView
             android:id="@+id/tvContent"
