@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2101851851851852" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2101851851851852" />
+        <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/drawable/square_border_radius.xml" value="0.1859375" />
         <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_overlay.xml" value="0.33" />
         <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
       </map>
