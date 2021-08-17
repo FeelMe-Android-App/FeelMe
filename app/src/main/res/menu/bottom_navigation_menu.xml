@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Início" />
+
+    <item
+        android:id="@+id/salvosFragment"
+        android:title="Salvos" />
+
+    <item
+        android:id="@+id/oqueassistirFragment"
+        android:title="O que assistir" />
+
+    <item
+        android:id="@+id/buscaFragment"
+        android:title="Busca" />
+
+</menu>
