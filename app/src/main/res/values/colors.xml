@@ -5,4 +5,5 @@
     <color name="primary_text_color">#FFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="roxo">#46115E8C</color>
 </resources>

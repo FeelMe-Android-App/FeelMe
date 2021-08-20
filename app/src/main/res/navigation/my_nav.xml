@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.feelme.feelmeapp.features.home.view.HomeFragment"
+        android:label="Olá, Samantha"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/teste1Fragment"
+        android:name="com.feelme.feelmeapp.features.home.view.Teste1Fragment"
+        android:label="fragment_teste1"
+        tools:layout="@layout/fragment_teste1" />
+    <fragment
+        android:id="@+id/teste2Fragment"
+        android:name="com.feelme.feelmeapp.features.home.view.Teste2Fragment"
+        android:label="fragment_teste2"
+        tools:layout="@layout/fragment_teste2" />
+    <fragment
+        android:id="@+id/teste3Fragment"
+        android:name="com.feelme.feelmeapp.features.home.view.Teste3Fragment"
+        android:label="fragment_teste3"
+        tools:layout="@layout/fragment_teste3" />
+</navigation>

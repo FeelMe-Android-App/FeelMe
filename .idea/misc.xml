@@ -8,6 +8,20 @@
         <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/feelme-repo/FeelMe/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/home_selector.xml" value="0.28072916666666664" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.153125" />
+        <entry key="app/src/main/res/drawable/ic_home_opacity.xml" value="0.153125" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.28072916666666664" />
+        <entry key="app/src/main/res/drawable/selector_bottom.xml" value="0.2764102564102564" />
+        <entry key="app/src/main/res/drawable/shape.xml" value="0.2764102564102564" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_teste2.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/layout/fragment_teste3.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/layout/list_categorias.xml" value="0.36099585062240663" />
+        <entry key="app/src/main/res/layout/list_em_alta.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/menu-v26/bottom_menu.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
