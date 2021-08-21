@@ -28,5 +28,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:itemIconSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/bottom_menu"
+        android:theme="@style/AppThemeMaterial"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
