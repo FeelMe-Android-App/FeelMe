@@ -7,12 +7,12 @@
         android:title="Home" />
     <item
         android:id="@+id/teste1Fragment"
-        android:icon="@drawable/ic_feedback"
+        android:icon="@drawable/ic_feed"
         android:enabled="true"
         android:title="Feed" />
     <item
         android:id="@+id/teste2Fragment"
-        android:icon="@drawable/ic_movies"
+        android:icon="@drawable/ic_what_to_watch"
         android:enabled="true"
         android:title="O que assistir" />
     <item
