@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/teste1Fragment"
+        android:icon="@drawable/ic_feed"
+        android:enabled="true"
+        android:title="Feed" />
+    <item
+        android:id="@+id/teste2Fragment"
+        android:icon="@drawable/ic_what_to_watch"
+        android:enabled="true"
+        android:title="O que assistir" />
+    <item
+        android:id="@+id/teste3Fragment"
+        android:icon="@drawable/ic_search"
+        android:enabled="true"
+        android:title="Busca" />
+</menu>
