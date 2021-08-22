@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".dialog.view.Dialog"
+    tools:context=".features.dialog.view.Dialog"
     android:background="@android:color/transparent"
     android:backgroundTint="@android:color/transparent"
     android:backgroundTintMode="multiply">

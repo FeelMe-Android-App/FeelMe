@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.CategoriasAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
-import com.feelme.feelmeapp.dialog.view.Dialog
+import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.models.Categorias
 import com.feelme.feelmeapp.models.Filmes
 
@@ -35,9 +34,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivFotoLogin.setOnClickListener {
-            Dialog("Example","new Example").show(parentFragmentManager, "CustomDialog")
-        }
+//        binding.ivFotoLogin.setOnClickListener {
+//            Dialog("Example","new Example").show(parentFragmentManager, "CustomDialog")
+//        }
 
         setFilmes()
         setCategorias()

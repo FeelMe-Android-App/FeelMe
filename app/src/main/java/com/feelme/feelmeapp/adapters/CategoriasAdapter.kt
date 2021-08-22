@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListCategoriasBinding
-import com.feelme.feelmeapp.dialog.view.Dialog
 import com.feelme.feelmeapp.models.Categorias
-import androidx.fragment.app.FragmentActivity
 
 
 class CategoriasAdapter: RecyclerView.Adapter<CategoriasAdapter.MyviewHolder>() {
@@ -17,9 +15,9 @@ class CategoriasAdapter: RecyclerView.Adapter<CategoriasAdapter.MyviewHolder>() 
         fun bind(categorias: Categorias) {
             with(binding){
                 tvCategoria.text = categorias.nome
-                tvCategoria.setOnClickListener {
-                    Dialog("exemplo","outro Exemplo").show((it.context as FragmentActivity).supportFragmentManager, "customDialog")
-                }
+//                tvCategoria.setOnClickListener {
+//                    Dialog("exemplo","outro Exemplo").show((it.context as FragmentActivity).supportFragmentManager, "customDialog")
+//                }
             }
         }
 
