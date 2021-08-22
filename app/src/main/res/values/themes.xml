@@ -2,8 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.FeelMe" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary_color</item>
-        <item name="colorPrimaryDark">@color/secondary_color</item>
-        <item name="colorAccent">?attr/colorPrimaryVariant</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="roundimageview" parent="">
