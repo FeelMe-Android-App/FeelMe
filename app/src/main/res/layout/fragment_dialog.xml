@@ -60,7 +60,6 @@
                 android:src="@drawable/ic_back_arrow"
                 android:backgroundTint="@color/primary_color"
                 android:layout_marginTop="20dp"
-                android:theme="@style/AppThemeMaterial"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
