@@ -30,16 +30,28 @@ class StreamAdapter(
             streaming: StreamItem,
             onClickListener: (streaming: StreamItem) -> Unit
         ) {
-            if(streaming.selected) binding.ivStreamerLogo.alpha = 1F
-            else binding.ivStreamerLogo.alpha = 0.3F
+            if(streaming.selected) {
+                binding.ivStreamerLogo.scaleX = 1F
+                binding.ivStreamerLogo.scaleY = 1F
+                binding.ivStreamerLogo.alpha = 1F
+            }
+            else {
+                binding.ivStreamerLogo.scaleX = 0.9F
+                binding.ivStreamerLogo.scaleY = 0.9F
+                binding.ivStreamerLogo.alpha = 0.2F
+            }
 
             binding.ivStreamerLogo.setImageResource(streaming.image)
             binding.ivStreamerLogo.setOnClickListener {
                 streaming.selected = !streaming.selected
                 if(streaming.selected) {
+                    binding.ivStreamerLogo.scaleX = 1F
+                    binding.ivStreamerLogo.scaleY = 1F
                     binding.ivStreamerLogo.alpha = 1F
                 } else {
                     binding.ivStreamerLogo.alpha = 0.3F
+                    binding.ivStreamerLogo.scaleX = 0.9F
+                    binding.ivStreamerLogo.scaleY = 0.9F
                 }
                 onClickListener(streaming)
             }
