@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <activity
+            android:name=".features.search.view.SearchActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -20,8 +23,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
+        <activity android:name=".features.movieDetails.view.MovieDetailsActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

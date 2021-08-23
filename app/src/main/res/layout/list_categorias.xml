@@ -10,10 +10,21 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_margin="16dp"
-            android:background="@drawable/shape"
+            android:background="@drawable/categories_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_adventure"
+            android:id="@+id/ivEmoji"
+            app:layout_constraintTop_toTopOf="@id/view_categorias"
+            app:layout_constraintStart_toStartOf="@id/view_categorias"
+            app:layout_constraintEnd_toEndOf="@id/view_categorias"
+            app:layout_constraintBottom_toTopOf="@id/tv_categoria"
             />
 
         <TextView
@@ -24,11 +35,11 @@
             android:textStyle="bold"
             android:fontFamily="@font/lato"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/normal_text"
             app:layout_constraintBottom_toBottomOf="@+id/view_categorias"
             app:layout_constraintEnd_toEndOf="@+id/view_categorias"
             app:layout_constraintStart_toStartOf="@+id/view_categorias"
-            app:layout_constraintTop_toTopOf="@+id/view_categorias" />
+            app:layout_constraintTop_toBottomOf="@id/ivEmoji" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

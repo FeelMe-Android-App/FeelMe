@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/primary_color"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo."
+            app:layout_constraintStart_toStartOf="@id/ivProfilePicture"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="15dp"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/shape"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato"
+            android:textSize="@dimen/normal_text"
+            />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/bruna_silva"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:riv_corner_radius="50dp"
+            /></androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

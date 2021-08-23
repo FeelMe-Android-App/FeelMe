@@ -2,6 +2,7 @@ package com.feelme.feelmeapp.features.dialog.view
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.feelme.feelmeapp.databinding.FragmentDialogBinding
 
-class Dialog(var title: String, var subTitle: String) : DialogFragment() {
+class Dialog(var title: String? = null, var subTitle: String? = null, var content: String? = null, var image: Int, buttonAction: Unit? = null) : DialogFragment() {
     private var binding: FragmentDialogBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +27,16 @@ class Dialog(var title: String, var subTitle: String) : DialogFragment() {
     }
 
     private fun setupView(view: View) {
-        binding?.tvTitle?.text = title
-        binding?.tvContent?.text = subTitle
+        if(title.isNullOrEmpty()) binding?.tvTitle?.visibility = View.GONE
+        else binding?.tvTitle?.text = title
+
+        if(subTitle.isNullOrEmpty()) binding?.tvSubtitle?.visibility = View.GONE
+        else binding?.tvSubtitle?.text = subTitle
+
+        if(content.isNullOrEmpty()) binding?.tvContent?.visibility = View.GONE
+        else binding?.tvContent?.text = content
+
+        binding?.ivDestaqImage?.setImageResource(image)
         binding?.fabBackAction?.setOnClickListener {
             dismiss()
         }

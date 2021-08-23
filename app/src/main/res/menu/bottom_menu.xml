@@ -3,20 +3,20 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/home_icon"
         android:title="Home" />
     <item
-        android:id="@+id/teste1Fragment"
-        android:icon="@drawable/ic_feed"
+        android:id="@+id/feedFragment"
+        android:icon="@drawable/feed_icon"
         android:enabled="true"
         android:title="Feed" />
     <item
-        android:id="@+id/teste2Fragment"
-        android:icon="@drawable/ic_what_to_watch"
+        android:id="@+id/whatToWatch"
+        android:icon="@drawable/what_to_watch_icon"
         android:enabled="true"
         android:title="O que assistir" />
     <item
-        android:id="@+id/teste3Fragment"
+        android:id="@+id/itSearch"
         android:icon="@drawable/ic_search"
         android:enabled="true"
         android:title="Busca" />

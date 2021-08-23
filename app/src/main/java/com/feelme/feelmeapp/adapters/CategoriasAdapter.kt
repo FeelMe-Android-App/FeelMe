@@ -15,6 +15,7 @@ class CategoriasAdapter: RecyclerView.Adapter<CategoriasAdapter.MyviewHolder>() 
         fun bind(categorias: Categorias) {
             with(binding){
                 tvCategoria.text = categorias.nome
+                ivEmoji.setImageResource(categorias.icon)
 //                tvCategoria.setOnClickListener {
 //                    Dialog("exemplo","outro Exemplo").show((it.context as FragmentActivity).supportFragmentManager, "customDialog")
 //                }

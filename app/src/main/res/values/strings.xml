@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">FeelMe</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="poster">Poster</string>
+    <string name="topo">topo</string>
+    <string name="wonder_woman_1984">Wonder Woman 1984</string>
+    <string name="year_example">2020</string>
+    <string name="bullet_point"> • </string>
+    <string name="time_example">2h35min</string>
+    <string name="aventura">Aventura</string>
+    <string name="drama">Drama</string>
+    <string name="assista_agora">Assista Agora</string>
+    <string name="lorem_ipsun">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo. Pellentesque vitae iaculis arcu. Nam iaculis sagittis tortor, condimentum tempus magna. Fusce quis turpis vel mi efficitur semper sit amet ut neque.</string>
+    <string name="o_que_seus_amigos_acharam">O que seus amigos acharam...</string>
+    <string name="betty_griffin">Betty Griffin</string>
 </resources>
