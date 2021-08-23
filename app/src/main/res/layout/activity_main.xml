@@ -29,5 +29,6 @@
         app:itemIconSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu"
+        app:itemIconTint="@drawable/item_icon_tint"
         app:labelVisibilityMode="labeled"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
