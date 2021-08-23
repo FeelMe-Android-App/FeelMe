@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     android:forceDarkAllowed="false">
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:drawableBottom="@drawable/back_button"
         android:layout_marginTop="16dp"
         android:paddingBottom="9dp"
         android:paddingEnd="5dp"
-        android:background="@drawable/layout_bg_round"
+        android:src="@drawable/ic_back_arrow"
+        android:background="@color/primary_color"
+        android:backgroundTint="@color/primary_color"
+        app:borderWidth="0dp"
         android:layout_marginStart="16dp"
-        android:includeFontPadding="true"
+        app:fabCustomSize="50dp"
         android:layout_gravity="top|left"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,7 +26,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:src="@drawable/save_button"
+        android:src="@drawable/ic_save_film"
         android:background="@drawable/layout_bg_round"
         android:backgroundTint="#3D2859"
         app:borderWidth="0dp"
@@ -37,7 +39,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_watched_movie"
-        android:background="@drawable/layout_bg_round"
         android:backgroundTint="#3D2859"
         app:borderWidth="0dp"
         android:layout_gravity="bottom"

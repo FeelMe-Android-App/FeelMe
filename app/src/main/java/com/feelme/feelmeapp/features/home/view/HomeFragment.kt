@@ -13,8 +13,8 @@ import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.CategoriasAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
-import com.feelme.feelmeapp.models.Categorias
-import com.feelme.feelmeapp.models.Filmes
+import com.feelme.feelmeapp.features.home.model.Categorias
+import com.feelme.feelmeapp.features.home.model.Filmes
 
 
 class HomeFragment : Fragment() {

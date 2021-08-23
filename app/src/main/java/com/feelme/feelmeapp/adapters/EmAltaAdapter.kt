@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListEmAltaBinding
-import com.feelme.feelmeapp.models.Filmes
-import com.feelme.feelmeapp.utils.OnClickListenerMovie
+import com.feelme.feelmeapp.features.home.model.Filmes
 
 class EmAltaAdapter(
     private val listMovies: MutableList<Filmes>,
