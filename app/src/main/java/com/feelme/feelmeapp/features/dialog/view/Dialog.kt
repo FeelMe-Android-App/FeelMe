@@ -10,7 +10,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.FragmentDialogBinding
+import com.feelme.feelmeapp.features.dialog.adapter.EmojiListAdapter
 import com.feelme.feelmeapp.features.dialog.model.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.model.DialogData
 import com.google.android.material.button.MaterialButton
@@ -50,6 +53,17 @@ class Dialog(var params: DialogData) : DialogFragment() {
                     (params.button as ButtonStyle).onClickListener()
                 }
             }
+        }
+
+        if(!params.emojiList.isNullOrEmpty()) {
+            binding?.btPersonalized?.visibility = View.GONE
+            binding?.fabBackAction?.visibility = View.GONE
+            binding?.tvContent?.visibility = View.GONE
+            binding?.rvEmojiList?.visibility = View.VISIBLE
+
+            val emojiItens = params.emojiList
+            binding?.rvEmojiList?.adapter = emojiItens?.let { EmojiListAdapter(it) }
+            binding?.rvEmojiList?.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
         }
 
         binding?.ivDestaqImage?.setImageResource(params.image)

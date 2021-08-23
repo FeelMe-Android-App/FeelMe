@@ -26,7 +26,7 @@
                 android:id="@+id/ivDestaqImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_signup"
+                tools:src="@drawable/ic_signup"
                 android:layout_gravity="center"
                 android:layout_marginBottom="15dp"/>
 
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/title_1"
                 android:textStyle="bold"
-                android:text="Entre"
+                tools:text="Entre"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:layout_marginBottom="10dp"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/normal_text"
                 android:fontFamily="@font/lato"
-                android:text="Escolha como você"
+                tools:text="Escolha como você"
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 android:textAlignment="center"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/normal_text"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo."
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo."
                 android:textColor="@color/white"
                 android:background="@color/primary_color"/>
 
@@ -67,15 +67,24 @@
                 android:id="@+id/btPersonalized"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entrar com Facebook"
+                tools:text="Entrar com Facebook"
                 android:layout_gravity="center"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                app:icon="@drawable/ic_watched_outlined"
+                tools:icon="@drawable/ic_watched_outlined"
                 android:textColor="@color/white"
                 app:iconTint="@color/white"
                 android:backgroundTint="@color/secondary_color"
                 android:layout_marginTop="20dp"
                 android:textAllCaps="false"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEmojiList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/emoji_item"
+                tools:itemCount="3"
+                android:visibility="gone"
                 />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -90,8 +99,7 @@
                 app:borderWidth="0dp"
                 app:elevation="0dp"
                 android:elevation="0dp"
-                />
+                android:contentDescription="Voltar para tela anterior" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </FrameLayout>

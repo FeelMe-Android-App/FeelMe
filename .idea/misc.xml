@@ -28,6 +28,7 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_splash.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/comment_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/comment_movie_item.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/emoji_item.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_about_us.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.20625" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_dialog.xml" value="0.33" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_teste3.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_watched.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_what_to_watch.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_categorias.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_em_alta.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/review_item.xml" value="0.25" />
