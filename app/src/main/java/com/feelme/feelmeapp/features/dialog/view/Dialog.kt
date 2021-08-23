@@ -48,6 +48,7 @@ class Dialog(var params: DialogData) : DialogFragment() {
             with(binding) {
                 this?.fabBackAction?.visibility = View.GONE
                 this?.btPersonalized?.setBackgroundColor(ContextCompat.getColor(requireContext(), (params.button as ButtonStyle).backgroundColor))
+                this?.btPersonalized?.text = (params.button as ButtonStyle).text
                 (this?.btPersonalized as MaterialButton).setIconResource((params.button as ButtonStyle).icon)
                 this?.btPersonalized?.setOnClickListener {
                     (params.button as ButtonStyle).onClickListener()
