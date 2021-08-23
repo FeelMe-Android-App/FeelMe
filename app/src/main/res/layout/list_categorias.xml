@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/primary_color"
+    android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view_categorias"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/categories_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_adventure"
+            android:id="@+id/ivEmoji"
+            app:layout_constraintTop_toTopOf="@id/view_categorias"
+            app:layout_constraintStart_toStartOf="@id/view_categorias"
+            app:layout_constraintEnd_toEndOf="@id/view_categorias"
+            app:layout_constraintBottom_toTopOf="@id/tv_categoria"
+            />
+
+        <TextView
+            android:id="@+id/tv_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drama"
+            android:textStyle="bold"
+            android:fontFamily="@font/lato"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintBottom_toBottomOf="@+id/view_categorias"
+            app:layout_constraintEnd_toEndOf="@+id/view_categorias"
+            app:layout_constraintStart_toStartOf="@+id/view_categorias"
+            app:layout_constraintTop_toBottomOf="@id/ivEmoji" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

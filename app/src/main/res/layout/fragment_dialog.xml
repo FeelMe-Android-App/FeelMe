@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".features.dialog.view.Dialog"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
+    android:backgroundTintMode="multiply">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_color"
+        android:backgroundTint="@color/primary_color"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="40dp"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <ImageView
+                android:id="@+id/ivDestaqImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_signup"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_1"
+                android:textStyle="bold"
+                android:text="Entre"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"
+                android:background="@color/primary_color" />
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_text"
+                android:fontFamily="@font/lato"
+                android:text="Escolha como você"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_text"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo."
+                android:textColor="@color/white"
+                android:background="@color/primary_color"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabBackAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/primary_color"
+                android:src="@drawable/ic_back_arrow"
+                android:backgroundTint="@color/primary_color"
+                android:layout_marginTop="20dp"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                android:elevation="0dp"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

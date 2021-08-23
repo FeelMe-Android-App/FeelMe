@@ -1,31 +1,26 @@
-package com.feelme.feelmeapp
+package com.feelme.feelmeapp.features.feed.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.feelme.feelmeapp.databinding.FragmentMovieDetailsBinding
+import com.feelme.feelmeapp.R
+import com.feelme.feelmeapp.databinding.FragmentFeedBinding
 
-class MovieDetailsFragment : Fragment() {
-
-    private var binding: FragmentMovieDetailsBinding? = null
+class FeedFragment : Fragment() {
+    private var binding: FragmentFeedBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentFeedBinding.inflate(inflater, container, false)
         return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
 }
