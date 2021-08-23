@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <activity
+            android:name=".features.selectStream.view.SelectStreamActivity"
+            android:exported="true" />
+        <activity
             android:name=".features.search.view.SearchActivity"
             android:exported="true" />
         <activity
@@ -23,7 +26,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity android:name=".features.movieDetails.view.MovieDetailsActivity" />
 
         <meta-data
