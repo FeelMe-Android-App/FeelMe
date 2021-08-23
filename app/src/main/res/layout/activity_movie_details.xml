@@ -20,11 +20,11 @@
         android:layout_gravity="top|left"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btWatch"
+        android:id="@+id/btSave"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_watched_movie"
+        android:src="@drawable/save_button"
         android:background="@drawable/layout_bg_round"
         android:backgroundTint="#3D2859"
         app:borderWidth="0dp"
@@ -33,16 +33,16 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btSave"
+        android:id="@+id/btWatch"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/save_button"
+        android:src="@drawable/ic_watched_movie"
         android:background="@drawable/layout_bg_round"
         android:backgroundTint="#3D2859"
         app:borderWidth="0dp"
         android:layout_gravity="bottom"
         app:fabCustomSize="50dp"
-        app:layout_anchor="@+id/btWatch"
+        app:layout_anchor="@+id/btSave"
         app:useCompatPadding="true"/>
 
     <androidx.core.widget.NestedScrollView

@@ -30,7 +30,7 @@ class CommentsAdapter(
         ) {
             binding.tvComment.text = comment.comment
             binding.ivProfilePicture.setImageResource(comment.image)
-            binding.ivProfilePicture.setOnClickListener {
+            binding.clComment.setOnClickListener {
                 onClickListenerProfile(comment)
             }
         }

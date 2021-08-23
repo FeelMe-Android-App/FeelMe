@@ -39,7 +39,7 @@
                 android:text="Entre"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/primary_color" />
             <TextView
                 android:id="@+id/tvSubtitle"
@@ -62,6 +62,21 @@
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo."
                 android:textColor="@color/white"
                 android:background="@color/primary_color"/>
+
+            <Button
+                android:id="@+id/btPersonalized"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrar com Facebook"
+                android:layout_gravity="center"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                app:icon="@drawable/ic_watched_outlined"
+                android:textColor="@color/white"
+                app:iconTint="@color/white"
+                android:backgroundTint="@color/secondary_color"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabBackAction"
