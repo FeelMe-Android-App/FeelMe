@@ -1,4 +1,4 @@
-package com.feelme.feelmeapp.features.selectStream.model
+package com.feelme.feelmeapp.features.selectStream.usecase
 
 data class StreamItem (
     val id: Int,

@@ -1,4 +1,4 @@
-package com.feelme.feelmeapp.features.movieDetails.model
+package com.feelme.feelmeapp.features.movieDetails.usecase
 
 data class Comment (
     val image: Int,

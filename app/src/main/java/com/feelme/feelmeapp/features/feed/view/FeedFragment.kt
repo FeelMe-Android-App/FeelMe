@@ -5,14 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentFeedBinding
 import com.feelme.feelmeapp.features.feed.FriendsMoviesAdapter
-import com.feelme.feelmeapp.features.home.model.Filmes
+import com.feelme.feelmeapp.features.home.usecase.Filmes
 
 class FeedFragment : Fragment() {
     private var binding: FragmentFeedBinding? = null

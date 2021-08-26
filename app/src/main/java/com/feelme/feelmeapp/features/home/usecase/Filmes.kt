@@ -1,4 +1,4 @@
-package com.feelme.feelmeapp.features.home.model
+package com.feelme.feelmeapp.features.home.usecase
 
 data class Filmes(
     val id: Int,

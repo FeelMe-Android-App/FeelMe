@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.EmojiItemBinding
-import com.feelme.feelmeapp.features.dialog.model.EmojiList
+import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 
 class EmojiListAdapter(private val emojiList: List<EmojiList>): RecyclerView.Adapter<EmojiListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  {

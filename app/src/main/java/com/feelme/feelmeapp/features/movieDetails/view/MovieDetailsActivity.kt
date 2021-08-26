@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivityMovieDetailsBinding
-import com.feelme.feelmeapp.databinding.ActivitySplashBinding
-import com.feelme.feelmeapp.features.dialog.model.ButtonStyle
-import com.feelme.feelmeapp.features.dialog.model.DialogData
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
-import com.feelme.feelmeapp.features.movieDetails.model.Comment
+import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 
 class MovieDetailsActivity : AppCompatActivity() {
 

@@ -13,4 +13,5 @@
     <string name="lorem_ipsun">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo. Pellentesque vitae iaculis arcu. Nam iaculis sagittis tortor, condimentum tempus magna. Fusce quis turpis vel mi efficitur semper sit amet ut neque.</string>
     <string name="o_que_seus_amigos_acharam">O que seus amigos acharam...</string>
     <string name="betty_griffin">Betty Griffin</string>
+    <string name="error_default">Erro desconhecido.</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
@@ -13,12 +14,14 @@ import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.CategoriasAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
-import com.feelme.feelmeapp.features.home.model.Categorias
-import com.feelme.feelmeapp.features.home.model.Filmes
+import com.feelme.feelmeapp.features.home.usecase.Categorias
+import com.feelme.feelmeapp.features.home.usecase.Filmes
+import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: HomeViewModel
     private val moviesList = arrayListOf(
         Filmes(
             1, "The Revenant", "Jan 31,2015", R.drawable.the_revenant
@@ -59,6 +62,17 @@ class HomeFragment : Fragment() {
 //        binding.ivFotoLogin.setOnClickListener {
 //            Dialog("Example","new Example").show(parentFragmentManager, "CustomDialog")
 //        }
+
+        activity?.let {
+            viewModel = ViewModelProvider(it)[HomeViewModel::class.java]
+
+            //TROCAR PARA A API QUE BUSCA OS FILME EM ALTA.
+            //DEIXEI NOWPLAYING PQ ACHO QUE VAI USAR COM OS ICONES
+            //E PARA DEIXAR O EXEMPLO DO CESAR
+            viewModel.getNowPlayingMovies()
+        }
+
+
         setCategorias()
         setRecyclerViewFilmes()
         setRecyclerViewCategorias()

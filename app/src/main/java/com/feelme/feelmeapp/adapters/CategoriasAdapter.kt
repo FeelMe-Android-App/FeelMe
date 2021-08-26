@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListCategoriasBinding
-import com.feelme.feelmeapp.features.home.model.Categorias
+import com.feelme.feelmeapp.features.home.usecase.Categorias
 
 
 class CategoriasAdapter: RecyclerView.Adapter<CategoriasAdapter.MyviewHolder>() {

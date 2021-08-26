@@ -3,13 +3,11 @@ package com.feelme.feelmeapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.get
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.feelme.feelmeapp.databinding.ActivityMainBinding
-import com.feelme.feelmeapp.features.dialog.model.DialogData
-import com.feelme.feelmeapp.features.dialog.model.EmojiList
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
+import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
 

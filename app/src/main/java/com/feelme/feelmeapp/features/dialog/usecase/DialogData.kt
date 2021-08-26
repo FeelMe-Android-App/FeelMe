@@ -1,4 +1,4 @@
-package com.feelme.feelmeapp.features.dialog.model
+package com.feelme.feelmeapp.features.dialog.usecase
 
 data class DialogData(
     val title: String? = null,

@@ -1,14 +1,10 @@
 package com.feelme.feelmeapp.features.selectStream.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.StreamItemBinding
-import com.feelme.feelmeapp.features.selectStream.model.StreamItem
-import kotlin.coroutines.coroutineContext
+import com.feelme.feelmeapp.features.selectStream.usecase.StreamItem
 
 class StreamAdapter(
     private val streamings: List<StreamItem>,

@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.features.dialog.view
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.FragmentDialogBinding
 import com.feelme.feelmeapp.features.dialog.adapter.EmojiListAdapter
-import com.feelme.feelmeapp.features.dialog.model.ButtonStyle
-import com.feelme.feelmeapp.features.dialog.model.DialogData
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.google.android.material.button.MaterialButton
 
 class Dialog(var params: DialogData) : DialogFragment() {
