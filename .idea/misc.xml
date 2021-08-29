@@ -18,19 +18,22 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/ic_watched_outlined.xml" value="0.3828125" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/ic_what_to_watch.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/item_icon_tint.xml" value="0.203125" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/rounded_button.xml" value="0.29791666666666666" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/shape.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/skeleton.xml" value="0.221875" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/square_border_radius.xml" value="0.21770833333333334" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/square_left_rounded_white_gradient.xml" value="0.3828125" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/square_rounded_white_gradient.xml" value="0.3828125" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/what_to_watch_icon.xml" value="0.3828125" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/font/lato.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_movie_details.xml" value="0.25" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_overlay.xml" value="0.20625" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_search.xml" value="0.35260416666666666" />
-        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_select_stream.xml" value="0.25" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_select_stream.xml" value="0.5" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_splash.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/comment_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/comment_movie_item.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/comment_movie_item.xml" value="0.5" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/emoji_item.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_about_us.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.20625" />
@@ -52,6 +55,7 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_what_to_watch.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_categorias.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_em_alta.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/movie_comment_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/review_item.xml" value="0.25" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/social_item.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/stream_item.xml" value="0.20520833333333333" />

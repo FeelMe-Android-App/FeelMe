@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="15dp"
             android:layout_marginStart="50dp"
-            android:background="@drawable/shape"
+            android:background="@drawable/square_rounded_white_gradient"
             android:textColor="@color/white"
             android:fontFamily="@font/lato"
             android:textSize="@dimen/normal_text"

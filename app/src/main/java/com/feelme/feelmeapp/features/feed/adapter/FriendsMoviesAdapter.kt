@@ -1,4 +1,4 @@
-package com.feelme.feelmeapp.features.feed
+package com.feelme.feelmeapp.features.feed.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,12 +10,12 @@ class FriendsMoviesAdapter(private val movies: MutableList<Filmes>, ): RecyclerV
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FriendsMoviesAdapter.ViewHolder {
+    ): ViewHolder {
         val binding = WatchingMovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FriendsMoviesAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movies[position])
     }
 

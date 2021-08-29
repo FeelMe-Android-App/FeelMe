@@ -12,17 +12,30 @@
         <TextView
             android:id="@+id/tvComment"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="115dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo."
             app:layout_constraintStart_toStartOf="@id/ivProfilePicture"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rivMoviePoster"
             android:padding="15dp"
             android:layout_marginStart="50dp"
-            android:background="@drawable/shape"
+            android:background="@drawable/square_left_rounded_white_gradient"
             android:textColor="@color/white"
             android:fontFamily="@font/lato"
             android:textSize="@dimen/normal_text"
+            />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/rivMoviePoster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvComment"
+            android:layout_height="115dp"
+            android:layout_width="80dp"
+            android:src="@drawable/the_revenant"
+            app:layout_constraintStart_toEndOf="@id/tvComment"
+            app:riv_corner_radius_top_right="10dp"
+            app:riv_corner_radius_bottom_right="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             />
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivProfilePicture"

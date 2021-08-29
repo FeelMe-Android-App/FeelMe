@@ -29,10 +29,10 @@ class Dialog(var params: DialogData) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupView(view)
+        setupView()
     }
 
-    private fun setupView(view: View) {
+    private fun setupView() {
         if(params.title.isNullOrEmpty()) binding?.tvTitle?.visibility = View.GONE
         else binding?.tvTitle?.text = params.title
 
@@ -49,7 +49,7 @@ class Dialog(var params: DialogData) : DialogFragment() {
                 this?.btPersonalized?.setBackgroundColor(ContextCompat.getColor(requireContext(), (params.button as ButtonStyle).backgroundColor))
                 this?.btPersonalized?.text = (params.button as ButtonStyle).text
                 (this?.btPersonalized as MaterialButton).setIconResource((params.button as ButtonStyle).icon)
-                this?.btPersonalized?.setOnClickListener {
+                this.btPersonalized.setOnClickListener {
                     (params.button as ButtonStyle).onClickListener()
                 }
             }
