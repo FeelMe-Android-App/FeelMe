@@ -1,12 +1,21 @@
 package com.feelme.feelmeapp.api
 
+import com.feelme.feelmeapp.model.Movie
 import com.feelme.feelmeapp.model.NowPlaying
+import com.feelme.feelmeapp.model.Stream
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface TMDBApi {
-    @GET("movie/now_playing?api_key=3fdab48e2bddf5d597050debe64abb1c")
+    @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(): Response<NowPlaying>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieById(@Path("movie_id") id: Int): Response<Movie>
+
+    @GET("watch/providers/movie?watch_region=BR")
+    suspend fun getStreamList(): Response<Stream>
 
 //    DEIXEI COMO EXEMPLO PARA AS FUTURAS CHAMADAS
 

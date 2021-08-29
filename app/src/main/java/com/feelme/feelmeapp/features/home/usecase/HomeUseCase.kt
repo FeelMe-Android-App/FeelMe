@@ -9,22 +9,22 @@ class HomeUseCase {
 
     private val homeRepository = HomeRepository()
 
-    suspend fun getNowPlayingMovies() {
+    suspend fun getNowPlayingMovies(): ResponseApi {
 
         when (val responseApi = homeRepository.getNowPlayingMovies()) {
             is ResponseApi.Success -> {
-                val data = responseApi.data as NowPlaying
+                val data = responseApi.data as? NowPlaying
                 val result = data?.results?.map {
-                    it.backdrop_path = it.backdrop_path.getFullImageUrl()
-                    it.poster_path = it.poster_path.getFullImageUrl()
+                    if(!it.backdrop_path.isNullOrEmpty()) it.backdrop_path = it.backdrop_path.getFullImageUrl()
+                    if(!it.poster_path.isNullOrEmpty()) it.poster_path = it.poster_path.getFullImageUrl()
+                    it
                 }
-                result
+
+                return ResponseApi.Success(result)
             }
             is ResponseApi.Error -> {
-
+                return responseApi
             }
         }
-
-
     }
 }

@@ -3,6 +3,7 @@ package com.feelme.feelmeapp.api
 import com.feelme.feelmeapp.BuildConfig
 import com.feelme.feelmeapp.utils.ConstantApp.Api.API_TOKEN
 import com.feelme.feelmeapp.utils.ConstantApp.Api.API_TOKEN_KEY
+import com.feelme.feelmeapp.utils.ConstantApp.Api.BASE_URL
 import com.feelme.feelmeapp.utils.ConstantApp.Api.QUERY_PARAM_LANGUAGE_KEY
 import com.feelme.feelmeapp.utils.ConstantApp.Api.QUERY_PARAM_LANGUAGE_VALUE
 import okhttp3.OkHttpClient
@@ -16,8 +17,7 @@ object ApiService {
 
     fun getTMDBApiClient(): Retrofit {
         return Retrofit.Builder()
-            //.baseUrl(BuildConfig.BASE_URL)
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_URL)
             .client(getInterceptorClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -44,6 +44,4 @@ object ApiService {
             }
         return interceptor.build()
     }
-
-
 }

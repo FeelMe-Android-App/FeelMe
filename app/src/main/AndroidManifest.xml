@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <activity
-            android:name=".features.selectStream.view.SelectStreamActivity"
+            android:name=".features.selectStream.view.StreamListActivity"
             android:exported="true" />
         <activity
             android:name=".features.search.view.SearchActivity"

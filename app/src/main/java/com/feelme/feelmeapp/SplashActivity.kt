@@ -4,11 +4,9 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.annotation.RequiresApi
 import com.feelme.feelmeapp.databinding.ActivitySplashBinding
-import com.feelme.feelmeapp.features.selectStream.view.SelectStreamActivity
+import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import java.util.*
 
 class SplashActivity : AppCompatActivity() {
@@ -24,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
 
         Timer().schedule(object: TimerTask() {
             override fun run() {
-                startActivity(Intent(this@SplashActivity, SelectStreamActivity::class.java))
+                startActivity(Intent(this@SplashActivity, StreamListActivity::class.java))
                 finish()
             }
         }, 3500)

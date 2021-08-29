@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.selectStream.view.SelectStreamActivity"
+    tools:context=".features.selectStream.view.StreamListActivity"
     android:forceDarkAllowed="false"
-    android:background="@color/primary_color">
+    android:background="@color/primary_color"
+    >
     <TextView
         android:id="@+id/tvSelectStream"
         android:layout_width="match_parent"
