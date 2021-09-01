@@ -11,7 +11,7 @@
         android:enabled="true"
         android:title="Feed" />
     <item
-        android:id="@+id/whatToWatch"
+        android:id="@+id/whatToWatchFragment"
         android:icon="@drawable/what_to_watch_icon"
         android:enabled="true"
         android:title="O que assistir" />

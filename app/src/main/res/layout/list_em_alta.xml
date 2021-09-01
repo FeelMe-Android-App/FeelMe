@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/clMovieItem">
+    android:id="@+id/clMovieItem"
+    android:background="@color/primary_color">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_filme"
@@ -17,21 +19,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundimageview"
-        app:srcCompat="@drawable/the_fight_club" />
+        tools:srcCompat="@drawable/the_fight_club" />
 
     <TextView
         android:id="@+id/tv_nome_filme"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/lato"
-        android:text="Wonder Woman(1984)"
+        tools:text="Wonder Woman(1984) sadasdasdasd"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="@+id/image_filme"
-        app:layout_constraintTop_toBottomOf="@+id/image_filme" />
+        app:layout_constraintTop_toBottomOf="@+id/image_filme"
+        android:singleLine="true"
+        />
 
     <TextView
         android:id="@+id/tv_data_filme"
@@ -39,9 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:alpha="0.5"
-        android:text="Dec 16, 2020"
+        tools:text="Dec 16, 2020"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tv_nome_filme"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nome_filme" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nome_filme"
+        android:ellipsize="end"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

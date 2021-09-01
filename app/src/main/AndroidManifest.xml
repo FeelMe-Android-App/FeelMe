@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.feelme.feelmeapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <activity
-            android:name=".features.selectStream.view.SelectStreamActivity"
+            android:name=".ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".features.selectStream.view.StreamListActivity"
             android:exported="true" />
         <activity
             android:name=".features.search.view.SearchActivity"

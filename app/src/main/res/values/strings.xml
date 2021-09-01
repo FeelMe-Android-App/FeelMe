@@ -13,4 +13,16 @@
     <string name="lorem_ipsun">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo. Pellentesque vitae iaculis arcu. Nam iaculis sagittis tortor, condimentum tempus magna. Fusce quis turpis vel mi efficitur semper sit amet ut neque.</string>
     <string name="o_que_seus_amigos_acharam">O que seus amigos acharam...</string>
     <string name="betty_griffin">Betty Griffin</string>
+    <string name="error_default">Erro desconhecido.</string>
+    <string name="saved_movies">Salvos</string>
+    <string name="watched_movies">Assistidos</string>
+    <string name="streaming_services">Meus Serviços de Streamings</string>
+    <string name="search_movie_title">Escreva o nome de um filme</string>
+    <string name="see_all">ver todas</string>
+    <string name="select_streaming">Selecione seus serviços de Streaming</string>
+    <string name="feed_title">Feed</string>
+    <string name="what_your_friends_are_watching">O que seus amigos estão assistindo...</string>
+    <string name="on_the_rise">Em Alta</string>
+    <string name="followers">Seguidores</string>
+    <string name="following">Seguidores</string>
 </resources>

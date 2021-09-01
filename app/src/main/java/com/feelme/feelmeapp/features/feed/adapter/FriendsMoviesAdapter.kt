@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.WatchingMovieItemBinding
-import com.feelme.feelmeapp.features.home.model.Filmes
+import com.feelme.feelmeapp.features.home.usecase.Filmes
 
 class FriendsMoviesAdapter(private val movies: MutableList<Filmes>, ): RecyclerView.Adapter<FriendsMoviesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(

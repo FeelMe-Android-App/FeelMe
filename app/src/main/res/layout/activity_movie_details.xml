@@ -58,11 +58,14 @@
             <ImageView
                 android:id="@+id/imgPoster"
                 android:layout_width="0dp"
-                android:layout_height="500dp"
-                android:background="@drawable/poster"
+                android:layout_height="550dp"
+                android:src="@drawable/poster"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/poster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:adjustViewBounds="true"
                 android:foreground="@drawable/gradient"/>
 
             <TextView
@@ -70,6 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
                 android:layout_marginBottom="50dp"
                 android:text="@string/wonder_woman_1984"
                 android:textColor="@color/white"
@@ -77,43 +81,21 @@
                 android:textStyle="bold"
                 android:fontFamily="@font/lato_bold"
                 app:layout_constraintBottom_toBottomOf="@id/imgPoster"
-                app:layout_constraintStart_toStartOf="@id/imgPoster" />
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/tvMovieReleaseYear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/year_example"
+                android:text="2020 • 2h35min"
                 android:fontFamily="@font/lato_regular"
                 android:textColor="@color/white"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
                 app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvMovieTitle" />
-
-            <TextView
-                android:id="@+id/tvDotSpace"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/bullet_point"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/tvMovieReleaseYear"
-                app:layout_constraintTop_toTopOf="@id/tvMovieReleaseYear" />
-
-            <TextView
-                android:id="@+id/tvMovieRuntime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/time_example"
-                android:fontFamily="@font/lato_regular"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@id/tvDotSpace"
-                app:layout_constraintTop_toBottomOf="@id/tvMovieTitle"
-                app:layout_constraintTop_toTopOf="@id/tvMovieReleaseYear" />
 
             <TextView
                 android:id="@+id/tvMovieCategory"
@@ -156,12 +138,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/lorem_ipsun"
                 android:fontFamily="@font/lato_regular"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
                 app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvMovieCategory" />
 

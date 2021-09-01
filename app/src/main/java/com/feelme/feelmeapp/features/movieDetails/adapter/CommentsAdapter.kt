@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.CommentItemBinding
-import com.feelme.feelmeapp.features.movieDetails.model.Comment
+import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 
 class CommentsAdapter(
     private val comments: List<Comment>,

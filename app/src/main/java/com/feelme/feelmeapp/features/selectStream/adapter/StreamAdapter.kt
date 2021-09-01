@@ -1,18 +1,18 @@
 package com.feelme.feelmeapp.features.selectStream.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.StreamItemBinding
-import com.feelme.feelmeapp.features.selectStream.model.StreamItem
-import kotlin.coroutines.coroutineContext
+import com.feelme.feelmeapp.features.selectStream.usecase.StreamItem
+import com.feelme.feelmeapp.model.StreamDetais
+import com.squareup.picasso.Picasso
 
 class StreamAdapter(
-    private val streamings: List<StreamItem>,
-    private val onClickListener: (streaming: StreamItem) -> Unit
+    private val streamings: List<StreamDetais>,
+    private val onClickListener: (streaming: StreamDetais) -> Unit
 ): RecyclerView.Adapter<StreamAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StreamAdapter.ViewHolder {
         val binding = StreamItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,8 +27,8 @@ class StreamAdapter(
 
     class ViewHolder(val binding: StreamItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            streaming: StreamItem,
-            onClickListener: (streaming: StreamItem) -> Unit
+            streaming: StreamDetais,
+            onClickListener: (streaming: StreamDetais) -> Unit
         ) {
             if(streaming.selected) {
                 binding.ivStreamerLogo.scaleX = 1F
@@ -41,7 +41,8 @@ class StreamAdapter(
                 binding.ivStreamerLogo.alpha = 0.2F
             }
 
-            binding.ivStreamerLogo.setImageResource(streaming.image)
+            binding.ivStreamerLogo.isVisible = true
+            Picasso.get().load(streaming.logo_path).placeholder(R.drawable.skeleton).into(binding.ivStreamerLogo)
             binding.ivStreamerLogo.setOnClickListener {
                 streaming.selected = !streaming.selected
                 if(streaming.selected) {
@@ -57,6 +58,4 @@ class StreamAdapter(
             }
         }
     }
-
-
 }

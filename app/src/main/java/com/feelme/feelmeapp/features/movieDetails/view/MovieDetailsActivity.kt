@@ -4,19 +4,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivityMovieDetailsBinding
-import com.feelme.feelmeapp.databinding.ActivitySplashBinding
-import com.feelme.feelmeapp.features.dialog.model.ButtonStyle
-import com.feelme.feelmeapp.features.dialog.model.DialogData
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.view.Dialog
+import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
-import com.feelme.feelmeapp.features.movieDetails.model.Comment
+import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
+import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.utils.Command
+import com.squareup.picasso.Picasso
 
 class MovieDetailsActivity : AppCompatActivity() {
-
+    private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var binding: ActivityMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +48,14 @@ class MovieDetailsActivity : AppCompatActivity() {
             Dialog(DialogData(content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo.", image = R.drawable.bruna_silva)).show(this.supportFragmentManager, "CustomDialog")
         }
 
+        this.let {
+            val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
+            viewModel = ViewModelProvider(it)[MovieDetailsViewModel::class.java]
+            viewModel.command = MutableLiveData()
+            viewModel.getMovieById(movieId)
+            setupObservables()
+        }
+
         binding.rvComments.adapter = commentViewPager
         binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
 
@@ -57,6 +70,29 @@ class MovieDetailsActivity : AppCompatActivity() {
                     }
                 )
             ).show(this.supportFragmentManager, "LoginDialog")
+        }
+    }
+
+    private fun setupObservables() {
+        this.let {
+            viewModel.onSuccessMovieDetails.observe(it, { Movie ->
+                with(binding) {
+                    Picasso.get().load(Movie.poster_path).into(imgPoster)
+                    tvMovieTitle.text = Movie.title
+                    tvMovieDescription.text = Movie.overview
+                }
+            })
+
+            viewModel.command.observe(it, {
+                when(it) {
+                    is Command.Loading -> {
+                        Log.i("CommandLoading", it.toString())
+                    }
+                    is Command.Error -> {
+                        Log.i("CommandError", it.toString())
+                    }
+                }
+            })
         }
     }
 }

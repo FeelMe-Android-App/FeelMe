@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.CategoriasAdapter
 import com.feelme.feelmeapp.databinding.ActivitySearchBinding
-import com.feelme.feelmeapp.features.home.model.Categorias
+import com.feelme.feelmeapp.features.home.usecase.Categorias
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding

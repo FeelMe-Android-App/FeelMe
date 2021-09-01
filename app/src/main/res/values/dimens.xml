@@ -6,4 +6,8 @@
     <dimen name="bottom_navigation_text">9sp</dimen>
     <dimen name="margin_horizontal_default">16dp</dimen>
     <dimen name="design_bottom_navigation_icon_size_active">32dp</dimen>
+    <dimen name="corner_5">5dp</dimen>
+    <dimen name="corner_10">10dp</dimen>
+    <dimen name="corner_20">20dp</dimen>
+    <dimen name="corner_fifty_percent">500dp</dimen>
 </resources>
