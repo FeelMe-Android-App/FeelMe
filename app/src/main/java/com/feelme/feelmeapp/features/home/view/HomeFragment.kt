@@ -12,10 +12,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ethanhua.skeleton.Skeleton
+import com.feelme.feelmeapp.ProfileActivity
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.CategoriasAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
+import com.feelme.feelmeapp.databinding.ActivityProfileBinding
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
 import com.feelme.feelmeapp.features.home.usecase.Categorias
 import com.feelme.feelmeapp.features.home.usecase.Filmes
@@ -48,6 +50,10 @@ class HomeFragment : Fragment() {
             viewModel.command = MutableLiveData()
             viewModel.getNowPlayingMovies()
             setupObservables()
+        }
+
+        binding.ivFotoLogin.setOnClickListener {
+            startActivity(Intent(context, ProfileActivity::class.java))
         }
 
         setCategorias()

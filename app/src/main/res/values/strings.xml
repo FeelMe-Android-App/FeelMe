@@ -14,4 +14,7 @@
     <string name="o_que_seus_amigos_acharam">O que seus amigos acharam...</string>
     <string name="betty_griffin">Betty Griffin</string>
     <string name="error_default">Erro desconhecido.</string>
+    <string name="saved_movies">Salvos</string>
+    <string name="watched_movies">Assistidos</string>
+    <string name="streaming_services">Meus Serviços de Streamings</string>
 </resources>

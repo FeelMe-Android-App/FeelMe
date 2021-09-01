@@ -7,6 +7,8 @@
     <color name="primary_text_color">#FFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_seventy_percent">#B3FFFFFF</color>
+    <color name="white_ten_percent">#1AFFFFFF</color>
     <color name="roxo">#46115E8C</color>
     <color name="purple_200">#271047</color>
     <color name="purple_500">#271047</color>

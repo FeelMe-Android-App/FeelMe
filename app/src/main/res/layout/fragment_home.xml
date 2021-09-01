@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_nome_login"
+                    android:id="@+id/tvNomeLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_foto_login"
+                    android:id="@+id/ivFotoLogin"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
@@ -69,9 +69,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_notifications"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_foto_login"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_foto_login"
-                    app:layout_constraintTop_toTopOf="@+id/iv_foto_login" />
+                    app:layout_constraintBottom_toBottomOf="@+id/ivFotoLogin"
+                    app:layout_constraintEnd_toStartOf="@+id/ivFotoLogin"
+                    app:layout_constraintTop_toTopOf="@+id/ivFotoLogin" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,7 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_em_alta"
+            android:id="@+id/rvEmAlta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -118,7 +118,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_em_alta" />
+            app:layout_constraintTop_toBottomOf="@+id/rvEmAlta" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_categoria"

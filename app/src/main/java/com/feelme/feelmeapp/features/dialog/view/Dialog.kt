@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.dialog.view
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -62,7 +63,7 @@ class Dialog(var params: DialogData) : DialogFragment() {
             binding?.rvEmojiList?.visibility = View.VISIBLE
 
             val emojiItens = params.emojiList
-            binding?.rvEmojiList?.adapter = emojiItens?.let { EmojiListAdapter(it) }
+            binding?.rvEmojiList?.adapter = emojiItens?.let { EmojiListAdapter(it, this) }
             binding?.rvEmojiList?.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
         }
 

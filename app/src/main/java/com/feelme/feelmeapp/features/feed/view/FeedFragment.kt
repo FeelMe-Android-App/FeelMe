@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentFeedBinding
 import com.feelme.feelmeapp.features.feed.adapter.FriendsMoviesAdapter
-import com.feelme.feelmeapp.features.home.model.Filmes
+import com.feelme.feelmeapp.features.home.usecase.Filmes
 
 class FeedFragment : Fragment() {
     private var binding: FragmentFeedBinding? = null
