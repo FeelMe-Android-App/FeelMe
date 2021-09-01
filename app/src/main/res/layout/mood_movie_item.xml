@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,7 +10,7 @@
         android:id="@+id/ivMoviePoster"
         android:layout_width="70dp"
         android:layout_height="120dp"
-        android:src="@drawable/trainspotting"
+        tools:src="@drawable/trainspotting"
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvMovieTitle"
-            android:text="Extraordinário"
+            tools:text="Extraordinário"
             android:textColor="@color/white"
             android:textSize="@dimen/title_2"
             android:fontFamily="@font/lato_bold"
@@ -44,7 +45,7 @@
             android:textSize="@dimen/normal_text"
             android:textColor="@color/white"
             android:fontFamily="@font/lato"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at shjdahd ashjdbasd ashdbahsd ahsbdshad ahsbdha ahsbdashd ajsndjad ajsndjad ajsdnasjnd asdjnasjd asjdnasjd"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at shjdahd ashjdbasd ashdbahsd ahsbdshad ahsbdha ahsbdashd ajsndjad ajsndjad ajsdnasjnd asdjnasjd asjdnasjd"
             android:maxLines="4"
             android:ellipsize="end"
             />

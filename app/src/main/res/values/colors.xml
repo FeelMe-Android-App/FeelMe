@@ -5,10 +5,15 @@
     <color name="stroke_color">#1D0A37</color>
     <color name="secondary_color">#EA910C</color>
     <color name="primary_text_color">#FFFFFF</color>
+    <color name="primary_color_fifty_percent">#80271047</color>
     <color name="black">#FF000000</color>
+    <color name="black_forty_percent">#66000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_seventy_percent">#B3FFFFFF</color>
     <color name="white_ten_percent">#1AFFFFFF</color>
+    <color name="white_tirty_percent">#4DFFFFFF</color>
+    <color name="white_fourty_percent">#66FFFFFF</color>
+    <color name="transparent">@android:color/transparent</color>
     <color name="roxo">#46115E8C</color>
     <color name="purple_200">#271047</color>
     <color name="purple_500">#271047</color>
@@ -16,4 +21,5 @@
     <color name="teal_200">#271047</color>
     <color name="teal_700">#271047</color>
     <color name="facebook_bt">#1976D2</color>
+    <color name="primary_color_fifty_five_percent">#8C46115E</color>
 </resources>

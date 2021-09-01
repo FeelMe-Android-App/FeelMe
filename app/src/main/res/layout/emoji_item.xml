@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -11,7 +12,7 @@
         android:id="@+id/ivEmoji"
         android:layout_width="43dp"
         android:layout_height="43dp"
-        android:src="@drawable/ic_shocked"
+        tools:src="@drawable/ic_shocked"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         />
@@ -19,7 +20,7 @@
         android:id="@+id/tvEmojiFeeling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chocado"
+        tools:text="Chocado"
         android:layout_gravity="center"
         android:fontFamily="@font/lato"
         android:textSize="12sp"

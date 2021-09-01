@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:paddingBottom="9dp"
         android:paddingEnd="5dp"
-        android:src="@drawable/ic_refresh_feeling"
+        tools:src="@drawable/ic_refresh_feeling"
         android:background="#3D2859"
         android:backgroundTint="#3D2859"
         app:borderWidth="0dp"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Comovido"
+            tools:text="Comovido"
             android:textSize="@dimen/title_1"
             android:textColor="@color/white"
             android:fontFamily="@font/lato_bold"
@@ -52,7 +52,7 @@
             android:textSize="@dimen/normal_text"
             android:textColor="@color/white"
             android:textAlignment="center"
-            android:text="#10 Filmes para ficar Comovido"
+            tools:text="#10 Filmes para ficar Comovido"
             />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
