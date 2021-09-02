@@ -18,8 +18,6 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.flLayout.isForceDarkAllowed = false
-
         Timer().schedule(object: TimerTask() {
             override fun run() {
                 startActivity(Intent(this@SplashActivity, StreamListActivity::class.java))

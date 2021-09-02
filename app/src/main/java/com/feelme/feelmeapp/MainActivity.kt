@@ -3,7 +3,6 @@ package com.feelme.feelmeapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -13,7 +12,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
 import com.feelme.feelmeapp.features.whatToWatch.view.WhatToWatchFragment
-import moodList
+import com.feelme.feelmeapp.utils.ConstantApp.emojis.emojiList
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val navController = Navigation.findNavController(this, R.id.fragmentNavHost)
         setupWithNavController(binding.bottomNavigationView, navController)
-        val emojiList = moodList.map {
+        val emojiList = emojiList.map {
             EmojiList(it.icon, it.name) {
                 openMoodFragment(it.name)
             }
