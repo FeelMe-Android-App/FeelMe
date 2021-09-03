@@ -12,16 +12,18 @@ class ConstantApp {
         const val API_TOKEN = "3fdab48e2bddf5d597050debe64abb1c"
         const val QUERY_PARAM_LANGUAGE_KEY = "language"
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
+        const val QUERY_PARAM_WATCH_REGION = "watch_region"
+        const val QUERY_PARAM_WATCH_REGION_VALUE = "BR"
         const val QUERY_PARAM_REGION_LABEL = "3fdab48e2bddf5d597050debe64abb1c"
     }
 
     object emojis {
         val emojiList: List<MoodList> = listOf(
-            MoodList(R.drawable.ic_impressed, "Impressionado"),
-            MoodList(R.drawable.ic_comedy, "Engraçado"),
-            MoodList(R.drawable.ic_sad, "Triste"),
-            MoodList(R.drawable.ic_shocked, "Chocado"),
-            MoodList(R.drawable.ic_afflicted, "Aflito"),
+            MoodList(R.drawable.ic_impressed, "Impressionado", listOf(878)),
+            MoodList(R.drawable.ic_comedy, "Engraçado", listOf(35)),
+            MoodList(R.drawable.ic_sad, "Triste", listOf(18)),
+            MoodList(R.drawable.ic_shocked, "Chocado", listOf(27)),
+            MoodList(R.drawable.ic_afflicted, "Aflito", listOf(9648)),
         )
     }
 

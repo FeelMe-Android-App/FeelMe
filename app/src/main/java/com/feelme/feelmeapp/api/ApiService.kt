@@ -6,6 +6,8 @@ import com.feelme.feelmeapp.utils.ConstantApp.Api.API_TOKEN_KEY
 import com.feelme.feelmeapp.utils.ConstantApp.Api.BASE_URL
 import com.feelme.feelmeapp.utils.ConstantApp.Api.QUERY_PARAM_LANGUAGE_KEY
 import com.feelme.feelmeapp.utils.ConstantApp.Api.QUERY_PARAM_LANGUAGE_VALUE
+import com.feelme.feelmeapp.utils.ConstantApp.Api.QUERY_PARAM_WATCH_REGION
+import com.feelme.feelmeapp.utils.ConstantApp.Api.QUERY_PARAM_WATCH_REGION_VALUE
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -38,6 +40,7 @@ object ApiService {
                 val url = chain.request().url.newBuilder()
                     .addQueryParameter(API_TOKEN_KEY, API_TOKEN)
                     .addQueryParameter(QUERY_PARAM_LANGUAGE_KEY, QUERY_PARAM_LANGUAGE_VALUE)
+                    .addQueryParameter(QUERY_PARAM_WATCH_REGION, QUERY_PARAM_WATCH_REGION_VALUE)
                     .build()
                 val newRequest = chain.request().newBuilder().url(url).build()
                 chain.proceed(newRequest)
