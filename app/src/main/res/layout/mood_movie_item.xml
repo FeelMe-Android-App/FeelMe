@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_color"
-    android:layout_marginBottom="15dp">
+    android:layout_marginBottom="15dp"
+    android:id="@+id/vgMovieItem">
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivMoviePoster"
         android:layout_width="70dp"
@@ -40,6 +41,7 @@
             android:singleLine="true"
             />
         <TextView
+            android:id="@+id/tvMovieResume"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text"

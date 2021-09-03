@@ -3,7 +3,6 @@ package com.feelme.feelmeapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -12,8 +11,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
-import com.feelme.feelmeapp.features.whatToWatch.view.WhatToWatchFragment
-import moodList
+import com.feelme.feelmeapp.utils.ConstantApp.emojis.emojiList
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,11 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragment = WhatToWatchFragment()
-
         val navController = Navigation.findNavController(this, R.id.fragmentNavHost)
         setupWithNavController(binding.bottomNavigationView, navController)
-        val emojiList = moodList.map {
+        val emojiList: List<EmojiList> = emojiList.map {
             EmojiList(it.icon, it.name) {
                 openMoodFragment(it.name)
             }
@@ -55,6 +51,10 @@ class MainActivity : AppCompatActivity() {
 
         findNavController(R.id.fragmentNavHost).navigate(R.id.whatToWatchFragment, arguments)
         binding.bottomNavigationView.menu.getItem(2).isChecked = true
+    }
+
+    public fun restartMood() {
+        binding.bottomNavigationView.selectedItemId = R.id.whatToWatchFragment
     }
 
     companion object {

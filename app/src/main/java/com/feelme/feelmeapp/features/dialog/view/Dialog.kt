@@ -16,6 +16,7 @@ import com.feelme.feelmeapp.databinding.FragmentDialogBinding
 import com.feelme.feelmeapp.features.dialog.adapter.EmojiListAdapter
 import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
+import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.google.android.material.button.MaterialButton
 
 class Dialog(var params: DialogData) : DialogFragment() {
@@ -63,7 +64,7 @@ class Dialog(var params: DialogData) : DialogFragment() {
             binding?.rvEmojiList?.visibility = View.VISIBLE
 
             val emojiItens = params.emojiList
-            binding?.rvEmojiList?.adapter = emojiItens?.let { EmojiListAdapter(it, this) }
+            binding?.rvEmojiList?.adapter = emojiItens?.let { EmojiListAdapter(it as List<EmojiList>, this) }
             binding?.rvEmojiList?.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
         }
 

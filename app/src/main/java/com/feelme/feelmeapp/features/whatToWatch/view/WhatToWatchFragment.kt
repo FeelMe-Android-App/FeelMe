@@ -1,16 +1,30 @@
 package com.feelme.feelmeapp.features.whatToWatch.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.MainActivity.Companion.MOOD_CONST
+import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentWhatToWatchBinding
-import moodList
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
+import com.feelme.feelmeapp.features.dialog.view.Dialog
+import com.feelme.feelmeapp.features.home.view.HomeFragment
+import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.features.whatToWatch.adapter.MoviesMoodListAdapter
+import com.feelme.feelmeapp.features.whatToWatch.viewmodel.WhatToWatchViewModel
+import com.feelme.feelmeapp.utils.ConstantApp.emojis.emojiList
 
 class WhatToWatchFragment : Fragment() {
+    private lateinit var viewModel: WhatToWatchViewModel
     private lateinit var binding: FragmentWhatToWatchBinding
 
     override fun onCreateView(
@@ -18,7 +32,6 @@ class WhatToWatchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWhatToWatchBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -28,7 +41,7 @@ class WhatToWatchFragment : Fragment() {
         with(arguments) {
             val mood = this?.getString(MOOD_CONST, "")
             if (mood != null) {
-                val moodData = moodList.find {
+                val moodData = emojiList.find {
                     it.name == mood
                 }
 
@@ -36,8 +49,31 @@ class WhatToWatchFragment : Fragment() {
                     binding.ivEmojiFeeling.setImageResource(moodData.icon)
                     binding.tvEmojiFeeling.text = moodData.name
                     binding.tvTopTeenFeeling.text = "#10 Filmes para ficar ${moodData.name}"
+                    binding.btBack.setOnClickListener {
+                        (activity as MainActivity).restartMood()
+                    }
+
+                    this@WhatToWatchFragment.let {
+                        viewModel = ViewModelProvider(it)[WhatToWatchViewModel::class.java]
+                        viewModel.command = MutableLiveData()
+                        viewModel.getDiscoverMovies(genres = moodData.categories.joinToString(separator = ","))
+                        setupObservables()
+                    }
                 }
             }
+        }
+    }
+
+    private fun setupObservables() {
+        this.let {
+            viewModel.onSuccessWhatToWatch.observe(viewLifecycleOwner, {
+                binding.tvMoviesMoodList.adapter = MoviesMoodListAdapter(it) {
+                    val intent = Intent(context, MovieDetailsActivity::class.java)
+                    intent.putExtra(EXTRA_MOVIE_ID, it.id)
+                    startActivity(intent)
+                }
+                binding.tvMoviesMoodList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            })
         }
     }
 }
