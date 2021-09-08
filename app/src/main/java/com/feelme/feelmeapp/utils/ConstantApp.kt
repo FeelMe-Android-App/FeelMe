@@ -21,8 +21,8 @@ class ConstantApp {
         val emojiList: List<MoodList> = listOf(
             MoodList(R.drawable.ic_happy, "Feliz", listOf(10749,14,28,12)),
             MoodList(R.drawable.ic_in_love, "Apaixonado", listOf(10749)),
-            MoodList(R.drawable.ic_shocked, "Chocado", listOf(878,9648)),
-            MoodList(R.drawable.ic_sad, "Comovido", listOf(18,101409751)),
+            MoodList(R.drawable.ic_shocked, "Chocado", listOf(878,9648,80)),
+            MoodList(R.drawable.ic_sad, "Comovido", listOf(18,10751)),
             MoodList(R.drawable.ic_comedy, "Rolando de Rir", listOf(35)),
             MoodList(R.drawable.ic_fear, "Assombrado", listOf(27)),
         )
