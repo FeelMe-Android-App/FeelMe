@@ -8,12 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ethanhua.skeleton.Skeleton
 import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivitySelectStreamBinding
 import com.feelme.feelmeapp.features.selectStream.adapter.StreamAdapter
-import com.feelme.feelmeapp.features.selectStream.usecase.StreamItem
 import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
 import com.feelme.feelmeapp.utils.Command
 import com.google.android.material.button.MaterialButton
@@ -72,7 +70,7 @@ class StreamListActivity : AppCompatActivity() {
             viewModel.command.observe(it, {
                 when(it) {
                     it as Command.Loading -> {
-                        Skeleton.bind(binding.rvStreamList).load(R.layout.layout_default_item_skeleton).show();
+
                     }
                 }
             })

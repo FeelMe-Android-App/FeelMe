@@ -8,25 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ethanhua.skeleton.Skeleton
 import com.feelme.feelmeapp.ProfileActivity
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.CategoriasAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
-import com.feelme.feelmeapp.databinding.ActivityProfileBinding
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
 import com.feelme.feelmeapp.features.home.usecase.Categorias
-import com.feelme.feelmeapp.features.home.usecase.Filmes
-import com.feelme.feelmeapp.features.home.usecase.HomeUseCase
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
-import com.feelme.feelmeapp.model.NowPlaying
 import com.feelme.feelmeapp.utils.Command
-import com.feelme.feelmeapp.utils.ResponseApi
-import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -71,6 +63,8 @@ class HomeFragment : Fragment() {
                 binding.rvEmAlta.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                 binding.rvEmAlta.layoutManager =
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                binding.sflHomeLoading.visibility = View.GONE
+                binding.clHomeFragment.visibility = View.VISIBLE
             })
         }
     }

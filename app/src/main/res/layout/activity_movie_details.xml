@@ -59,7 +59,7 @@
                 android:id="@+id/imgPoster"
                 android:layout_width="0dp"
                 android:layout_height="550dp"
-                android:src="@drawable/poster"
+                tools:src="@drawable/poster"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/poster"
                 app:layout_constraintStart_toStartOf="parent"

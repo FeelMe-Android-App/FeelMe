@@ -21,7 +21,6 @@ class EmAltaAdapter(
         ) {
             with(binding){
                 tvNomeFilme.text = filmes.title
-                tvDataFilme.text = filmes.release_date
                 Picasso.get().load(filmes.poster_path).into(imageFilme)
 //                imageFilme.setImageResource()
                 clMovieItem.setOnClickListener {
