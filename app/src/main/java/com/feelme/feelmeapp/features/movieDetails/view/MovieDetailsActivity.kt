@@ -3,18 +3,24 @@ package com.feelme.feelmeapp.features.movieDetails.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivityMovieDetailsBinding
+import com.feelme.feelmeapp.extensions.getDuration
+import com.feelme.feelmeapp.extensions.getYear
 import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingsAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
 import com.feelme.feelmeapp.utils.Command
@@ -53,6 +59,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel = ViewModelProvider(it)[MovieDetailsViewModel::class.java]
             viewModel.command = MutableLiveData()
             viewModel.getMovieById(movieId)
+            viewModel.getMovieStreamings(movieId)
             setupObservables()
         }
 
@@ -80,6 +87,27 @@ class MovieDetailsActivity : AppCompatActivity() {
                     Picasso.get().load(Movie.poster_path).into(imgPoster)
                     tvMovieTitle.text = Movie.title
                     tvMovieDescription.text = Movie.overview
+                    tvMovieReleaseYear.text = "${Movie.release_date.getYear().toString()} • ${Movie.runtime.getDuration()}"
+
+                    rvCategories.adapter = MovieCategoriesAdapter(Movie.genres) {
+
+                    }
+                    rvCategories.isNestedScrollingEnabled = false
+                    rvCategories.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+                }
+            })
+
+            viewModel.onSuccessMovieStreamings.observe(it, { Flatrate ->
+                run {
+                    if(!Flatrate.isNullOrEmpty()) {
+                        binding.rvStreamings.adapter = MovieStreamingsAdapter(Flatrate) {
+
+                        }
+                        binding.rvStreamings.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+                    } else {
+                        binding.rvStreamings.visibility = View.GONE
+                        binding.tvWatchNow.visibility = View.GONE
+                    }
                 }
             })
 
