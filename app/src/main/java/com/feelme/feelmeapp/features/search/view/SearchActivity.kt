@@ -8,15 +8,15 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
-import com.feelme.feelmeapp.adapters.CategoriasAdapter
+import com.feelme.feelmeapp.adapters.CategoriesAdapter
 import com.feelme.feelmeapp.databinding.ActivitySearchBinding
-import com.feelme.feelmeapp.features.home.usecase.Categorias
+import com.feelme.feelmeapp.features.home.usecase.Categories
 import java.util.*
 import kotlin.concurrent.timerTask
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
-    private var adapterCategorias = CategoriasAdapter()
+    private var adapterCategories = CategoriesAdapter()
     private lateinit var timer: Timer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,21 +44,21 @@ class SearchActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        adapterCategorias.setItensList(
+        adapterCategories.setItensList(
             arrayListOf(
-                Categorias(
+                Categories(
                     1, R.drawable.ic_animation, "Animação"
                 ),
-                Categorias(
+                Categories(
                     2, R.drawable.ic_adventure, "Aventura"
                 ),
-                Categorias(
+                Categories(
                     3, R.drawable.ic_comedy, "Comédia"
                 ),
             )
         )
         
-        binding.rvCategoria.adapter = adapterCategorias
+        binding.rvCategoria.adapter = adapterCategories
         binding.rvCategoria.layoutManager =
             LinearLayoutManager(this.applicationContext, RecyclerView.HORIZONTAL, false)
 

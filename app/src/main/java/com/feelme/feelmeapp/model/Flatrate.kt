@@ -1,8 +1,13 @@
 package com.feelme.feelmeapp.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Flatrate(
-    val display_priority: Int,
-    var logo_path: String,
-    val provider_id: Int,
+    @SerializedName("display_priority")
+    val displayPriority: Int,
+    @SerializedName("logo_path")
+    var logoPath: String?,
+    @SerializedName("provider_id")
+    val providerId: Int,
     val provider_name: String
 )

@@ -1,7 +1,7 @@
 package com.feelme.feelmeapp.features.home.usecase
 
-data class Categorias(
+data class Categories(
     val id: Int,
     val icon: Int,
-    val nome: String,
+    val name: String,
 )

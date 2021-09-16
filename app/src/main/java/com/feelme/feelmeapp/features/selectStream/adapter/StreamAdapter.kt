@@ -6,29 +6,28 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.StreamItemBinding
-import com.feelme.feelmeapp.features.selectStream.usecase.StreamItem
-import com.feelme.feelmeapp.model.StreamDetais
+import com.feelme.feelmeapp.model.StreamDetails
 import com.squareup.picasso.Picasso
 
 class StreamAdapter(
-    private val streamings: List<StreamDetais>,
-    private val onClickListener: (streaming: StreamDetais) -> Unit
+    private val streamingList: List<StreamDetails>,
+    private val onClickListener: (streaming: StreamDetails) -> Unit
 ): RecyclerView.Adapter<StreamAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StreamAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = StreamItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(streamings[position], onClickListener)
+        holder.bind(streamingList[position], onClickListener)
     }
 
-    override fun getItemCount() = streamings.count()
+    override fun getItemCount() = streamingList.count()
 
     class ViewHolder(val binding: StreamItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            streaming: StreamDetais,
-            onClickListener: (streaming: StreamDetais) -> Unit
+            streaming: StreamDetails,
+            onClickListener: (streaming: StreamDetails) -> Unit
         ) {
             if(streaming.selected) {
                 binding.ivStreamerLogo.scaleX = 1F
@@ -42,7 +41,7 @@ class StreamAdapter(
             }
 
             binding.ivStreamerLogo.isVisible = true
-            Picasso.get().load(streaming.logo_path).placeholder(R.drawable.skeleton).into(binding.ivStreamerLogo)
+            Picasso.get().load(streaming.logoPath).placeholder(R.drawable.skeleton).into(binding.ivStreamerLogo)
             binding.ivStreamerLogo.setOnClickListener {
                 streaming.selected = !streaming.selected
                 if(streaming.selected) {

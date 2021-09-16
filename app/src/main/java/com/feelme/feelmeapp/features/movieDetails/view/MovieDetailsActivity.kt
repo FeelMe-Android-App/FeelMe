@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
@@ -20,10 +18,13 @@ import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
-import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingsAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
 import com.feelme.feelmeapp.utils.Command
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.squareup.picasso.Picasso
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -34,11 +35,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         binding.btBack.setOnClickListener {
             finish()
@@ -59,7 +55,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             viewModel = ViewModelProvider(it)[MovieDetailsViewModel::class.java]
             viewModel.command = MutableLiveData()
             viewModel.getMovieById(movieId)
-            viewModel.getMovieStreamings(movieId)
+            viewModel.getMovieStreaming(movieId)
             setupObservables()
         }
 
@@ -81,26 +77,32 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        this.let {
-            viewModel.onSuccessMovieDetails.observe(it, { Movie ->
+        this.let { MovieDetailsActivity ->
+            viewModel.onSuccessMovieDetails.observe(MovieDetailsActivity, { Movie ->
                 with(binding) {
-                    Picasso.get().load(Movie.poster_path).into(imgPoster)
+                    val runTime = Movie.runtime.getDuration() ?: "--h--min"
+                    val yearRelease = Movie.releaseDate.getYear() ?: "----"
+                    val released = "$runTime • $yearRelease"
+                    Picasso.get().load(Movie.posterPath).into(imgPoster)
                     tvMovieTitle.text = Movie.title
                     tvMovieDescription.text = Movie.overview
-                    tvMovieReleaseYear.text = "${Movie.release_date.getYear().toString()} • ${Movie.runtime.getDuration()}"
+                    tvMovieReleaseYear.text = released
 
                     rvCategories.adapter = MovieCategoriesAdapter(Movie.genres) {
 
                     }
                     rvCategories.isNestedScrollingEnabled = false
-                    rvCategories.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+                    val layoutManager = FlexboxLayoutManager(applicationContext)
+                    layoutManager.flexDirection = FlexDirection.ROW
+                    layoutManager.justifyContent = JustifyContent.FLEX_START
+                    rvCategories.layoutManager = layoutManager
                 }
             })
 
-            viewModel.onSuccessMovieStreamings.observe(it, { Flatrate ->
+            viewModel.onSuccessMovieStreaming.observe(MovieDetailsActivity, { Streaming ->
                 run {
-                    if(!Flatrate.isNullOrEmpty()) {
-                        binding.rvStreamings.adapter = MovieStreamingsAdapter(Flatrate) {
+                    if(!Streaming.isNullOrEmpty()) {
+                        binding.rvStreamings.adapter = MovieStreamingAdapter(Streaming) {
 
                         }
                         binding.rvStreamings.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
@@ -108,10 +110,13 @@ class MovieDetailsActivity : AppCompatActivity() {
                         binding.rvStreamings.visibility = View.GONE
                         binding.tvWatchNow.visibility = View.GONE
                     }
+
+                    binding.vgMovieDetailsLoading.visibility = View.GONE
+                    binding.vgMovieDetailsFragment.visibility = View.VISIBLE
                 }
             })
 
-            viewModel.command.observe(it, {
+            viewModel.command.observe(MovieDetailsActivity, {
                 when(it) {
                     is Command.Loading -> {
                         Log.i("CommandLoading", it.toString())

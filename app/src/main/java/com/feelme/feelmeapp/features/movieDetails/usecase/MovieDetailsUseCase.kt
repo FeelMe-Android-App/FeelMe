@@ -14,7 +14,7 @@ class MovieDetailsUseCase {
         when(val responseApi = movieDetailsRepository.getMovieById(id)) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as Movie
-                data.poster_path = data.poster_path.getFullImageUrl()
+                data.posterPath?.let { data.posterPath = it.getFullImageUrl() }
                 return ResponseApi.Success(data)
             }
             is ResponseApi.Error -> {
@@ -24,19 +24,15 @@ class MovieDetailsUseCase {
     }
 
     suspend fun getMovieStreamings(movieId: Int): ResponseApi {
-        when(val responseApi = movieDetailsRepository.getMovieStreamings(movieId)) {
+        when(val responseApi = movieDetailsRepository.getMovieStreaming(movieId)) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as MovieStreamings
                 var streamingsList: List<Flatrate> = listOf()
 
-                if(data.results.BR !== null) {
-                    data.results.BR.flatrate?.let {
-                        streamingsList = it.map { Item ->
-                            Item.logo_path.let {
-                                Item.logo_path = it.getFullImageUrl()
-                            }
-                            Item
-                        }
+                data?.results?.BR?.flatrate?.let { FlatrateList ->
+                    streamingsList = FlatrateList.map { Item ->
+                        Item.logoPath?.let { Item.logoPath = it.getFullImageUrl() }
+                        Item
                     }
                 }
 

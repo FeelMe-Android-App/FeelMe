@@ -1,5 +1,5 @@
 package com.feelme.feelmeapp.model
 
 data class StreamList(
-    val results: List<StreamDetais>
+    val results: List<StreamDetails>
 )

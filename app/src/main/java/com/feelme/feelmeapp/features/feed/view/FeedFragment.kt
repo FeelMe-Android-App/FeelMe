@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentFeedBinding
 import com.feelme.feelmeapp.features.feed.adapter.FriendsMoviesAdapter
-import com.feelme.feelmeapp.features.home.usecase.Filmes
+import com.feelme.feelmeapp.features.home.usecase.Films
 
 class FeedFragment : Fragment() {
     private var binding: FragmentFeedBinding? = null
@@ -26,12 +26,12 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val moviesList = mutableListOf(
-            Filmes(1, "The Revenant", "Jan 31,2015", R.drawable.the_revenant),
-            Filmes(2, "No country for old men", "Mar 02,2007", R.drawable.no_country_for_old_men),
-            Filmes(3, "The Fight Clube", "Nov 09,1999", R.drawable.the_fight_club),
-            Filmes(4, "There will be blood", "Aug 17,2007", R.drawable.there_will_be_blood),
-            Filmes(5, "Trainspotting", "Fev 11,1996", R.drawable.trainspotting),
-            Filmes(6, "Tene", "Dec 24,2020", R.drawable.tene),
+            Films(1, "The Revenant", "Jan 31,2015", R.drawable.the_revenant),
+            Films(2, "No country for old men", "Mar 02,2007", R.drawable.no_country_for_old_men),
+            Films(3, "The Fight Clube", "Nov 09,1999", R.drawable.the_fight_club),
+            Films(4, "There will be blood", "Aug 17,2007", R.drawable.there_will_be_blood),
+            Films(5, "Trainspotting", "Fev 11,1996", R.drawable.trainspotting),
+            Films(6, "Tene", "Dec 24,2020", R.drawable.tene),
         )
 
         binding?.rvMoviesList?.adapter = FriendsMoviesAdapter(moviesList)

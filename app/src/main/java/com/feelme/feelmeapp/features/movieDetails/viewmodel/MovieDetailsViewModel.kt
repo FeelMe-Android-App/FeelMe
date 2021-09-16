@@ -15,9 +15,9 @@ class MovieDetailsViewModel: BaseViewModel() {
     val onSuccessMovieDetails: LiveData<Movie>
         get() = _onSuccessMovieDetails
 
-    private val _onSuccessMovieStreamings: MutableLiveData<List<Flatrate>> = MutableLiveData()
-    val onSuccessMovieStreamings: LiveData<List<Flatrate>>
-        get() = _onSuccessMovieStreamings
+    private val _onSuccessMovieStreaming: MutableLiveData<List<Flatrate>> = MutableLiveData()
+    val onSuccessMovieStreaming: LiveData<List<Flatrate>>
+        get() = _onSuccessMovieStreaming
 
     fun getMovieById(id: Int) {
         viewModelScope.launch {
@@ -30,12 +30,12 @@ class MovieDetailsViewModel: BaseViewModel() {
         }
     }
 
-    fun getMovieStreamings(movieId: Int) {
+    fun getMovieStreaming(movieId: Int) {
         viewModelScope.launch {
             callApi(
                 suspend { movieDetailsUseCase.getMovieStreamings(movieId) },
                 onSuccess = {
-                    _onSuccessMovieStreamings.postValue(it as List<Flatrate>)
+                    _onSuccessMovieStreaming.postValue((it as List<*>).filterIsInstance<Flatrate>())
                 }
             )
         }

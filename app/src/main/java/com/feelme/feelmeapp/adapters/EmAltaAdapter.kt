@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListEmAltaBinding
-import com.feelme.feelmeapp.features.home.usecase.Filmes
-import com.feelme.feelmeapp.model.NowPlaying
 import com.feelme.feelmeapp.model.Result
 import com.squareup.picasso.Picasso
 
@@ -16,15 +14,14 @@ class EmAltaAdapter(
 
     class MyViewHolder(private val binding: ListEmAltaBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            filmes: Result,
+            films: Result,
             onClickListener: (movie: Result) -> Unit
         ) {
             with(binding){
-                tvNomeFilme.text = filmes.title
-                Picasso.get().load(filmes.poster_path).into(imageFilme)
-//                imageFilme.setImageResource()
+                tvNomeFilme.text = films.title
+                Picasso.get().load(films.posterPath).into(imageFilme)
                 clMovieItem.setOnClickListener {
-                    onClickListener(filmes)
+                    onClickListener(films)
                 }
             }
         }

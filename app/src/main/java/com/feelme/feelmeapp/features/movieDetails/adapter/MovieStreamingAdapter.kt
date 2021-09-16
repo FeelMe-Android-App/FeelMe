@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.MovieStreamItemBinding
-import com.feelme.feelmeapp.databinding.StreamItemBinding
 import com.feelme.feelmeapp.model.Flatrate
 import com.squareup.picasso.Picasso
 
-class MovieStreamingsAdapter(
-    private val streamings: List<Flatrate>,
+class MovieStreamingAdapter(
+    private val streamingList: List<Flatrate>,
     private val onClickListenerStreaming: (streaming: Flatrate) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -19,10 +18,10 @@ class MovieStreamingsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bind(streamings[position], onClickListenerStreaming)
+        (holder as ViewHolder).bind(streamingList[position], onClickListenerStreaming)
     }
 
-    override fun getItemCount() = streamings.count()
+    override fun getItemCount() = streamingList.count()
 
     class ViewHolder(
         val binding: MovieStreamItemBinding
@@ -31,7 +30,8 @@ class MovieStreamingsAdapter(
             streaming: Flatrate,
             onClickListenerStreaming: (streaming: Flatrate) -> Unit
         ) {
-            Picasso.get().load(streaming.logo_path).placeholder(R.drawable.skeleton).into(binding.ivStreamerLogo)
+            Picasso.get().load(streaming.logoPath).placeholder(R.drawable.skeleton).into(binding.ivStreamerLogo)
+            binding.ivStreamerLogo.setOnClickListener { onClickListenerStreaming(streaming) }
         }
     }
 }

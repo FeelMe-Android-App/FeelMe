@@ -14,10 +14,9 @@ class ConstantApp {
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
         const val QUERY_PARAM_WATCH_REGION = "watch_region"
         const val QUERY_PARAM_WATCH_REGION_VALUE = "BR"
-        const val QUERY_PARAM_REGION_LABEL = "3fdab48e2bddf5d597050debe64abb1c"
     }
 
-    object emojis {
+    object Emojis {
         val emojiList: List<MoodList> = listOf(
             MoodList(R.drawable.ic_happy, "Feliz", listOf(10749,14,28,12)),
             MoodList(R.drawable.ic_in_love, "Apaixonado", listOf(10749)),
@@ -28,7 +27,7 @@ class ConstantApp {
         )
     }
 
-    object categories {
+    object Categories {
         val icons: List<EmojiCategory> = listOf(
             EmojiCategory("Ação", 0),
             EmojiCategory("Aventura", 0),

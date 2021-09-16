@@ -14,10 +14,10 @@ class HomeUseCase {
         when (val responseApi = homeRepository.getNowPlayingMovies()) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as? NowPlaying
-                val result = data?.results?.map {
-                    if(!it.backdrop_path.isNullOrEmpty()) it.backdrop_path = it.backdrop_path.getFullImageUrl()
-                    if(!it.poster_path.isNullOrEmpty()) it.poster_path = it.poster_path.getFullImageUrl()
-                    it
+                val result = data?.results?.map { Result ->
+                    Result.backdropPath?.let { Result.backdropPath = it.getFullImageUrl() }
+                    Result.posterPath?.let { Result.posterPath = it.getFullImageUrl() }
+                    Result
                 }
 
                 return ResponseApi.Success(result)

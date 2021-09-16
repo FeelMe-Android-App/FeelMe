@@ -11,9 +11,9 @@ class MovieDetailsRepository: BaseRepository() {
         }
     }
 
-    suspend fun getMovieStreamings(movieId: Int): ResponseApi {
+    suspend fun getMovieStreaming(movieId: Int): ResponseApi {
         return safeApiCall {
-            ApiService.tmdbApi.getMovieStreamings(movieId)
+            ApiService.tmdbApi.getMovieStreaming(movieId)
         }
     }
 }

@@ -14,7 +14,7 @@ interface TMDBApi {
     suspend fun getMovieById(@Path("movie_id") id: Int): Response<Movie>
 
     @GET("movie/{movie_id}/watch/providers")
-    suspend fun getMovieStreamings(@Path("movie_id") movieId: Int): Response<MovieStreamings>
+    suspend fun getMovieStreaming(@Path("movie_id") movieId: Int): Response<MovieStreamings>
 
     @GET("watch/providers/movie?watch_region=BR")
     suspend fun getStreamList(): Response<Stream>

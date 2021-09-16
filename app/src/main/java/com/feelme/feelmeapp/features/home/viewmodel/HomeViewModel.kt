@@ -20,7 +20,7 @@ class HomeViewModel: BaseViewModel() {
             callApi(
                 suspend { homeUseCase.getNowPlayingMovies() },
                 onSuccess = {
-                    _onSuccessNowPlaying.postValue(it as List<Result>)
+                    _onSuccessNowPlaying.postValue((it as List<*>).filterIsInstance<Result>())
                 }
             )
         }

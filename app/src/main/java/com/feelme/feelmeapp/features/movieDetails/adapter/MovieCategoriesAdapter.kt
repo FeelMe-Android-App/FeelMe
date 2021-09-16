@@ -8,7 +8,7 @@ import com.feelme.feelmeapp.model.Genre
 
 class MovieCategoriesAdapter(
     private val categories: List<Genre>,
-    private val onClickListenerCategorie: (categories: Genre) -> Unit
+    private val onClickListenerCategories: (categories: Genre) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = TextCategItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,7 +16,7 @@ class MovieCategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bind(categories[position], onClickListenerCategorie)
+        (holder as ViewHolder).bind(categories[position], onClickListenerCategories)
     }
 
     override fun getItemCount() = categories.count()
@@ -26,9 +26,10 @@ class MovieCategoriesAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(
             category: Genre,
-            onClickListenerCategorie: (categories: Genre) -> Unit
+            onClickListenerCategories: (categories: Genre) -> Unit
         ) {
             binding.tvMovieCategory.text = category.name
+            binding.tvMovieCategory.setOnClickListener { onClickListenerCategories(category) }
         }
     }
 }
