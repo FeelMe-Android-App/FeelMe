@@ -12,9 +12,9 @@ class StreamListUseCase {
         when(val responseApi = streamList.getStreamList()) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as? Stream
-                val results = data?.results?.map {
-                    it.logo_path = it.logo_path.getFullImageUrl()
-                    it
+                val results = data?.results?.map { StreamDetails ->
+                    StreamDetails.logoPath?.let { StreamDetails.logoPath = StreamDetails.logoPath.getFullImageUrl() }
+                    StreamDetails
                 }
                 return ResponseApi.Success(results)
             }

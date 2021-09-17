@@ -8,7 +8,7 @@
     android:id="@+id/clMovieItem"
     android:background="@color/primary_color">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_filme"
         android:layout_width="190dp"
         android:layout_height="270dp"
@@ -19,7 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundimageview"
-        tools:srcCompat="@drawable/the_fight_club" />
+        tools:src="@drawable/the_fight_club"
+        app:riv_corner_radius="@dimen/corner_10"/>
 
     <TextView
         android:id="@+id/tv_nome_filme"
@@ -37,17 +38,4 @@
         app:layout_constraintTop_toBottomOf="@+id/image_filme"
         android:singleLine="true"
         />
-
-    <TextView
-        android:id="@+id/tv_data_filme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:alpha="0.5"
-        tools:text="Dec 16, 2020"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_nome_filme"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nome_filme"
-        android:ellipsize="end"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

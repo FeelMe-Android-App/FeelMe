@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListCategoriasBinding
-import com.feelme.feelmeapp.features.home.usecase.Categorias
+import com.feelme.feelmeapp.features.home.usecase.Categories
 
 
-class CategoriasAdapter: RecyclerView.Adapter<CategoriasAdapter.MyviewHolder>() {
+class CategoriesAdapter: RecyclerView.Adapter<CategoriesAdapter.MyviewHolder>() {
 
-    private val listCategorias = mutableListOf<Categorias>()
+    private val listCategories = mutableListOf<Categories>()
 
     class MyviewHolder(private val binding: ListCategoriasBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(categorias: Categorias) {
+        fun bind(categorias: Categories) {
             with(binding){
-                tvCategoria.text = categorias.nome
+                tvCategoria.text = categorias.name
                 ivEmoji.setImageResource(categorias.icon)
 //                tvCategoria.setOnClickListener {
 //                    Dialog("exemplo","outro Exemplo").show((it.context as FragmentActivity).supportFragmentManager, "customDialog")
@@ -30,13 +30,13 @@ class CategoriasAdapter: RecyclerView.Adapter<CategoriasAdapter.MyviewHolder>() 
     }
 
     override fun onBindViewHolder(holder: MyviewHolder, position: Int) {
-        holder.bind(listCategorias[position])
+        holder.bind(listCategories[position])
     }
 
-    override fun getItemCount(): Int = listCategorias.size
+    override fun getItemCount(): Int = listCategories.size
 
-    fun setItensList(list: List<Categorias>) {
-        listCategorias.clear()
-        listCategorias.addAll(list)
+    fun setItensList(list: List<Categories>) {
+        listCategories.clear()
+        listCategories.addAll(list)
     }
 }

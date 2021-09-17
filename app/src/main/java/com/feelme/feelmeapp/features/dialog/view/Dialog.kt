@@ -1,6 +1,5 @@
 package com.feelme.feelmeapp.features.dialog.view
 
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -19,13 +18,13 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.google.android.material.button.MaterialButton
 
-class Dialog(var params: DialogData) : DialogFragment() {
+class Dialog(private var params: DialogData) : DialogFragment() {
     private var binding: FragmentDialogBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentDialogBinding.inflate(inflater, container, false)
-        getDialog()?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding?.root
     }
 
@@ -63,8 +62,8 @@ class Dialog(var params: DialogData) : DialogFragment() {
             binding?.tvContent?.visibility = View.GONE
             binding?.rvEmojiList?.visibility = View.VISIBLE
 
-            val emojiItens = params.emojiList
-            binding?.rvEmojiList?.adapter = emojiItens?.let { EmojiListAdapter(it as List<EmojiList>, this) }
+            val emojiList = params.emojiList
+            binding?.rvEmojiList?.adapter = emojiList?.let { EmojiListAdapter((it as List<*>).filterIsInstance<EmojiList>(), this) }
             binding?.rvEmojiList?.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
         }
 

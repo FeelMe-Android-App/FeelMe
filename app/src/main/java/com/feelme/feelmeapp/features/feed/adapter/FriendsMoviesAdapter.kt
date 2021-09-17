@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.WatchingMovieItemBinding
-import com.feelme.feelmeapp.features.home.usecase.Filmes
+import com.feelme.feelmeapp.features.home.usecase.Films
 
-class FriendsMoviesAdapter(private val movies: MutableList<Filmes>, ): RecyclerView.Adapter<FriendsMoviesAdapter.ViewHolder>() {
+class FriendsMoviesAdapter(private val movies: MutableList<Films>): RecyclerView.Adapter<FriendsMoviesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -22,7 +22,7 @@ class FriendsMoviesAdapter(private val movies: MutableList<Filmes>, ): RecyclerV
     override fun getItemCount() = movies.count()
 
     class ViewHolder(private val binding: WatchingMovieItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Filmes) {
+        fun bind(movie: Films) {
             with(binding) {
                 rivMovie.setImageResource(movie.img)
             }

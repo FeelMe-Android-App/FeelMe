@@ -19,7 +19,7 @@ class WhatToWatchViewModel: BaseViewModel() {
             callApi(
                 suspend { whatToWatchUseCase.getDiscoverMovies(providers, genres) },
                 onSuccess = {
-                    _onSuccessWhatToWatch.postValue(it as List<Result>)
+                    _onSuccessWhatToWatch.postValue((it as List<*>).filterIsInstance<Result>())
                 }
             )
         }

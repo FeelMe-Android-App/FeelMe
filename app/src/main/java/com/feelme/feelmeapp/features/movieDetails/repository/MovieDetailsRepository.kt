@@ -10,4 +10,10 @@ class MovieDetailsRepository: BaseRepository() {
             ApiService.tmdbApi.getMovieById(id)
         }
     }
+
+    suspend fun getMovieStreaming(movieId: Int): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getMovieStreaming(movieId)
+        }
+    }
 }

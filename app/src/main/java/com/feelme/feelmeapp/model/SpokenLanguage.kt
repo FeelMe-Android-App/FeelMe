@@ -1,7 +1,13 @@
 package com.feelme.feelmeapp.model
 
+import androidx.room.Entity
+import com.google.gson.annotations.SerializedName
+
+@Entity
 data class SpokenLanguage(
-    val english_name: String,
-    val iso_639_1: String,
+    @SerializedName("english_name")
+    val englishName: String,
+    @SerializedName("iso_639_1")
+    val iso6391: String,
     val name: String
 )

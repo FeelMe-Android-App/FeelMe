@@ -10,4 +10,6 @@
     <dimen name="corner_10">10dp</dimen>
     <dimen name="corner_20">20dp</dimen>
     <dimen name="corner_fifty_percent">500dp</dimen>
+    <dimen name="default_padding_top_bottom">10dp</dimen>
+    <dimen name="default_padding_left_right">10dp</dimen>
 </resources>

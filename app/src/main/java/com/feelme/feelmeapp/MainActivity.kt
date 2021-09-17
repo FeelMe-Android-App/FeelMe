@@ -11,7 +11,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
-import com.feelme.feelmeapp.utils.ConstantApp.emojis.emojiList
+import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.menu.getItem(2).isChecked = true
     }
 
-    public fun restartMood() {
+    fun restartMood() {
         binding.bottomNavigationView.selectedItemId = R.id.whatToWatchFragment
     }
 

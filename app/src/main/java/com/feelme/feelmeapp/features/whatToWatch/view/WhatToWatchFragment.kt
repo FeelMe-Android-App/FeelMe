@@ -14,14 +14,11 @@ import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.MainActivity.Companion.MOOD_CONST
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentWhatToWatchBinding
-import com.feelme.feelmeapp.features.dialog.usecase.DialogData
-import com.feelme.feelmeapp.features.dialog.view.Dialog
-import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.features.whatToWatch.adapter.MoviesMoodListAdapter
 import com.feelme.feelmeapp.features.whatToWatch.viewmodel.WhatToWatchViewModel
-import com.feelme.feelmeapp.utils.ConstantApp.emojis.emojiList
+import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 
 class WhatToWatchFragment : Fragment() {
     private lateinit var viewModel: WhatToWatchViewModel
@@ -30,7 +27,7 @@ class WhatToWatchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentWhatToWatchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,10 +42,11 @@ class WhatToWatchFragment : Fragment() {
                     it.name == mood
                 }
 
-                if (moodData != null) {
-                    binding.ivEmojiFeeling.setImageResource(moodData.icon)
-                    binding.tvEmojiFeeling.text = moodData.name
-                    binding.tvTopTeenFeeling.text = "#10 Filmes para ficar ${moodData.name}"
+                moodData?.let { MoodList ->
+                    val title = "${context?.getString(R.string.top_ten)} ${moodData.name}"
+                    binding.ivEmojiFeeling.setImageResource(MoodList.icon)
+                    binding.tvEmojiFeeling.text = MoodList.name
+                    binding.tvTopTeenFeeling.text = title
                     binding.btBack.setOnClickListener {
                         (activity as MainActivity).restartMood()
                     }
@@ -66,13 +64,15 @@ class WhatToWatchFragment : Fragment() {
 
     private fun setupObservables() {
         this.let {
-            viewModel.onSuccessWhatToWatch.observe(viewLifecycleOwner, {
-                binding.tvMoviesMoodList.adapter = MoviesMoodListAdapter(it) {
+            viewModel.onSuccessWhatToWatch.observe(viewLifecycleOwner, { Results ->
+                binding.tvMoviesMoodList.adapter = MoviesMoodListAdapter(Results) {
                     val intent = Intent(context, MovieDetailsActivity::class.java)
                     intent.putExtra(EXTRA_MOVIE_ID, it.id)
                     startActivity(intent)
                 }
                 binding.tvMoviesMoodList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                binding.vgWhatToWatchLoading.visibility = View.GONE
+                binding.vgWhatToWatch.visibility = View.VISIBLE
             })
         }
     }

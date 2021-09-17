@@ -31,7 +31,7 @@ class MoviesMoodListAdapter(
         ) {
             binding.tvMovieTitle.text = movie.title
             binding.tvMovieResume.text = movie.overview
-            Picasso.get().load(movie.poster_path).into(binding.ivMoviePoster)
+            Picasso.get().load(movie.posterPath).into(binding.ivMoviePoster)
             binding.vgMovieItem.setOnClickListener {
                 onClickListener(movie)
             }

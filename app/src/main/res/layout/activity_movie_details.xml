@@ -1,231 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:forceDarkAllowed="false">
+    android:forceDarkAllowed="false"
+    android:orientation="horizontal"
+    android:background="@color/primary_color">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btBack"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:paddingBottom="9dp"
-        android:paddingEnd="5dp"
-        android:src="@drawable/ic_back_arrow"
-        android:background="@color/primary_color"
-        android:backgroundTint="@color/primary_color"
-        app:borderWidth="0dp"
-        android:layout_marginStart="16dp"
-        app:fabCustomSize="50dp"
-        android:layout_gravity="top|left"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btSave"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_save_film"
-        android:background="@drawable/layout_bg_round"
-        android:backgroundTint="#3D2859"
-        app:borderWidth="0dp"
-        android:layout_gravity="bottom|right"
-        app:fabCustomSize="50dp"
-        />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btWatch"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_watched_movie"
-        android:backgroundTint="#3D2859"
-        app:borderWidth="0dp"
-        android:layout_gravity="bottom"
-        app:fabCustomSize="50dp"
-        app:layout_anchor="@+id/btSave"
-        app:useCompatPadding="true"/>
-
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
+        android:id="@+id/vgMovieDetailsLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vgMovieDetailsFragment"
+        android:visibility="gone">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="9dp"
+            android:paddingEnd="5dp"
+            android:src="@drawable/ic_back_arrow"
             android:background="@color/primary_color"
-            android:paddingBottom="30dp">
+            android:backgroundTint="@color/primary_color"
+            app:borderWidth="0dp"
+            android:layout_marginStart="16dp"
+            app:fabCustomSize="50dp"
+            android:layout_gravity="top|left"/>
 
-            <ImageView
-                android:id="@+id/imgPoster"
-                android:layout_width="0dp"
-                android:layout_height="550dp"
-                android:src="@drawable/poster"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/poster"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:adjustViewBounds="true"
-                android:foreground="@drawable/gradient"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btSave"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_save_film"
+            android:background="@drawable/layout_bg_round"
+            android:backgroundTint="#3D2859"
+            app:borderWidth="0dp"
+            android:layout_gravity="bottom|right"
+            app:fabCustomSize="50dp"
+            />
 
-            <TextView
-                android:id="@+id/tvMovieTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                android:layout_marginBottom="50dp"
-                android:text="@string/wonder_woman_1984"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/lato_bold"
-                app:layout_constraintBottom_toBottomOf="@id/imgPoster"
-                app:layout_constraintStart_toStartOf="@id/imgPoster"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btWatch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_watched_movie"
+            android:backgroundTint="#3D2859"
+            app:borderWidth="0dp"
+            android:layout_gravity="bottom"
+            app:fabCustomSize="50dp"
+            app:layout_anchor="@+id/btSave"
+            app:useCompatPadding="true"/>
 
-            <TextView
-                android:id="@+id/tvMovieReleaseYear"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="2020 • 2h35min"
-                android:fontFamily="@font/lato_regular"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
-                app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvMovieTitle" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="30dp">
 
-            <TextView
-                android:id="@+id/tvMovieCategory"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/layout_bg_round"
-                android:padding="10dp"
-                android:text="@string/aventura"
-                android:fontFamily="@font/lato_bold"
-                android:textColor="@color/white"
-                android:textSize="@dimen/normal_text"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="@id/imgPoster"
-                app:layout_constraintTop_toBottomOf="@id/tvMovieReleaseYear" />
+                <ImageView
+                    android:id="@+id/imgPoster"
+                    android:layout_width="0dp"
+                    android:layout_height="550dp"
+                    tools:src="@drawable/poster"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/poster"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:adjustViewBounds="true"
+                    android:foreground="@drawable/gradient"/>
 
-            <TextView
-                android:id="@+id/tvMovieCategory2"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/layout_bg_round"
-                android:padding="10dp"
-                android:fontFamily="@font/lato_bold"
-                android:text="@string/drama"
-                android:textColor="@color/white"
-                android:textSize="@dimen/normal_text"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/tvMovieCategory"
-                app:layout_constraintTop_toBottomOf="@id/tvMovieReleaseYear" />
+                <TextView
+                    android:id="@+id/tvMovieTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginEnd="26dp"
+                    android:layout_marginBottom="50dp"
+                    tools:text="@string/wonder_woman_1984"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/lato_bold"
+                    app:layout_constraintBottom_toBottomOf="@id/imgPoster"
+                    app:layout_constraintStart_toStartOf="@id/imgPoster"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-            <TextView
-                android:id="@+id/tvMovieDescription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/lorem_ipsun"
-                android:fontFamily="@font/lato_regular"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
-                app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvMovieCategory" />
+                <TextView
+                    android:id="@+id/tvMovieReleaseYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:text="2020 • 2h35min"
+                    android:fontFamily="@font/lato_regular"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvMovieTitle" />
 
-            <TextView
-                android:id="@+id/tvWatchNow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/assista_agora"
-                android:fontFamily="@font/lato_bold"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvMovieDescription" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCategories"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/tvMovieTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvMovieReleaseYear"
+                    tools:listitem="@layout/text_categ_item"
+                    tools:itemCount="1"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"/>
 
-            <ImageView
-                android:id="@+id/imgNetflix"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/netflix"
-                android:layout_marginEnd="6dp"
-                android:contentDescription="@string/poster"
-                app:layout_constraintStart_toStartOf="@id/tvWatchNow"
-                app:layout_constraintTop_toBottomOf="@id/tvWatchNow" />
+                <TextView
+                    android:id="@+id/tvMovieDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    tools:text="@string/lorem_ipsun"
+                    android:fontFamily="@font/lato_regular"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
+                    app:layout_constraintTop_toBottomOf="@id/rvCategories" />
 
-            <ImageView
-                android:id="@+id/imgDisney"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="@drawable/disney"
-                android:contentDescription="@string/poster"
-                app:layout_constraintStart_toEndOf="@id/imgNetflix"
-                app:layout_constraintTop_toBottomOf="@id/tvWatchNow" />
+                <TextView
+                    android:id="@+id/tvWatchNow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/assista_agora"
+                    android:fontFamily="@font/lato_bold"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvMovieDescription" />
 
-            <ImageView
-                android:id="@+id/imgLooke"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="@drawable/looke"
-                android:contentDescription="@string/poster"
-                app:layout_constraintStart_toEndOf="@id/imgDisney"
-                app:layout_constraintTop_toBottomOf="@id/tvWatchNow" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvStreamings"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    app:layout_constraintStart_toStartOf="@id/tvWatchNow"
+                    app:layout_constraintTop_toBottomOf="@id/tvWatchNow"
+                    app:layout_constraintEnd_toEndOf="@id/tvWatchNow"
+                    android:layout_marginTop="14dp"
+                    tools:listitem="@layout/movie_stream_item"
+                    tools:itemCount="14"/>
 
-            <TextView
-                android:id="@+id/tvFriendsComments"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/o_que_seus_amigos_acharam"
-                android:fontFamily="@font/lato_bold"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
-                app:layout_constraintTop_toBottomOf="@id/imgNetflix"/>
+                <TextView
+                    android:id="@+id/tvFriendsComments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/o_que_seus_amigos_acharam"
+                    android:fontFamily="@font/lato_bold"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
+                    app:layout_constraintTop_toBottomOf="@id/rvStreamings"/>
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvComments"
-                android:layout_marginTop="10dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tvFriendsComments"
-                app:layout_constraintTop_toBottomOf="@+id/tvFriendsComments"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvFriendsComments"
-                tools:listitem="@layout/comment_item"
-                android:paddingBottom="20dp"
-                android:clipToPadding="false"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvComments"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFriendsComments"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFriendsComments"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvFriendsComments"
+                    tools:listitem="@layout/comment_item"
+                    android:paddingBottom="20dp"
+                    android:clipToPadding="true"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

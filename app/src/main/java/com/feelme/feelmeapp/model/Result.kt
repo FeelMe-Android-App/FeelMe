@@ -1,22 +1,31 @@
 package com.feelme.feelmeapp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+
+@Entity
 data class Result(
+    @PrimaryKey val id: Int,
     val adult: Boolean,
-    var backdrop_path: String,
-    val genre_ids: List<Int>,
-    val id: Int,
-    val original_language: String,
-    val original_title: String,
+    @SerializedName("backdrop_path")
+    var backdropPath: String?,
+    @SerializedName("genre_ids")
+    val genreIds: List<Int>,
+    @SerializedName("original_language")
+    val originalLanguage: String,
+    @SerializedName("original_title")
+    val originalTitle: String,
     val overview: String,
     val popularity: Double,
-    var poster_path: String,
-    val release_date: String,
+    @SerializedName("poster_path")
+    var posterPath: String?,
+    @SerializedName("release_date")
+    val releaseDate: String,
     val title: String,
     val video: Boolean,
-    val vote_average: Double,
-    val vote_count: Int
+    @SerializedName("vote_average")
+    val voteAverage: Double,
+    @SerializedName("vote_count")
+    val voteCount: Int
 )
-
-
-
-

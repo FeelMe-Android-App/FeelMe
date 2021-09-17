@@ -25,4 +25,7 @@
     <string name="on_the_rise">Em Alta</string>
     <string name="followers">Seguidores</string>
     <string name="following">Seguidores</string>
+    <string name="top_ten">#10 Filmes para ficar</string>
+    <string name="save">Salvar</string>
+    <string name="skip">Pular</string>
 </resources>

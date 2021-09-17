@@ -1,8 +1,8 @@
 package com.feelme.feelmeapp.features.home.usecase
 
-data class Filmes(
+data class Films(
     val id: Int,
-    val nome: String,
-    val lancamento: String,
+    val name: String,
+    val release: String,
     val img: Int
 )
