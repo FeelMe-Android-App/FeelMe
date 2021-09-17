@@ -1,14 +1,17 @@
 package com.feelme.feelmeapp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class Result(
+    @PrimaryKey val id: Int,
     val adult: Boolean,
     @SerializedName("backdrop_path")
     var backdropPath: String?,
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
-    val id: Int,
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("original_title")
@@ -26,7 +29,3 @@ data class Result(
     @SerializedName("vote_count")
     val voteCount: Int
 )
-
-
-
-

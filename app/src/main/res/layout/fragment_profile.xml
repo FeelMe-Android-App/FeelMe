@@ -131,6 +131,10 @@
                 android:fontFamily="@font/lato"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 app:icon="@drawable/ic_saved"
+                android:paddingTop="@dimen/default_padding_left_right"
+                android:paddingBottom="@dimen/default_padding_left_right"
+                android:paddingLeft="@dimen/default_padding_left_right"
+                android:paddingRight="@dimen/default_padding_left_right"
                 />
             <Button
                 android:id="@+id/btWatched"
@@ -142,6 +146,10 @@
                 android:fontFamily="@font/lato"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 app:icon="@drawable/ic_watched_movies"
+                android:paddingTop="@dimen/default_padding_top_bottom"
+                android:paddingBottom="@dimen/default_padding_top_bottom"
+                android:paddingLeft="@dimen/default_padding_left_right"
+                android:paddingRight="@dimen/default_padding_left_right"
                 />
             <Button
                 android:id="@+id/btStreaming"
@@ -153,6 +161,10 @@
                 android:fontFamily="@font/lato"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 app:icon="@drawable/ic_streamings"
+                android:paddingTop="@dimen/default_padding_top_bottom"
+                android:paddingBottom="@dimen/default_padding_top_bottom"
+                android:paddingLeft="@dimen/default_padding_left_right"
+                android:paddingRight="@dimen/default_padding_left_right"
                 />
         </LinearLayout>
     </LinearLayout>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.feelme.feelmeapp.extensions.getDuration
 import com.feelme.feelmeapp.extensions.getYear
 import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
+import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
@@ -22,6 +24,7 @@ import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
 import com.feelme.feelmeapp.utils.Command
+import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -73,6 +76,28 @@ class MovieDetailsActivity : AppCompatActivity() {
                     }
                 )
             ).show(this.supportFragmentManager, "LoginDialog")
+        }
+
+        val emojiList = emojiList.map {
+            EmojiList(it.icon, it.name, true) {
+                val fragments = supportFragmentManager.fragments;
+                fragments.forEach {
+                    if(it is DialogFragment) it.dismiss();
+                }
+            }
+        }
+
+        binding.btWatch.setOnClickListener {
+            val dialog = Dialog(
+                DialogData(
+                    title = "Emoji Feeling",
+                    subtitle = "O que você sentiu ao assistir esse filme?",
+                    image = R.drawable.ic_watched_outlined,
+                    emojiList = emojiList
+                )
+            )
+            dialog.isCancelable = false
+            dialog.show(this.supportFragmentManager, "LoginDialog")
         }
     }
 
