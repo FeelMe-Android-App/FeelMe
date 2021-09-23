@@ -2,6 +2,7 @@ package com.feelme.feelmeapp.features.home.usecase
 
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.home.repository.HomeRepository
+import com.feelme.feelmeapp.model.Genres
 import com.feelme.feelmeapp.model.NowPlaying
 import com.feelme.feelmeapp.utils.ResponseApi
 
@@ -20,6 +21,19 @@ class HomeUseCase {
                     Result
                 }
 
+                return ResponseApi.Success(result)
+            }
+            is ResponseApi.Error -> {
+                return responseApi
+            }
+        }
+    }
+
+    suspend fun getGenres(): ResponseApi {
+        when(val responseApi = homeRepository.getGenres()) {
+            is ResponseApi.Success -> {
+                val data = responseApi.data as? Genres
+                val result = data?.genres
                 return ResponseApi.Success(result)
             }
             is ResponseApi.Error -> {

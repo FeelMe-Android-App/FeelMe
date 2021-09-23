@@ -1,12 +1,9 @@
 package com.feelme.feelmeapp.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity
 data class Result(
-    @PrimaryKey val id: Int,
+    val id: Int,
     val adult: Boolean,
     @SerializedName("backdrop_path")
     var backdropPath: String?,

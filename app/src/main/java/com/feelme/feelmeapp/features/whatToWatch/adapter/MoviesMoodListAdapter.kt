@@ -3,6 +3,7 @@ package com.feelme.feelmeapp.features.whatToWatch.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.MoodMovieItemBinding
 import com.feelme.feelmeapp.model.Result
 import com.squareup.picasso.Picasso
@@ -31,7 +32,7 @@ class MoviesMoodListAdapter(
         ) {
             binding.tvMovieTitle.text = movie.title
             binding.tvMovieResume.text = movie.overview
-            Picasso.get().load(movie.posterPath).into(binding.ivMoviePoster)
+            Picasso.get().load(movie.backdropPath).placeholder(R.drawable.no_image).into(binding.ivMoviePoster)
             binding.vgMovieItem.setOnClickListener {
                 onClickListener(movie)
             }

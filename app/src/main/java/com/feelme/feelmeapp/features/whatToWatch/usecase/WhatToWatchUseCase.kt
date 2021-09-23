@@ -14,7 +14,7 @@ class WhatToWatchUseCase {
                 val data = responseApi.data as DiscoverMovies
                 val results = data.results.map { Result ->
                     Result.posterPath?.let { Result.posterPath = it.getFullImageUrl() }
-                    Result.backdropPath?.let { Result.posterPath = it.getFullImageUrl() }
+                    Result.backdropPath?.let { Result.backdropPath = it.getFullImageUrl() }
                     Result
                 }.filter { it.overview.isNotEmpty() }.take(10)
 
