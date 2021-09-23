@@ -26,6 +26,14 @@ interface TMDBApi {
         @Query("sort_by") sortBy: String
     ): Response<DiscoverMovies>
 
+    @GET("search/movie")
+    suspend fun search(
+            @Query("query") query: String,
+    ): Response<Search>
+
+    @GET("genre/movie/list")
+    suspend fun getGenres(): Response<Genres>
+
 //    DEIXEI COMO EXEMPLO PARA AS FUTURAS CHAMADAS
 
 //    @GET("movie/popular")

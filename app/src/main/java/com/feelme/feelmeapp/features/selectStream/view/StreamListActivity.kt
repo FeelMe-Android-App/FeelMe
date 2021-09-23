@@ -45,30 +45,27 @@ class StreamListActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
+        viewModel.onSuccessStreamList.observe(this, { StreamDetailsList ->
+            binding.rvStreamList.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            binding.rvStreamList.recycledViewPool.setMaxRecycledViews(0,0)
+            binding.rvStreamList.layoutManager = GridLayoutManager(applicationContext, 3, RecyclerView.VERTICAL, false)
+            binding.rvStreamList.adapter = StreamAdapter(StreamDetailsList) { StreamDetails ->
+                if(streamList.contains(StreamDetails.providerId)) streamList.remove(StreamDetails.providerId)
+                else streamList.add(StreamDetails.providerId)
 
-        this.let {
-            viewModel.onSuccessStreamList.observe(it, { StreamDetailsList ->
-                binding.rvStreamList.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-                binding.rvStreamList.recycledViewPool.setMaxRecycledViews(0,0)
-                binding.rvStreamList.layoutManager = GridLayoutManager(applicationContext, 3, RecyclerView.VERTICAL, false)
-                binding.rvStreamList.adapter = StreamAdapter(StreamDetailsList) { StreamDetails ->
-                    if(streamList.contains(StreamDetails.providerId)) streamList.remove(StreamDetails.providerId)
-                    else streamList.add(StreamDetails.providerId)
-
-                    if(streamList.count() > 0) {
-                        binding.btSkipSelectStream.text = applicationContext.getString(R.string.save)
-                        binding.btSkipSelectStream.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.secondary_color))
-                        (binding.btSkipSelectStream as MaterialButton).setIconResource(R.drawable.ic_watched_movie)
-                    } else {
-                        binding.btSkipSelectStream.text = applicationContext.getString(R.string.skip)
-                        binding.btSkipSelectStream.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.primary_color))
-                        (binding.btSkipSelectStream as MaterialButton).setIconResource(R.drawable.ic_skip)
-                    }
+                if(streamList.count() > 0) {
+                    binding.btSkipSelectStream.text = applicationContext.getString(R.string.save)
+                    binding.btSkipSelectStream.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                    (binding.btSkipSelectStream as MaterialButton).setIconResource(R.drawable.ic_watched_movie)
+                } else {
+                    binding.btSkipSelectStream.text = applicationContext.getString(R.string.skip)
+                    binding.btSkipSelectStream.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.primary_color))
+                    (binding.btSkipSelectStream as MaterialButton).setIconResource(R.drawable.ic_skip)
                 }
+            }
 
-                binding.vgSelectStreamLoading.visibility = View.GONE
-                binding.vgSelectStream.visibility = View.VISIBLE
-            })
-        }
+            binding.vgSelectStreamLoading.visibility = View.GONE
+            binding.vgSelectStream.visibility = View.VISIBLE
+        })
     }
 }

@@ -10,4 +10,10 @@ class HomeRepository : BaseRepository() {
             ApiService.tmdbApi.getNowPlayingMovies()
         }
     }
+
+    suspend fun getGenres(): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getGenres()
+        }
+    }
 }

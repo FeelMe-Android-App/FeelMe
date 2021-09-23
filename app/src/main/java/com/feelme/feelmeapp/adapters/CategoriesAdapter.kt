@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListCategoriasBinding
-import com.feelme.feelmeapp.features.home.usecase.Categories
+import com.feelme.feelmeapp.modeldb.Genre
 
 
-class CategoriesAdapter: RecyclerView.Adapter<CategoriesAdapter.MyviewHolder>() {
-
-    private val listCategories = mutableListOf<Categories>()
+class CategoriesAdapter(
+    private val listCategories: List<Genre> = listOf()
+): RecyclerView.Adapter<CategoriesAdapter.MyviewHolder>() {
 
     class MyviewHolder(private val binding: ListCategoriasBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(categorias: Categories) {
+        fun bind(categorias: Genre) {
             with(binding){
                 tvCategoria.text = categorias.name
-                ivEmoji.setImageResource(categorias.icon)
+//                ivEmoji.setImageResource(categorias.icon)
 //                tvCategoria.setOnClickListener {
 //                    Dialog("exemplo","outro Exemplo").show((it.context as FragmentActivity).supportFragmentManager, "customDialog")
 //                }
@@ -34,9 +34,4 @@ class CategoriesAdapter: RecyclerView.Adapter<CategoriesAdapter.MyviewHolder>() 
     }
 
     override fun getItemCount(): Int = listCategories.size
-
-    fun setItensList(list: List<Categories>) {
-        listCategories.clear()
-        listCategories.addAll(list)
-    }
 }

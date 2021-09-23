@@ -3,6 +3,7 @@ package com.feelme.feelmeapp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ListEmAltaBinding
 import com.feelme.feelmeapp.model.Result
 import com.squareup.picasso.Picasso
@@ -19,7 +20,7 @@ class EmAltaAdapter(
         ) {
             with(binding){
                 tvNomeFilme.text = films.title
-                Picasso.get().load(films.posterPath).into(imageFilme)
+                Picasso.get().load(films.posterPath).placeholder(R.drawable.no_image).into(imageFilme)
                 clMovieItem.setOnClickListener {
                     onClickListener(films)
                 }

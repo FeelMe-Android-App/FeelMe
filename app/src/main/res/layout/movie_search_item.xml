@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/primary_color">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_height="0dp"
+        android:id="@+id/ivMoviePoster"
+        android:layout_weight="0.8"
+        android:layout_width="match_parent"
+        tools:src="@drawable/trainspotting"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="@dimen/corner_10"
+        android:layout_marginStart="@dimen/corner_10"
+        android:layout_marginEnd="@dimen/corner_10"
+        android:layout_marginTop="@dimen/corner_10"
+        />
+    <TextView
+        android:id="@+id/tvMovieName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/corner_10"
+        android:layout_marginEnd="@dimen/corner_10"
+        android:layout_marginTop="@dimen/corner_10"
+        android:layout_marginBottom="@dimen/corner_20"
+        android:fontFamily="@font/lato"
+        tools:text="Wonder Woman(1984) sadasdasdasd"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_2"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:singleLine="true"
+        />
+</LinearLayout>

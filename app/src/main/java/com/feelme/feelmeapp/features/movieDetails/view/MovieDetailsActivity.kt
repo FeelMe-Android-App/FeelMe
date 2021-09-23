@@ -3,7 +3,7 @@ package com.feelme.feelmeapp.features.movieDetails.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -78,11 +78,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             ).show(this.supportFragmentManager, "LoginDialog")
         }
 
-        val emojiList = emojiList.map {
-            EmojiList(it.icon, it.name, true) {
-                val fragments = supportFragmentManager.fragments;
-                fragments.forEach {
-                    if(it is DialogFragment) it.dismiss();
+        val emojiList = emojiList.map { MoodList ->
+            EmojiList(MoodList.icon, MoodList.name, true) {
+                supportFragmentManager.fragments.forEach { Fragment ->
+                    (Fragment as DialogFragment).dismiss()
                 }
             }
         }
@@ -108,7 +107,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     val runTime = Movie.runtime.getDuration() ?: "--h--min"
                     val yearRelease = Movie.releaseDate.getYear() ?: "----"
                     val released = "$runTime • $yearRelease"
-                    Picasso.get().load(Movie.posterPath).into(imgPoster)
+                    Picasso.get().load(Movie.posterPath).placeholder(R.drawable.no_image).into(imgPoster)
                     tvMovieTitle.text = Movie.title
                     tvMovieDescription.text = Movie.overview
                     tvMovieReleaseYear.text = released
@@ -125,20 +124,18 @@ class MovieDetailsActivity : AppCompatActivity() {
             })
 
             viewModel.onSuccessMovieStreaming.observe(MovieDetailsActivity, { Streaming ->
-                run {
-                    if(!Streaming.isNullOrEmpty()) {
-                        binding.rvStreamings.adapter = MovieStreamingAdapter(Streaming) {
+                if(!Streaming.isNullOrEmpty()) {
+                    binding.rvStreamings.adapter = MovieStreamingAdapter(Streaming) {
 
-                        }
-                        binding.rvStreamings.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
-                    } else {
-                        binding.rvStreamings.visibility = View.GONE
-                        binding.tvWatchNow.visibility = View.GONE
                     }
-
-                    binding.vgMovieDetailsLoading.visibility = View.GONE
-                    binding.vgMovieDetailsFragment.visibility = View.VISIBLE
+                    binding.rvStreamings.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+                } else {
+                    binding.rvStreamings.isVisible = false
+                    binding.tvWatchNow.isVisible = false
                 }
+
+                binding.vgMovieDetailsLoading.isVisible = false
+                binding.vgMovieDetailsFragment.isVisible = true
             })
 
             viewModel.command.observe(MovieDetailsActivity, {

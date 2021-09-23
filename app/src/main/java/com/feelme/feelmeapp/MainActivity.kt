@@ -12,6 +12,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
+import org.koin.core.context.startKoin
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        startKoin {
+
+        }
 
         val navController = Navigation.findNavController(this, R.id.fragmentNavHost)
         setupWithNavController(binding.bottomNavigationView, navController)
