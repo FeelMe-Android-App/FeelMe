@@ -30,7 +30,7 @@ class MovieStreamingAdapter(
             streaming: Flatrate,
             onClickListenerStreaming: (streaming: Flatrate) -> Unit
         ) {
-            Picasso.get().load(streaming.logoPath).placeholder(R.drawable.no_image).into(binding.ivStreamerLogo)
+            Picasso.get().load(streaming.logoPath).placeholder(R.drawable.stream_not_image).into(binding.ivStreamerLogo)
             binding.ivStreamerLogo.setOnClickListener { onClickListenerStreaming(streaming) }
         }
     }

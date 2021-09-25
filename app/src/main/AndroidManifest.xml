@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.feelme.feelmeapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".AppAplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +18,8 @@
             android:exported="true" />
         <activity
             android:name=".features.selectStream.view.StreamListActivity"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".features.search.view.SearchActivity"
             android:exported="true" />

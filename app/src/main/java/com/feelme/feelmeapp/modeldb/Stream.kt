@@ -23,5 +23,4 @@ data class Stream (
     @SerializedName("provider_name")
     @ColumnInfo(name = "provider_name")
     val providerName: String,
-    var selected: Boolean = false,
 ): Parcelable
