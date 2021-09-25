@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.feelme.feelmeapp.modeldb.Genre
+import com.feelme.feelmeapp.modeldb.*
 
 object FeelMeDatabase {
-    @Database(entities = [Genre::class], version = 1)
+    @Database(entities = [Movie::class, Genre::class, Stream::class, MovieGenreCrossRef::class, MovieStreamCrossRef::class], version = 1)
     abstract class FeelMeRoomDatabase : RoomDatabase() {
+        abstract fun movieDao(): MovieDao
         abstract fun genreDao(): GenreDao
+        abstract fun streamDao(): StreamDao
+        abstract fun movieGenreDao(): MovieGenreCrossRefDao
+        abstract fun movieStreamDao(): MovieStreamingCrossRefDao
     }
 
     fun getDatabase(context: Context) : FeelMeRoomDatabase {

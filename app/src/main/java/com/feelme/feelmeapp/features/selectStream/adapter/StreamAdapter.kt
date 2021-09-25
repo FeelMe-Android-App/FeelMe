@@ -41,7 +41,7 @@ class StreamAdapter(
             }
 
             binding.ivStreamerLogo.isVisible = true
-            Picasso.get().load(streaming.logoPath).placeholder(R.drawable.no_image).into(binding.ivStreamerLogo)
+            Picasso.get().load(streaming.logoPath).placeholder(R.drawable.stream_not_image).into(binding.ivStreamerLogo)
             binding.ivStreamerLogo.setOnClickListener {
                 streaming.selected = !streaming.selected
                 if(streaming.selected) {

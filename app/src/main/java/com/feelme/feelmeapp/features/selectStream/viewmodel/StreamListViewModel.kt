@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.selectStream.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,8 +9,7 @@ import com.feelme.feelmeapp.features.selectStream.usecase.StreamListUseCase
 import com.feelme.feelmeapp.model.StreamDetails
 import kotlinx.coroutines.launch
 
-class StreamListViewModel: BaseViewModel() {
-    private val streamList = StreamListUseCase()
+class StreamListViewModel(private val streamList: StreamListUseCase) : BaseViewModel() {
     private val _onSuccessStreamList: MutableLiveData<List<StreamDetails>> = MutableLiveData()
     val onSuccessStreamList: LiveData<List<StreamDetails>>
         get() = _onSuccessStreamList

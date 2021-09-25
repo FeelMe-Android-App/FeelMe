@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.selectStream.view
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,11 +16,14 @@ import com.feelme.feelmeapp.databinding.ActivitySelectStreamBinding
 import com.feelme.feelmeapp.features.selectStream.adapter.StreamAdapter
 import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
 import com.google.android.material.button.MaterialButton
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.startKoin
 
-class StreamListActivity : AppCompatActivity() {
+class StreamListActivity() : AppCompatActivity() {
     private lateinit var binding: ActivitySelectStreamBinding
     private var streamList = mutableListOf<Int>()
-    private lateinit var viewModel: StreamListViewModel
+    private val viewModel: StreamListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,6 @@ class StreamListActivity : AppCompatActivity() {
         super.onResume()
 
         this.let {
-            viewModel = ViewModelProvider(this)[StreamListViewModel::class.java]
             viewModel.command = MutableLiveData()
             viewModel.getStreamList()
             setupObservables()
