@@ -10,6 +10,7 @@ import com.feelme.feelmeapp.model.Movie
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel: BaseViewModel() {
+
     private val movieDetailsUseCase = MovieDetailsUseCase()
     private val _onSuccessMovieDetails: MutableLiveData<Movie> = MutableLiveData()
     val onSuccessMovieDetails: LiveData<Movie>
@@ -19,25 +20,24 @@ class MovieDetailsViewModel: BaseViewModel() {
     val onSuccessMovieStreaming: LiveData<List<Flatrate>>
         get() = _onSuccessMovieStreaming
 
-    fun getMovieById(id: Int) {
-        viewModelScope.launch {
-            callApi(
-                suspend { movieDetailsUseCase.getMovieById(id) },
-                onSuccess = {
-                    _onSuccessMovieDetails.postValue(it as Movie)
-                }
-            )
-        }
-    }
-
-    fun getMovieStreaming(movieId: Int) {
-        viewModelScope.launch {
-            callApi(
-                suspend { movieDetailsUseCase.getMovieStreamings(movieId) },
-                onSuccess = {
-                    _onSuccessMovieStreaming.postValue((it as List<*>).filterIsInstance<Flatrate>())
-                }
-            )
+    fun getMovieDetailsScreen(movieId: Int) {
+        viewModelScope.let {
+            it.launch {
+                callApi(
+                    suspend { movieDetailsUseCase.getMovieById(movieId) },
+                    onSuccess = {
+                        _onSuccessMovieDetails.postValue(it as Movie)
+                    }
+                )
+            }
+            it.launch {
+                callApi(
+                    suspend { movieDetailsUseCase.getMovieStreamings(movieId) },
+                    onSuccess = {
+                        _onSuccessMovieStreaming.postValue((it as List<*>).filterIsInstance<Flatrate>())
+                    }
+                )
+            }
         }
     }
 }

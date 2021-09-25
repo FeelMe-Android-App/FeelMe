@@ -57,8 +57,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
             viewModel = ViewModelProvider(it)[MovieDetailsViewModel::class.java]
             viewModel.command = MutableLiveData()
-            viewModel.getMovieById(movieId)
-            viewModel.getMovieStreaming(movieId)
+            viewModel.getMovieDetailsScreen(movieId)
             setupObservables()
         }
 
