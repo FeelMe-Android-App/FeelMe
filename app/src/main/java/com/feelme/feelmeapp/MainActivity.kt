@@ -11,12 +11,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
-import com.feelme.feelmeapp.features.selectStream.repository.StreamListRepository
-import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
-import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.context.startKoin
 
 class MainActivity : AppCompatActivity() {
 

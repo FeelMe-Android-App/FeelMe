@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.databinding.ListCategoriasBinding
-import com.feelme.feelmeapp.modeldb.Genre
+import com.feelme.feelmeapp.model.Genre
 
 
 class CategoriesAdapter(

@@ -1,13 +1,12 @@
 package com.feelme.feelmeapp.features.selectStream.usecase
 
-import android.content.Context
-import com.feelme.feelmeapp.database.FeelMeDatabase
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.selectStream.repository.StreamListRepository
 import com.feelme.feelmeapp.model.Stream
-import com.feelme.feelmeapp.model.StreamDetails
 import com.feelme.feelmeapp.model.toStreamDb
+import com.feelme.feelmeapp.modeldb.toStreamDetails
 import com.feelme.feelmeapp.utils.ResponseApi
+import okhttp3.internal.toImmutableList
 
 class StreamListUseCase(private val streamList: StreamListRepository) {
     suspend fun getStreamList(): ResponseApi {
@@ -18,12 +17,28 @@ class StreamListUseCase(private val streamList: StreamListRepository) {
                     StreamDetails.logoPath?.let { StreamDetails.logoPath = StreamDetails.logoPath.getFullImageUrl() }
                     StreamDetails
                 }
-                this.streamList.saveStreamListDb(results)
+
+                results?.let { streamApi ->
+                    val streamingDb: MutableList<com.feelme.feelmeapp.modeldb.Stream> = mutableListOf()
+
+                    streamApi.forEach {
+                        streamingDb.add(it.toStreamDb())
+                    }
+
+                    this.streamList.saveStreamListDb(streamingDb)
+                }
 
                 return ResponseApi.Success(results)
             }
             is ResponseApi.Error -> {
-                return responseApi
+                val streamDb = this.streamList.getStreamListDb()
+                if(streamDb.isNullOrEmpty()) return responseApi
+
+                val streamList = streamDb.map {
+                    it.toStreamDetails()
+                }
+
+                return ResponseApi.Success(streamList.toImmutableList())
             }
         }
     }

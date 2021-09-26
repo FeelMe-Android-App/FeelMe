@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.home.usecase.HomeUseCase
-import com.feelme.feelmeapp.modeldb.Genre
+import com.feelme.feelmeapp.model.Genre
 import com.feelme.feelmeapp.model.Result
 import kotlinx.coroutines.launch
 
-class HomeViewModel: BaseViewModel() {
-    private val homeUseCase = HomeUseCase()
+class HomeViewModel(private val homeUseCase: HomeUseCase): BaseViewModel() {
 
     private val _onSuccessNowPlaying: MutableLiveData<List<Result>> = MutableLiveData()
     val onSuccessNowPlaying: LiveData<List<Result>>
