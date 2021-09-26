@@ -1,5 +1,7 @@
 package com.feelme.feelmeapp.model
 
+import com.feelme.feelmeapp.modeldb.Movie
+import com.feelme.feelmeapp.modeldb.NowPlaying
 import com.google.gson.annotations.SerializedName
 
 data class Result(
@@ -26,3 +28,16 @@ data class Result(
     @SerializedName("vote_count")
     val voteCount: Int
 )
+
+fun Result.toNowPlayingDb(): NowPlaying {
+    return NowPlaying(
+        id = this.id,
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        overview = this.overview,
+        posterPath = this.posterPath,
+        releaseDate = this.releaseDate,
+        runtime = 0,
+        title = this.title
+    )
+}

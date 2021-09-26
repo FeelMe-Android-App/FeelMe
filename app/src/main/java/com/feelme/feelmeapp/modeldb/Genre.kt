@@ -14,3 +14,10 @@ data class Genre(
     val id: Int,
     val name: String
 ): Parcelable
+
+fun Genre.toGenreApi(): com.feelme.feelmeapp.model.Genre {
+    return com.feelme.feelmeapp.model.Genre(
+        id = this.id,
+        name = this.name
+    )
+}

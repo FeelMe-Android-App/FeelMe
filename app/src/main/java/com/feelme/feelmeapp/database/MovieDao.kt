@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.database
 
 import androidx.room.*
 import com.feelme.feelmeapp.modeldb.Movie
-import com.feelme.feelmeapp.modeldb.Stream
 
 @Dao
 interface MovieDao {
