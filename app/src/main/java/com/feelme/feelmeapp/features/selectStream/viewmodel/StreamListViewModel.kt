@@ -8,7 +8,7 @@ import com.feelme.feelmeapp.features.selectStream.usecase.StreamListUseCase
 import com.feelme.feelmeapp.model.StreamDetails
 import kotlinx.coroutines.launch
 
-class StreamListViewModel(private val streamList: StreamListUseCase) : BaseViewModel() {
+class StreamListViewModel(private val streamListUseCase: StreamListUseCase) : BaseViewModel() {
     private val _onSuccessStreamList: MutableLiveData<List<StreamDetails>> = MutableLiveData()
     val onSuccessStreamList: LiveData<List<StreamDetails>>
         get() = _onSuccessStreamList
@@ -16,7 +16,7 @@ class StreamListViewModel(private val streamList: StreamListUseCase) : BaseViewM
     fun getStreamList() {
         viewModelScope.launch {
             callApi(
-                suspend { streamList.getStreamList() },
+                suspend { streamListUseCase.getStreamList() },
                 onSuccess = {
                     _onSuccessStreamList.postValue((it as List<*>).filterIsInstance<StreamDetails>())
                 }

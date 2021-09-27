@@ -1,7 +1,7 @@
 package com.feelme.feelmeapp.model
 
 import com.feelme.feelmeapp.modeldb.Movie
-import com.feelme.feelmeapp.modeldb.NowPlaying
+import com.feelme.feelmeapp.modeldb.MovieNowPlaying
 import com.google.gson.annotations.SerializedName
 
 data class Result(
@@ -9,8 +9,8 @@ data class Result(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     var backdropPath: String?,
-    @SerializedName("genre_ids")
-    val genreIds: List<Int>,
+    @SerializedName("genres")
+    var genreIds: List<Genre>,
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("original_title")
@@ -23,21 +23,29 @@ data class Result(
     val releaseDate: String,
     val title: String,
     val video: Boolean,
+    val runtime: Int,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
 )
 
-fun Result.toNowPlayingDb(): NowPlaying {
-    return NowPlaying(
+fun Result.toMovieDb(): Movie {
+    return Movie(
         id = this.id,
         adult = this.adult,
         backdropPath = this.backdropPath,
         overview = this.overview,
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
-        runtime = 0,
+        runtime = this.runtime,
         title = this.title
+    )
+}
+
+fun Result.toMovieNowPlaying(): MovieNowPlaying {
+    return MovieNowPlaying(
+        id = this.id.toLong(),
+        movieIdNowPlaying = this.id
     )
 }

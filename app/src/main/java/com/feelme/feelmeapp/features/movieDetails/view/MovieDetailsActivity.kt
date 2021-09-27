@@ -29,9 +29,10 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
-    private lateinit var viewModel: MovieDetailsViewModel
+    private val viewModel: MovieDetailsViewModel by viewModel()
     private lateinit var binding: ActivityMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         this.let {
             val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-            viewModel = ViewModelProvider(it)[MovieDetailsViewModel::class.java]
             viewModel.command = MutableLiveData()
             viewModel.getMovieDetailsScreen(movieId)
             setupObservables()
@@ -111,7 +111,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     tvMovieDescription.text = Movie.overview
                     tvMovieReleaseYear.text = released
 
-                    rvCategories.adapter = MovieCategoriesAdapter(Movie.genres) {
+                    rvCategories.adapter = MovieCategoriesAdapter(Movie.genreIds) {
 
                     }
                     rvCategories.isNestedScrollingEnabled = false
