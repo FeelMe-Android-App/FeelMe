@@ -6,8 +6,10 @@ import com.feelme.feelmeapp.model.*
 import com.feelme.feelmeapp.model.NowPlaying
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.modeldb.Genre
+import com.feelme.feelmeapp.modeldb.Movie
 import com.feelme.feelmeapp.utils.ResponseApi
 import okhttp3.internal.toImmutableList
+import kotlin.Result
 
 class HomeUseCase(private val homeRepository: HomeRepository) {
     suspend fun getNowPlayingMovies(): ResponseApi {
@@ -22,23 +24,32 @@ class HomeUseCase(private val homeRepository: HomeRepository) {
                 }
 
                 result?.let { Result ->
-                    val nowPlayingDb: MutableList<com.feelme.feelmeapp.modeldb.NowPlaying> = mutableListOf()
+                    val nowPlayingDb: MutableList<Movie> = mutableListOf()
+                    val movieNowPlaying: MutableList<MovieNowPlaying> = mutableListOf()
 
-                    Result.forEach { Movie ->
-                        nowPlayingDb.add(Movie.toNowPlayingDb())
+                    Result.forEach { MovieResult ->
+                        nowPlayingDb.add(MovieResult.toMovieDb())
+                        movieNowPlaying.add(MovieResult.toMovieNowPlaying())
                     }
 
-                    this.homeRepository.saveMovieList(nowPlayingDb)
+                    this.homeRepository.saveMovieDb(nowPlayingDb)
+                    this.homeRepository.saveMovieNowPlayingDb(movieNowPlaying)
                 }
 
                 return ResponseApi.Success(result)
             }
             is ResponseApi.Error -> {
-                val nowPlayingDb = this.homeRepository.getMovieListDb()
+
+                val nowPlayingDb = this.homeRepository.getNowPlayingDb()
                 if(nowPlayingDb.isNullOrEmpty()) return responseApi
 
-                val movies = nowPlayingDb.map { it.toResultApi() }
-                return ResponseApi.Success(movies.toImmutableList())
+                val movieNowPlayingDb: MutableList<com.feelme.feelmeapp.model.Result> = mutableListOf()
+
+                nowPlayingDb.forEach { MovieAndNowPlaying ->
+                    movieNowPlayingDb.add(MovieAndNowPlaying.movie.toResultApi())
+                }
+
+                return ResponseApi.Success(movieNowPlayingDb)
             }
         }
     }

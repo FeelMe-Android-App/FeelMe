@@ -6,14 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.movieDetails.usecase.MovieDetailsUseCase
 import com.feelme.feelmeapp.model.Flatrate
-import com.feelme.feelmeapp.model.Movie
+import com.feelme.feelmeapp.model.Result
 import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel: BaseViewModel() {
-
-    private val movieDetailsUseCase = MovieDetailsUseCase()
-    private val _onSuccessMovieDetails: MutableLiveData<Movie> = MutableLiveData()
-    val onSuccessMovieDetails: LiveData<Movie>
+class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase): BaseViewModel() {
+    private val _onSuccessMovieDetails: MutableLiveData<Result> = MutableLiveData()
+    val onSuccessMovieDetails: LiveData<Result>
         get() = _onSuccessMovieDetails
 
     private val _onSuccessMovieStreaming: MutableLiveData<List<Flatrate>> = MutableLiveData()
@@ -26,7 +24,7 @@ class MovieDetailsViewModel: BaseViewModel() {
                 callApi(
                     suspend { movieDetailsUseCase.getMovieById(movieId) },
                     onSuccess = {
-                        _onSuccessMovieDetails.postValue(it as Movie)
+                        _onSuccessMovieDetails.postValue(it as Result)
                     }
                 )
             }

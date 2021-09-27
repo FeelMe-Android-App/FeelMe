@@ -8,9 +8,9 @@ import com.feelme.feelmeapp.modeldb.toStreamDetails
 import com.feelme.feelmeapp.utils.ResponseApi
 import okhttp3.internal.toImmutableList
 
-class StreamListUseCase(private val streamList: StreamListRepository) {
+class StreamListUseCase(private val streamListRepository: StreamListRepository) {
     suspend fun getStreamList(): ResponseApi {
-        when(val responseApi = streamList.getStreamList()) {
+        when(val responseApi = streamListRepository.getStreamList()) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as? Stream
                 val results = data?.results?.map { StreamDetails ->
@@ -25,13 +25,13 @@ class StreamListUseCase(private val streamList: StreamListRepository) {
                         streamingDb.add(it.toStreamDb())
                     }
 
-                    this.streamList.saveStreamListDb(streamingDb)
+                    this.streamListRepository.saveStreamListDb(streamingDb)
                 }
 
                 return ResponseApi.Success(results)
             }
             is ResponseApi.Error -> {
-                val streamDb = this.streamList.getStreamListDb()
+                val streamDb = this.streamListRepository.getStreamListDb()
                 if(streamDb.isNullOrEmpty()) return responseApi
 
                 val streamList = streamDb.map {
