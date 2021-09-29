@@ -1,6 +1,5 @@
 package com.feelme.feelmeapp.features.dialog.view
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -27,8 +26,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import android.content.Intent
-
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.firebase.UserProfile
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FacebookAuthProvider
 
 
@@ -87,26 +89,34 @@ class Dialog(private var params: DialogData) : DialogFragment() {
             binding?.let {
                 LoginManager.getInstance().registerCallback(callbackManager, signingFacebookCallback)
                 it.fabBackAction.visibility = View.GONE
-                it.btPersonalized.setOnClickListener {
+                it.btPersonalized.setBackgroundColor(ContextCompat.getColor(requireContext(), (params.button as ButtonStyle).backgroundColor))
+                it.btPersonalized.text = (params.button as ButtonStyle).text
+                (it.btPersonalized as MaterialButton).setIconResource((params.button as ButtonStyle).icon)
+                it.btPersonalized.setOnClickListener { view ->
+                    it.btPersonalized.isEnabled = false
                     LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
                 }
             }
         }
 
         if(!params.emojiList.isNullOrEmpty()) {
-            binding?.btPersonalized?.visibility = View.GONE
-            binding?.fabBackAction?.visibility = View.GONE
-            binding?.tvContent?.visibility = View.GONE
-            binding?.rvEmojiList?.visibility = View.VISIBLE
+            binding?.let {
+                it.btPersonalized.visibility = View.GONE
+                it.fabBackAction.visibility = View.GONE
+                it.tvContent.visibility = View.GONE
+                it.rvEmojiList.visibility = View.VISIBLE
 
-            val emojiList = params.emojiList
-            binding?.rvEmojiList?.adapter = emojiList?.let { EmojiListAdapter((it as List<*>).filterIsInstance<EmojiList>(), this) }
-            binding?.rvEmojiList?.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
+                val emojiList = params.emojiList
+                it.rvEmojiList.adapter = emojiList?.let { emoji -> EmojiListAdapter((emoji as List<*>).filterIsInstance<EmojiList>(), this) }
+                it.rvEmojiList.layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
+            }
         }
 
-        binding?.ivDestaqImage?.setImageResource(params.image)
-        binding?.fabBackAction?.setOnClickListener {
-            dismiss()
+        binding?.let {
+            it.ivDestaqImage.setImageResource(params.image)
+            it.fabBackAction.setOnClickListener {
+                dismiss()
+            }
         }
     }
 
@@ -140,12 +150,12 @@ class Dialog(private var params: DialogData) : DialogFragment() {
 
     private fun updateUI(user: FirebaseUser?) {
         user?.let {
+            UserProfile.updateProfile()
             if(params.button !== null) this.dismiss()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 }

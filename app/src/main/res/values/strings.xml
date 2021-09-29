@@ -30,5 +30,8 @@
     <string name="skip">Pular</string>
     <string name="facebook_app_id">314667483762502</string>
     <string name="fb_login_protocol_scheme">fb314667483762502</string>
+    <string name="hello">Olá!</string>
+    <string name="hello_2">Olá,</string>
+    <string name="facebook_login">Entrar com Facebook</string>
 
 </resources>
