@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.model
 
+import androidx.recyclerview.widget.DiffUtil
 import com.feelme.feelmeapp.modeldb.Movie
 import com.feelme.feelmeapp.modeldb.MovieNowPlaying
 import com.google.gson.annotations.SerializedName
@@ -20,7 +21,7 @@ data class Result(
     @SerializedName("poster_path")
     var posterPath: String?,
     @SerializedName("release_date")
-    val releaseDate: String,
+    var releaseDate: String,
     val title: String,
     val video: Boolean,
     val runtime: Int,
@@ -28,12 +29,25 @@ data class Result(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-)
+) {
+    companion object {
+        var DIFF_CALLBACK: DiffUtil.ItemCallback<Result> =
+            object : DiffUtil.ItemCallback<Result>() {
+                override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+                    return oldItem.id == newItem.id
+                }
+
+                override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
+                    return oldItem.id == newItem.id
+                }
+            }
+    }
+}
 
 fun Result.toMovieDb(): Movie {
     return Movie(
         id = this.id,
-        adult = this.adult,
+        adult = this.adult ?: false,
         backdropPath = this.backdropPath,
         overview = this.overview,
         posterPath = this.posterPath,
@@ -49,3 +63,4 @@ fun Result.toMovieNowPlaying(): MovieNowPlaying {
         movieIdNowPlaying = this.id
     )
 }
+

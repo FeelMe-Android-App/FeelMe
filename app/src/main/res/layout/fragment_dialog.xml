@@ -67,7 +67,7 @@
                 android:id="@+id/btPersonalized"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Entrar com Facebook"
+                tools:text="@string/facebook_login"
                 android:layout_gravity="center"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 tools:icon="@drawable/ic_watched_outlined"

@@ -16,10 +16,10 @@ data class Movie(
     val id: Int,
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String?,
+    val backdropPath: String? = "",
     val overview: String,
     @SerializedName("poster_path")
-    var posterPath: String?,
+    var posterPath: String? = "",
     @SerializedName("release_date")
     val releaseDate: String,
     val runtime: Int,

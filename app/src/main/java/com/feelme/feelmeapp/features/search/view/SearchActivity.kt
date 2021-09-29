@@ -17,13 +17,14 @@ import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.features.search.adapter.MoviesResultAdapter
 import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.utils.Command
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.concurrent.timerTask
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var timer: Timer
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,6 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         timer = Timer()
-        viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         viewModel.command = MutableLiveData<Command>()
 
         binding.tiSearch.requestFocus()
@@ -64,14 +64,17 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupObservables() {
         viewModel.onSuccessSearch.observe(this, {
-            binding.rvMovies.adapter = MoviesResultAdapter(it) { Result ->
-                val intent = Intent(applicationContext, MovieDetailsActivity::class.java)
-                intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, Result.id)
-                startActivity(intent)
+            if(it.isNotEmpty()) {
+                it
+                binding.rvMovies.adapter = MoviesResultAdapter(it) { Result ->
+                    val intent = Intent(applicationContext, MovieDetailsActivity::class.java)
+                    intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, Result.id)
+                    startActivity(intent)
+                }
+                binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
+                binding.searchLoading.isVisible = false
+                binding.rvMovies.isVisible = true
             }
-            binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
-            binding.searchLoading.isVisible = false
-            binding.rvMovies.isVisible = true
         })
     }
 

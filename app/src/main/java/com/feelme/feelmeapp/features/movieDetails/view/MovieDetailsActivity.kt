@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
@@ -28,6 +27,9 @@ import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -65,16 +67,25 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
 
         binding.btSave.setOnClickListener {
-            Dialog(
-                DialogData(
-                    title = "Entre",
-                    subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
-                    image = R.drawable.ic_signup,
-                    button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
-                        Log.i("ButtonAction","Teste de Ação Personalizada")
-                    }
-                )
-            ).show(this.supportFragmentManager, "LoginDialog")
+            val user = Firebase.auth.currentUser
+            when(user) {
+                is FirebaseUser -> {
+                    user
+                    Log.i("FirebaseUser", "logado")
+                }
+                else -> {
+                    Dialog(
+                        DialogData(
+                            title = "Entre",
+                            subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
+                            image = R.drawable.ic_signup,
+                            button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
+                                Log.i("ButtonAction","Teste de Ação Personalizada")
+                            }
+                        )
+                    ).show(this.supportFragmentManager, "LoginDialog")
+                }
+            }
         }
 
         val emojiList = emojiList.map { MoodList ->

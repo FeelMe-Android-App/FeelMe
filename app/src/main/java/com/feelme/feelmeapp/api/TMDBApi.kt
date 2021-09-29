@@ -23,7 +23,8 @@ interface TMDBApi {
     suspend fun getDiscoverMovies(
         @Query("with_watch_providers") providers: String,
         @Query("with_genres") genres: String,
-        @Query("sort_by") sortBy: String
+        @Query("sort_by") sortBy: String,
+        @Query("page") page: Int,
     ): Response<DiscoverMovies>
 
     @GET("search/movie")
@@ -33,6 +34,8 @@ interface TMDBApi {
 
     @GET("genre/movie/list")
     suspend fun getGenres(): Response<Genres>
+
+
 
 //    DEIXEI COMO EXEMPLO PARA AS FUTURAS CHAMADAS
 

@@ -37,6 +37,6 @@ class HomeRepository(private val context: Context) : BaseRepository() {
     }
 
     suspend fun getNowPlayingDb(): List<MovieAndNowPlaying> {
-        return FeelMeDatabase.getDatabase(context).movieDao().getNowPlaying()
+        return FeelMeDatabase.getDatabase(context).nowPlaying().getNowPlaying()
     }
 }
