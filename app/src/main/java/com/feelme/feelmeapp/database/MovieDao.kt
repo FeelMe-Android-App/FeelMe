@@ -6,10 +6,6 @@ import com.feelme.feelmeapp.modeldb.*
 @Dao
 interface MovieDao {
     @Transaction
-    @Query("SELECT * FROM movie")
-    suspend fun getNowPlaying(): List<MovieAndNowPlaying>
-
-    @Transaction
     @Query("SELECT * FROM movie WHERE movieId = :movieId")
     suspend fun getMovieStreamGenre(movieId: Int): StreamWithMovies
 
@@ -23,6 +19,9 @@ interface MovieDao {
 
     @Query("SELECT * FROM movie")
     suspend fun getAllMovies(): List<Movie>
+
+    @Query("SELECT * FROM movie WHERE title LIKE '%' || :query || '%'")
+    suspend fun getMovieByQuery(query: String): List<Movie>
 
     @Query("SELECT * FROM movie WHERE movieId = :movieId")
     suspend fun getMovieById(movieId: Int): List<Movie>

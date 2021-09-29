@@ -1,11 +1,17 @@
 package com.feelme.feelmeapp.di
 
+import com.feelme.feelmeapp.features.genre.repository.GenreRepository
+import com.feelme.feelmeapp.features.genre.usecase.GenreUseCase
+import com.feelme.feelmeapp.features.genre.viewmodel.GenreViewModel
 import com.feelme.feelmeapp.features.home.repository.HomeRepository
 import com.feelme.feelmeapp.features.home.usecase.HomeUseCase
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
 import com.feelme.feelmeapp.features.movieDetails.usecase.MovieDetailsUseCase
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.features.search.repository.SearchRepository
+import com.feelme.feelmeapp.features.search.usecase.SearchUseCase
+import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.features.selectStream.repository.StreamListRepository
 import com.feelme.feelmeapp.features.selectStream.usecase.StreamListUseCase
 import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
@@ -30,4 +36,16 @@ val viewModelModule = module {
     single { MovieDetailsUseCase(movieDetailsRepository = get()) }
 
     viewModel { MovieDetailsViewModel(movieDetailsUseCase = get()) }
+
+    //Search
+    single { SearchRepository(get()) }
+    single { SearchUseCase(searchRepository = get()) }
+
+    viewModel { SearchViewModel(searchUseCase = get()) }
+
+    //Genre
+    single { GenreRepository() }
+    single { GenreUseCase(genreRepository = get()) }
+
+    viewModel { GenreViewModel(genreUseCase = get(), genreRepository = get()) }
 }

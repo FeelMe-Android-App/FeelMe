@@ -18,20 +18,26 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/square_right_rounded_white_gradient.xml" value="0.3828125" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/square_rounded_search.xml" value="0.3828125" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/square_rounded_white_gradient.xml" value="0.3828125" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_genre.xml" value="0.24573863636363635" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_movie_details.xml" value="0.33" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_no_internet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_profile.xml" value="0.1609375" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_search.xml" value="0.33" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_select_stream.xml" value="0.25" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_genre.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_what_to_watch.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_categorias.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_em_alta.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/mood_movie_item.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/movie_search_item.xml" value="0.22" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/movie_stream_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/stream_item.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/text_categ_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

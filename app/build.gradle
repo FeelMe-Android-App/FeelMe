@@ -64,6 +64,7 @@ dependencies {
     //Jetpack
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-alpha03"
+    implementation "androidx.paging:paging-runtime:3.0.1"
 
     //Tests
     testImplementation 'junit:junit:4.+'
@@ -84,4 +85,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.facebook.android:facebook-core:[8,9)'
+    implementation 'com.facebook.android:facebook-login:[8,9)'
 }

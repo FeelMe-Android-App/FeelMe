@@ -62,7 +62,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/lato"
-                        android:text="Olá, Samantha"
+                        android:text="Olá!"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"

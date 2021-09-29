@@ -7,7 +7,7 @@ import com.feelme.feelmeapp.utils.ResponseApi
 class WhatToWatchRepository: BaseRepository() {
     suspend fun getDiscoverMovies(providers: String, genres: String): ResponseApi {
         return safeApiCall {
-            ApiService.tmdbApi.getDiscoverMovies(providers, genres, "popularity.desc")
+            ApiService.tmdbApi.getDiscoverMovies(providers, genres, "popularity.desc", page = 1)
         }
     }
 }

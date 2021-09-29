@@ -5,10 +5,10 @@ import androidx.room.Relation
 import com.feelme.feelmeapp.model.Result
 
 data class MovieAndNowPlaying(
-    @Embedded val movie: Movie,
+    @Embedded val nowPlaying: MovieNowPlaying,
     @Relation(
-        parentColumn = "movieId",
-        entityColumn = "movieIdNowPlaying"
+        parentColumn = "movieIdNowPlaying",
+        entityColumn = "movieId"
     )
-    val nowPlaying: MovieNowPlaying?
+    val movie: Movie
 )

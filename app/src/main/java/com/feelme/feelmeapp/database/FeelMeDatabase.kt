@@ -15,6 +15,7 @@ object FeelMeDatabase {
         abstract fun movieGenreDao(): MovieGenreCrossRefDao
         abstract fun movieStreamDao(): MovieStreamCrossRefDao
         abstract fun movieNowPlaying(): MovieNowPlayingDao
+        abstract fun nowPlaying(): NowPlayingDao
     }
 
     fun getDatabase(context: Context) : FeelMeRoomDatabase {
