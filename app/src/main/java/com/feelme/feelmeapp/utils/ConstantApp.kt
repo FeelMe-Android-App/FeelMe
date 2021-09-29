@@ -14,6 +14,8 @@ class ConstantApp {
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
         const val QUERY_PARAM_WATCH_REGION = "watch_region"
         const val QUERY_PARAM_WATCH_REGION_VALUE = "BR"
+
+        const val BASE_URL_FEELME = "https://us-central1-feelme-88911.cloudfunctions.net/app"
     }
 
     object Emojis {

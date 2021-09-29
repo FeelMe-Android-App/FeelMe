@@ -45,6 +45,8 @@ object UserProfile {
                             task.result?.let { it.token }
                         }
 
+                        Log.i("firebaseToken", idToken ?: "")
+
                         currentLiveData.postValue(User(
                             providerId = user.providerId,
                             displayName = user.displayName ?: "",

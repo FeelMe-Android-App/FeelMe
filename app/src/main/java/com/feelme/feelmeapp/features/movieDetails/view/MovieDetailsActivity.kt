@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.movieDetails.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,8 @@ import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
+import com.feelme.feelmeapp.features.genre.view.GenreActivity
+import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
@@ -123,7 +126,10 @@ class MovieDetailsActivity : AppCompatActivity() {
                     tvMovieReleaseYear.text = released
 
                     rvCategories.adapter = MovieCategoriesAdapter(Movie.genreIds) {
-
+                        val intent = Intent(applicationContext, GenreActivity::class.java)
+                        intent.putExtra(HomeFragment.EXTRA_CATEGORY_ID, it.id)
+                        intent.putExtra(HomeFragment.EXTRA_CATEGORY_NAME, it.name)
+                        startActivity(intent)
                     }
                     rvCategories.isNestedScrollingEnabled = false
                     val layoutManager = FlexboxLayoutManager(applicationContext)
