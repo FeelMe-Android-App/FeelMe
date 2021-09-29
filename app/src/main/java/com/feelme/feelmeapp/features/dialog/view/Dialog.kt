@@ -28,6 +28,7 @@ import com.google.firebase.ktx.Firebase
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.firebase.UserProfile
 import com.google.android.material.button.MaterialButton
@@ -94,6 +95,7 @@ class Dialog(private var params: DialogData) : DialogFragment() {
                 (it.btPersonalized as MaterialButton).setIconResource((params.button as ButtonStyle).icon)
                 it.btPersonalized.setOnClickListener { view ->
                     it.btPersonalized.isEnabled = false
+                    it.btPersonalized.alpha = 0.5F
                     LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
                 }
             }
@@ -150,8 +152,10 @@ class Dialog(private var params: DialogData) : DialogFragment() {
 
     private fun updateUI(user: FirebaseUser?) {
         user?.let {
-            UserProfile.updateProfile()
-            if(params.button !== null) this.dismiss()
+            if(params.button !== null) {
+                UserProfile.updateProfile()
+                this.dismiss()
+            }
         }
     }
 
