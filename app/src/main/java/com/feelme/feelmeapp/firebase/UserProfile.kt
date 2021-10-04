@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.GetTokenResult
 
 import androidx.annotation.NonNull
+import com.feelme.feelmeapp.model.Follow
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 
@@ -18,10 +19,14 @@ object UserProfile {
     class User(
         var providerId: String? = null,
         var displayName: String? = null,
+        var status: String? = null,
         var email: String? = null,
         var photoUrl: Uri? = null,
         var photoUrlThumb: Uri? = null,
-        val token: String? = null
+        val token: String? = null,
+        val follow: MutableList<Follow> = mutableListOf(),
+        val followed: MutableList<Follow> = mutableListOf(),
+        val streaming: MutableList<Int> = mutableListOf()
     )
 
     private val currentLiveData: MutableLiveData<User?> = MutableLiveData()
@@ -36,23 +41,21 @@ object UserProfile {
     fun updateProfile() {
         val user = Firebase.auth.currentUser
         if(user != null) {
-            var idToken: String? = null
             user.getIdToken(false)
                 .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                     override fun onComplete(task: Task<GetTokenResult?>) {
                         if (task.isSuccessful()) {
-                            idToken = task.getResult()?.token
-                            task.result?.let { it.token }
+                            task.result?.let {
+                                currentLiveData.postValue(User(
+                                    providerId = user.providerId,
+                                    displayName = user.displayName ?: "",
+                                    email = user.email ?: "",
+                                    photoUrl = Profile.getCurrentProfile().getProfilePictureUri(100, 100),
+                                    photoUrlThumb = Profile.getCurrentProfile().getProfilePictureUri(40, 40),
+                                    token = it.token
+                                ))
+                            }
                         }
-
-                        currentLiveData.postValue(User(
-                            providerId = user.providerId,
-                            displayName = user.displayName ?: "",
-                            email = user.email ?: "",
-                            photoUrl = Profile.getCurrentProfile().getProfilePictureUri(100, 100),
-                            photoUrlThumb = Profile.getCurrentProfile().getProfilePictureUri(40, 40),
-                            token = idToken
-                        ))
                     }
                 })
         } else {

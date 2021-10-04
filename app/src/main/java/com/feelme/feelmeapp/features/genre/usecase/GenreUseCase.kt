@@ -4,6 +4,8 @@ import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.genre.repository.GenreRepository
 import com.feelme.feelmeapp.model.DiscoverMovies
 import com.feelme.feelmeapp.model.Result
+import com.feelme.feelmeapp.model.toMovieDb
+import com.feelme.feelmeapp.modeldb.Movie
 import com.feelme.feelmeapp.utils.ResponseApi
 
 class GenreUseCase(private val genreRepository: GenreRepository) {
@@ -25,7 +27,7 @@ class GenreUseCase(private val genreRepository: GenreRepository) {
         }
     }
 
-    fun setupMoviesList(list: DiscoverMovies?): List<Result> {
+    suspend fun setupMoviesList(list: DiscoverMovies?): List<Result> {
         return list?.results?.map {
             it.backdropPath = it.backdropPath?.getFullImageUrl()
             it.posterPath = it.posterPath?.getFullImageUrl()

@@ -6,11 +6,15 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.OnConflictStrategy.REPLACE
 import com.feelme.feelmeapp.modeldb.Genre
+import com.feelme.feelmeapp.modeldb.GenreMovie
 
 @Dao
 interface GenreDao {
     @Query("SELECT * FROM genre")
     suspend fun getAllGenres(): List<Genre>
+
+    @Query("SELECT * FROM genre WHERE genreId = :genreId LIMIT :limit OFFSET :offset")
+    suspend fun getMovieByGenre(genreId: Int, limit: Int, offset: Int): GenreMovie
 
     @Insert(onConflict = REPLACE)
     suspend fun insertAll(genreList: List<Genre>)

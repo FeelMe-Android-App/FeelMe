@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentProfileBinding
+import com.feelme.feelmeapp.features.profile.adapter.ProfileAdapter
+import com.feelme.feelmeapp.features.savedMovies.view.SavedMoviesFragment
 import com.feelme.feelmeapp.firebase.UserProfile
+import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
@@ -30,6 +35,17 @@ class ProfileFragment : Fragment() {
         }
 
         setupObservables()
+
+        val fragments = listOf(SavedMoviesFragment())
+        val icons = listOf(R.drawable.ic_save_film)
+        val profilePagerAdapter = ProfileAdapter(fragments, this)
+
+        binding.let {
+            it.vpUserProfile.adapter = profilePagerAdapter
+            TabLayoutMediator(it.tlUserProfile, it.vpUserProfile) { tab, position ->
+                tab.icon = ResourcesCompat.getDrawable(resources, icons[position], null)
+            }.attach()
+        }
     }
 
     private fun setupObservables() {

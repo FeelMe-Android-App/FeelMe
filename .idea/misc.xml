@@ -29,7 +29,8 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_genre.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_saved_movies.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_what_to_watch.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_categorias.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/list_em_alta.xml" value="0.36666666666666664" />
@@ -38,6 +39,7 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/movie_stream_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/stream_item.xml" value="0.1712962962962963" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/text_categ_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/watching_movie_item.xml" value="0.36944444444444446" />
       </map>
     </option>
   </component>

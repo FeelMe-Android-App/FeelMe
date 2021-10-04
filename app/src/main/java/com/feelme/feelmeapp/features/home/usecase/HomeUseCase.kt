@@ -32,8 +32,8 @@ class HomeUseCase(private val homeRepository: HomeRepository) {
                         movieNowPlaying.add(MovieResult.toMovieNowPlaying())
                     }
 
-                    this.homeRepository.saveMovieDb(nowPlayingDb)
-                    this.homeRepository.saveMovieNowPlayingDb(movieNowPlaying)
+                    this.homeRepository.saveMovieDb(nowPlayingDb.toList())
+                    this.homeRepository.saveMovieNowPlayingDb(movieNowPlaying.toList())
                 }
 
                 return ResponseApi.Success(result)

@@ -48,10 +48,10 @@ fun Result.toMovieDb(): Movie {
     return Movie(
         id = this.id,
         adult = this.adult ?: false,
-        backdropPath = this.backdropPath,
+        backdropPath = this.backdropPath ?: "",
         overview = this.overview,
         posterPath = this.posterPath,
-        releaseDate = this.releaseDate,
+        releaseDate = this.releaseDate ?: "",
         runtime = this.runtime,
         title = this.title
     )

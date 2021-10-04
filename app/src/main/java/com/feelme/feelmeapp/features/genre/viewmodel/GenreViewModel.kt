@@ -11,7 +11,6 @@ import com.feelme.feelmeapp.features.genre.usecase.GenreUseCase
 import com.feelme.feelmeapp.features.genre.view.GenreActivity.Companion.PAGE_SIZE
 import com.feelme.feelmeapp.model.Result
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class GenreViewModel(private val genreUseCase: GenreUseCase, private val genreRepository: GenreRepository): BaseViewModel() {
     var mPagingData: Flow<PagingData<Result>>? = null
@@ -22,9 +21,9 @@ class GenreViewModel(private val genreUseCase: GenreUseCase, private val genreRe
     fun getMoviesByGenre(genreId: Int): Flow<PagingData<Result>> {
         if(mPagingData != null) return mPagingData as Flow<PagingData<Result>>
         else
-            mPagingData = Pager(config = PagingConfig(pageSize = PAGE_SIZE),
-                pagingSourceFactory = { GenrePagingSource(genreRepository, genreUseCase, genreId) }
-            ).flow.cachedIn(viewModelScope)
+            mPagingData = Pager(config = PagingConfig(pageSize = PAGE_SIZE)) {
+                GenrePagingSource(genreRepository, genreUseCase, genreId)
+            }.flow.cachedIn(viewModelScope)
         return mPagingData as Flow<PagingData<Result>>
     }
 }

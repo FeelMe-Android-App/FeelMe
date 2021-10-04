@@ -81,6 +81,7 @@ class HomeFragment : Fragment() {
                     val homeText = "Olá, ${it.displayName}"
                     Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(binding.ivFotoLogin)
                     binding.tvNomeLogin.text = homeText
+                    Log.i("firebaseToken",it.token.toString())
                 }
             })
         }
