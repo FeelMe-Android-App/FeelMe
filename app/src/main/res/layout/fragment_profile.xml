@@ -106,72 +106,42 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Example"
-            android:textColor="@color/white"
-            android:width="400dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="15dp"
-            android:background="@drawable/dialog_balloon"
-            android:backgroundTintMode="multiply"
-            android:layout_marginTop="15dp"/>
-
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tlUserProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/btSavedMovies"
-                android:layout_width="match_parent"
+            android:background="@color/primary_color"
+            android:backgroundTint="@color/primary_color"
+            app:tabRippleColor="@color/white"
+            app:tabTextColor="@color/white"
+            app:tabIconTint="@color/white">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/saved_movies"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:fontFamily="@font/lato"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                app:icon="@drawable/ic_saved"
-                android:paddingTop="@dimen/default_padding_left_right"
-                android:paddingBottom="@dimen/default_padding_left_right"
-                android:paddingLeft="@dimen/default_padding_left_right"
-                android:paddingRight="@dimen/default_padding_left_right"
+                android:icon="@drawable/ic_saved"
+                android:backgroundTint="@color/white"
                 />
-            <Button
-                android:id="@+id/btWatched"
-                android:layout_width="match_parent"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/watched_movies"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:fontFamily="@font/lato"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                app:icon="@drawable/ic_watched_movies"
-                android:paddingTop="@dimen/default_padding_top_bottom"
-                android:paddingBottom="@dimen/default_padding_top_bottom"
-                android:paddingLeft="@dimen/default_padding_left_right"
-                android:paddingRight="@dimen/default_padding_left_right"
+                android:icon="@drawable/ic_watched_movies"
                 />
-            <Button
-                android:id="@+id/btStreaming"
-                android:layout_width="match_parent"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/streaming_services"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:fontFamily="@font/lato"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                app:icon="@drawable/ic_streamings"
-                android:paddingTop="@dimen/default_padding_top_bottom"
-                android:paddingBottom="@dimen/default_padding_top_bottom"
-                android:paddingLeft="@dimen/default_padding_left_right"
-                android:paddingRight="@dimen/default_padding_left_right"
+                android:icon="@drawable/ic_streamings"
                 />
-        </LinearLayout>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_watched_movies"
+                />
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

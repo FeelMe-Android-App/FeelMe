@@ -11,10 +11,6 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.feelme.feelmeapp.databinding.FragmentDialogBinding
@@ -28,11 +24,17 @@ import com.google.firebase.ktx.Firebase
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import com.facebook.*
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.features.dialog.viewmodel.DialogViewModel
 import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.model.FeelMeNewUserPost
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FacebookAuthProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class Dialog(private var params: DialogData) : DialogFragment() {
@@ -40,6 +42,7 @@ class Dialog(private var params: DialogData) : DialogFragment() {
     private lateinit var callbackManager: CallbackManager
     private lateinit var signingFacebookCallback: FacebookCallback<LoginResult>
     private lateinit var auth: FirebaseAuth
+    private val viewModel: DialogViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +76,18 @@ class Dialog(private var params: DialogData) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
+
+        activity?.let {
+            UserProfile.currentUser.observe(this, { UserProfile ->
+                UserProfile?.token?.let {
+                    viewModel.command = MutableLiveData()
+                }
+            })
+
+            viewModel.onSuccessUserProfile.observe(this, {
+                if(params.button !== null) this.dismiss()
+            })
+        }
     }
 
     private fun setupView() {
@@ -154,7 +169,7 @@ class Dialog(private var params: DialogData) : DialogFragment() {
         user?.let {
             if(params.button !== null) {
                 UserProfile.updateProfile()
-                this.dismiss()
+                viewModel.saveUserProfile(FeelMeNewUserPost("", UserProfile.currentUser.value?.photoUrl.toString() ?: ""))
             }
         }
     }

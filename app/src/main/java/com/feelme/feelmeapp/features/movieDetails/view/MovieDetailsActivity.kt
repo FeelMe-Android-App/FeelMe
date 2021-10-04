@@ -3,6 +3,7 @@ package com.feelme.feelmeapp.features.movieDetails.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +23,7 @@ import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.utils.Command
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.google.android.flexbox.FlexDirection
@@ -56,12 +58,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             Dialog(DialogData(content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo.", image = R.drawable.bruna_silva)).show(this.supportFragmentManager, "CustomDialog")
         }
 
-        this.let {
-            val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-            viewModel.command = MutableLiveData()
-            viewModel.getMovieDetailsScreen(movieId)
-            setupObservables()
-        }
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
+        viewModel.command = MutableLiveData()
+        viewModel.getMovieDetailsScreen(movieId)
+        setupObservables()
 
         binding.rvComments.adapter = commentViewPager
         binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
@@ -70,8 +70,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             val user = Firebase.auth.currentUser
             when(user) {
                 is FirebaseUser -> {
-                    user
-                    Log.i("FirebaseUser", "logado")
+                    val movieDetails = viewModel.onSuccessMovieDetails.value
+                    movieDetails.let {
+                        viewModel.saveUnwatchedMovie(movieId, FeelMeMovie(backdropPath = it?.backdropPath.toString(), title = it?.title ?: ""))
+                    }
                 }
                 else -> {
                     Dialog(
@@ -146,6 +148,10 @@ class MovieDetailsActivity : AppCompatActivity() {
 
                 binding.vgMovieDetailsLoading.isVisible = false
                 binding.vgMovieDetailsFragment.isVisible = true
+            })
+
+            viewModel.onSuccessSaveMovie.observe(MovieDetailsActivity, {
+                binding.btSave.background = ResourcesCompat.getDrawable(resources, R.color.green_success, null)
             })
 
             viewModel.command.observe(MovieDetailsActivity, {

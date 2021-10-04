@@ -4,6 +4,7 @@ import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
 import com.feelme.feelmeapp.model.*
 import com.feelme.feelmeapp.model.Genre
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.utils.ResponseApi
 import okhttp3.internal.toImmutableList
@@ -79,5 +80,9 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
                 return ResponseApi.Success(stream)
             }
         }
+    }
+
+    suspend fun saveUnwatchedMovie(movieId: Int, movieDetails: FeelMeMovie): ResponseApi {
+        return this.movieDetailsRepository.saveUnwatchedMovie(movieId, movieDetails)
     }
 }

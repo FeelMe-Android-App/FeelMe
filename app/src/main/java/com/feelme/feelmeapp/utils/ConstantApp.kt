@@ -9,11 +9,12 @@ class ConstantApp {
     object Api {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val API_TOKEN_KEY = "api_key"
-        const val API_TOKEN = "3fdab48e2bddf5d597050debe64abb1c"
+        const val API_TOKEN = "b5be49ab0adbe0f2875221897ecc4526"
         const val QUERY_PARAM_LANGUAGE_KEY = "language"
         const val QUERY_PARAM_LANGUAGE_VALUE = "pt-BR"
         const val QUERY_PARAM_WATCH_REGION = "watch_region"
         const val QUERY_PARAM_WATCH_REGION_VALUE = "BR"
+        const val BASE_URL_FEELME = "https://feelme-app.herokuapp.com/"
     }
 
     object Emojis {
