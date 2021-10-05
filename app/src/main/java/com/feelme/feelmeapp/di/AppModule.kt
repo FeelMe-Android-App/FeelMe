@@ -47,11 +47,11 @@ val viewModelModule = module {
     single { SearchRepository(get()) }
     single { SearchUseCase(searchRepository = get()) }
 
-    viewModel { SearchViewModel(searchUseCase = get()) }
+    viewModel { SearchViewModel(searchUseCase = get(), searchRepository = get()) }
 
     //Genre
     single { GenreRepository(context = get()) }
-    single { GenreUseCase(genreRepository = get()) }
+    single { GenreUseCase() }
 
     viewModel { GenreViewModel(genreUseCase = get(), genreRepository = get()) }
 
@@ -65,5 +65,5 @@ val viewModelModule = module {
     single { SavedMoviesRepository() }
     single { SavedMoviesUseCase(get()) }
 
-    viewModel { SavedMoviesViewModel(savedMoviesUseCase = get(), savedMoviesRepository = get()) }
+    viewModel { SavedMoviesViewModel(savedMoviesRepository = get(), savedMoviesUseCase = get()) }
 }
