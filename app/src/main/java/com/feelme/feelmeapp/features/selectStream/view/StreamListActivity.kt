@@ -67,7 +67,7 @@ class StreamListActivity() : AppCompatActivity() {
                 }
             }
 
-            binding.vgSelectStreamLoading.visibility = View.GONE
+            binding.vgLoader.vgLoader.visibility = View.GONE
             binding.vgSelectStream.visibility = View.VISIBLE
         })
     }

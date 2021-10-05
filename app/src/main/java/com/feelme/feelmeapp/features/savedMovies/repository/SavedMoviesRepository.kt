@@ -7,7 +7,7 @@ import com.feelme.feelmeapp.utils.ResponseApi
 class SavedMoviesRepository: BaseRepository() {
     suspend fun getSavedMovies(page: Int): ResponseApi {
         return safeApiCall {
-            FeelMeApiService.feelMeApiService.getUmwatchedMovies(page)
+            FeelMeApiService.feelMeApiService.getUnwatchedMovies(page)
         }
     }
 }

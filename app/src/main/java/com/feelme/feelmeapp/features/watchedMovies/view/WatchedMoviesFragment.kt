@@ -1,4 +1,4 @@
-package com.feelme.feelmeapp.features.savedMovies.view
+package com.feelme.feelmeapp.features.watchedMovies.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,17 +10,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.adapters.PagingSquareAdapter.PagedSquareImagesAdapter
-import com.feelme.feelmeapp.databinding.FragmentSavedMoviesBinding
+import com.feelme.feelmeapp.databinding.FragmentWatchedMoviesBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.features.savedMovies.viewmodel.SavedMoviesViewModel
+import com.feelme.feelmeapp.features.watchedMovies.viewmodel.WatchedMoviesModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SavedMoviesFragment : Fragment() {
-    private var binding: FragmentSavedMoviesBinding? = null
-    private val viewModel: SavedMoviesViewModel by viewModel()
+class WatchedMoviesFragment : Fragment() {
+    private var binding: FragmentWatchedMoviesBinding? = null
+    private val viewModel: WatchedMoviesModel by viewModel()
     private val pagedSquareImagesAdapter: PagedSquareImagesAdapter by lazy {
         PagedSquareImagesAdapter { movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
@@ -33,19 +34,20 @@ class SavedMoviesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSavedMoviesBinding.inflate(inflater, container, false)
+        binding = FragmentWatchedMoviesBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupObservables()
         setupRecyclerView()
     }
 
     private fun setupObservables() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getUnwatchedMoviesList().collect { pagingData ->
+            viewModel.getWatchedMoviesList().collect { pagingData ->
                 pagedSquareImagesAdapter.submitData(pagingData)
             }
         }

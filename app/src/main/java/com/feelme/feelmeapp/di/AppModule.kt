@@ -21,6 +21,9 @@ import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.features.selectStream.repository.StreamListRepository
 import com.feelme.feelmeapp.features.selectStream.usecase.StreamListUseCase
 import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
+import com.feelme.feelmeapp.features.watchedMovies.repository.WatchedMoviesRepository
+import com.feelme.feelmeapp.features.watchedMovies.usecase.WatchedMoviesUseCase
+import com.feelme.feelmeapp.features.watchedMovies.viewmodel.WatchedMoviesModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -66,4 +69,11 @@ val viewModelModule = module {
     single { SavedMoviesUseCase(get()) }
 
     viewModel { SavedMoviesViewModel(savedMoviesRepository = get(), savedMoviesUseCase = get()) }
+
+    //WatchedMovies
+    single { WatchedMoviesRepository() }
+    single { WatchedMoviesUseCase() }
+
+    viewModel { WatchedMoviesModel(watchedMoviesRepository = get(), watchedMoviesUseCase = get()) }
+
 }

@@ -13,7 +13,12 @@ interface FeelMeUser {
     suspend fun saveMyProfile(@Body body: FeelMeNewUserPost): Response<Any>
 
     @GET("myprofile/unwatchedmovies")
-    suspend fun getUmwatchedMovies(
+    suspend fun getUnwatchedMovies(
+        @Query("page") page: Int
+    ): Response<MyMoviesList>
+
+    @GET("myprofile/watchedmovies")
+    suspend fun getWatchedMovies(
         @Query("page") page: Int
     ): Response<MyMoviesList>
 

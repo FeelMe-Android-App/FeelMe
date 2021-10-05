@@ -11,16 +11,17 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
+import com.feelme.feelmeapp.firebase.UserProfile
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        UserProfile
 
         val navController = Navigation.findNavController(this, R.id.fragmentNavHost)
         setupWithNavController(binding.bottomNavigationView, navController)

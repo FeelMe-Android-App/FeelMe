@@ -13,6 +13,10 @@ import androidx.annotation.NonNull
 import com.feelme.feelmeapp.model.Follow
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.internal.IdTokenListener
+import com.google.firebase.internal.InternalTokenResult
 
 
 object UserProfile {
@@ -35,31 +39,38 @@ object UserProfile {
         get() = currentLiveData
 
     init {
-        updateProfile()
-    }
-
-    fun updateProfile() {
         val user = Firebase.auth.currentUser
-        if(user != null) {
-            user.getIdToken(false)
+
+        user?.let {
+            user.getIdToken(true)
                 .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                     override fun onComplete(task: Task<GetTokenResult?>) {
                         if (task.isSuccessful()) {
                             task.result?.let {
-                                currentLiveData.postValue(User(
-                                    providerId = user.providerId,
-                                    displayName = user.displayName ?: "",
-                                    email = user.email ?: "",
-                                    photoUrl = Profile.getCurrentProfile().getProfilePictureUri(100, 100),
-                                    photoUrlThumb = Profile.getCurrentProfile().getProfilePictureUri(40, 40),
-                                    token = it.token
-                                ))
+                                it.token?.let { patchUserValue(user, it) }
                             }
                         }
                     }
                 })
-        } else {
-            currentLiveData.postValue(null)
         }
+
+        FirebaseAuth.getInstance().addIdTokenListener(object : IdTokenListener {
+            override fun onIdTokenChanged(p0: InternalTokenResult) {
+                p0.token?.let { token ->
+                    user?.let { patchUserValue(user, token) }
+                }
+            }
+        })
+    }
+
+    private fun patchUserValue(user: FirebaseUser, token: String) {
+        currentLiveData.postValue(User(
+            providerId = user.providerId,
+            displayName = user.displayName ?: "",
+            email = user.email ?: "",
+            photoUrl = Profile.getCurrentProfile().getProfilePictureUri(100, 100),
+            photoUrlThumb = Profile.getCurrentProfile().getProfilePictureUri(40, 40),
+            token = token
+        ))
     }
 }

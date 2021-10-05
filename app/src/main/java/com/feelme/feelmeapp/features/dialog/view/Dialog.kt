@@ -168,7 +168,6 @@ class Dialog(private var params: DialogData) : DialogFragment() {
     private fun updateUI(user: FirebaseUser?) {
         user?.let {
             if(params.button !== null) {
-                UserProfile.updateProfile()
                 viewModel.saveUserProfile(FeelMeNewUserPost("", UserProfile.currentUser.value?.photoUrl.toString() ?: ""))
             }
         }

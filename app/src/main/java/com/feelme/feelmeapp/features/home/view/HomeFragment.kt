@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.features.home.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,63 +24,69 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-            viewModel.command = MutableLiveData()
-            viewModel.getGenres()
-            viewModel.getNowPlayingMovies()
-            setupObservables()
+        binding?.let { FragmentHome ->
+            FragmentHome.vgHomeFragment.isVisible = false
+            FragmentHome.ivFotoLogin.setOnClickListener {
+                startActivity(Intent(context, ProfileActivity::class.java))
+            }
         }
 
-        binding.ivFotoLogin.setOnClickListener {
-            startActivity(Intent(context, ProfileActivity::class.java))
-        }
+        viewModel.command = MutableLiveData()
+        viewModel.getGenres()
+        viewModel.getNowPlayingMovies()
+        setupObservables()
     }
 
     private fun setupObservables() {
         activity?.let { FragmentActivity ->
             viewModel.onSuccessNowPlaying.observe(FragmentActivity, {
-                binding.rvEmAlta.adapter = EmAltaAdapter(it) { Result ->
-                    val intent = Intent(context, MovieDetailsActivity::class.java)
-                    intent.putExtra(EXTRA_MOVIE_ID, Result.id)
-                    startActivity(intent)
-                }
-                binding.rvEmAlta.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-                binding.rvEmAlta.layoutManager =
+                binding?.let { FragmentHome ->
+                    FragmentHome.rvEmAlta.adapter = EmAltaAdapter(it) { Result ->
+                        val intent = Intent(context, MovieDetailsActivity::class.java)
+                        intent.putExtra(EXTRA_MOVIE_ID, Result.id)
+                        startActivity(intent)
+                    }
+                    FragmentHome.rvEmAlta.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                    FragmentHome.rvEmAlta.layoutManager =
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                binding.vgHomeLoading.isVisible = false
-                binding.vgHomeFragment.isVisible = true
+                    FragmentHome.vgLoader.vgLoader.isVisible = false
+                    FragmentHome.vgHomeFragment.isVisible = true
+                }
             })
 
             viewModel.onSucessGenres.observe(FragmentActivity, { GenreList ->
-                binding.rvCategoria.adapter = CategoriesAdapter(GenreList) {
-                    val intent = Intent(context, GenreActivity::class.java)
-                    intent.putExtra(EXTRA_CATEGORY_ID, it.id)
-                    intent.putExtra(EXTRA_CATEGORY_NAME, it.name)
-                    startActivity(intent)
+                binding?.let { FragmentHome ->
+                    FragmentHome.rvCategoria.adapter = CategoriesAdapter(GenreList) {
+                        val intent = Intent(context, GenreActivity::class.java)
+                        intent.putExtra(EXTRA_CATEGORY_ID, it.id)
+                        intent.putExtra(EXTRA_CATEGORY_NAME, it.name)
+                        startActivity(intent)
+                    }
+                    FragmentHome.rvCategoria.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 }
-                binding.rvCategoria.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             })
 
             UserProfile.currentUser.observe(FragmentActivity, { CurrentUser ->
                 CurrentUser?.let {
-                    val homeText = "Olá, ${it.displayName}"
-                    Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(binding.ivFotoLogin)
-                    binding.tvNomeLogin.text = homeText
-                    Log.i("firebaseToken",it.token.toString())
+                    binding?.let { FragmentHome ->
+                        val homeText = "Olá, ${it.displayName}"
+                        Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(FragmentHome.ivFotoLogin)
+                        FragmentHome.tvNomeLogin.text = homeText
+                    }
                 }
             })
         }
