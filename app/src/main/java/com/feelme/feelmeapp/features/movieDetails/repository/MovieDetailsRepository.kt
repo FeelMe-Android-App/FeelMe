@@ -16,6 +16,12 @@ class MovieDetailsRepository(private val context: Context): BaseRepository() {
         }
     }
 
+    suspend fun getMovieStatusId(id: Int): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.getMovieStatus(id)
+        }
+    }
+
     suspend fun saveUnwatchedMovie(movieId: Int, movieDetails: FeelMeMovie): ResponseApi {
         return safeApiCall {
             FeelMeApiService.feelMeApiService.saveUnwatchedMovie(movieId, movieDetails)

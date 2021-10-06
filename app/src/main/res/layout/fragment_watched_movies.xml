@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.watchedMovies.view.WatchedMoviesFragment">
+    tools:context=".features.watchedMovies.view.WatchedMoviesFragment"
+    android:background="@color/primary_color">
+
+    <include
+        layout="@layout/loader"
+        android:id="@+id/vgLoader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovieList"

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,7 @@ class SavedMoviesFragment : Fragment() {
     private fun setupObservables() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getUnwatchedMoviesList().collect { pagingData ->
+                binding?.let { it.vgLoader.vgLoader.isVisible = false }
                 pagedSquareImagesAdapter.submitData(pagingData)
             }
         }

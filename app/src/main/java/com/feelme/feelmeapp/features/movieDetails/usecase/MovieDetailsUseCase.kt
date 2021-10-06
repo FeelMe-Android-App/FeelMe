@@ -5,6 +5,7 @@ import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsReposit
 import com.feelme.feelmeapp.model.*
 import com.feelme.feelmeapp.model.Genre
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.utils.ResponseApi
 import okhttp3.internal.toImmutableList
@@ -43,6 +44,18 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
                 movie.genreIds = genres
 
                 return ResponseApi.Success(movie)
+            }
+        }
+    }
+
+    suspend fun getMovieStatusId(movieId: Int): ResponseApi {
+        when(val responseApi = movieDetailsRepository.getMovieStatusId(movieId)) {
+            is ResponseApi.Success -> {
+                val data = responseApi.data as FeelMeMovieStatus
+                return ResponseApi.Success(data)
+            }
+            is ResponseApi.Error -> {
+                return responseApi
             }
         }
     }

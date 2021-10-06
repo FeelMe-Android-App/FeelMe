@@ -39,20 +39,9 @@ object UserProfile {
         get() = currentLiveData
 
     init {
-        val user = Firebase.auth.currentUser
+        patchInitialValue()
 
-        user?.let {
-            user.getIdToken(true)
-                .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                    override fun onComplete(task: Task<GetTokenResult?>) {
-                        if (task.isSuccessful()) {
-                            task.result?.let {
-                                it.token?.let { patchUserValue(user, it) }
-                            }
-                        }
-                    }
-                })
-        }
+        val user = Firebase.auth.currentUser
 
         FirebaseAuth.getInstance().addIdTokenListener(object : IdTokenListener {
             override fun onIdTokenChanged(p0: InternalTokenResult) {
@@ -61,6 +50,21 @@ object UserProfile {
                 }
             }
         })
+    }
+
+    fun patchInitialValue() {
+        Firebase.auth.currentUser?.let { User ->
+            User.getIdToken(true)
+                .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                    override fun onComplete(task: Task<GetTokenResult?>) {
+                        if (task.isSuccessful()) {
+                            task.result?.let {
+                                it.token?.let { patchUserValue(User, it) }
+                            }
+                        }
+                    }
+                })
+        }
     }
 
     private fun patchUserValue(user: FirebaseUser, token: String) {
