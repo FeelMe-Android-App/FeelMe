@@ -29,7 +29,8 @@ interface TMDBApi {
 
     @GET("search/movie")
     suspend fun search(
-            @Query("query") query: String,
+        @Query("query") query: String,
+        @Query("page") page: Int,
     ): Response<Search>
 
     @GET("genre/movie/list")

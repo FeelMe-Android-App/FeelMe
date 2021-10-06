@@ -6,19 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/primary_color"
     android:forceDarkAllowed="false">
-    <FrameLayout
-        android:id="@+id/vgHomeLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:lottie_rawRes="@raw/loading"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            android:layout_gravity="center"
-            />
-    </FrameLayout>
+    <include
+        layout="@layout/loader"
+        android:id="@+id/vgLoader" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,8 +16,7 @@
             android:id="@+id/vgHomeFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".features.home.view.HomeFragment"
-            android:visibility="invisible">
+            tools:context=".features.home.view.HomeFragment">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
@@ -53,7 +42,8 @@
                         android:theme="?attr/actionBarTheme"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:backgroundTint="@color/primary_color"/>
 
                     <TextView
                         android:id="@+id/tvNomeLogin"

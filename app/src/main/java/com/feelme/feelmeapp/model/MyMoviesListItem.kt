@@ -1,10 +1,11 @@
 package com.feelme.feelmeapp.model
 
 import androidx.recyclerview.widget.DiffUtil
+import com.google.gson.annotations.SerializedName
 
 data class MyMoviesListItem(
-    val __v: Int,
-    val _id: String,
+    @SerializedName("_id")
+    val idMovie: String,
     var backdropPath: String,
     val createdAt: String,
     val id: String,
@@ -20,14 +21,14 @@ data class MyMoviesListItem(
                     oldItem: MyMoviesListItem,
                     newItem: MyMoviesListItem
                 ): Boolean {
-                    return oldItem._id == newItem._id
+                    return oldItem.idMovie == newItem.idMovie
                 }
 
                 override fun areContentsTheSame(
                     oldItem: MyMoviesListItem,
                     newItem: MyMoviesListItem
                 ): Boolean {
-                    return oldItem._id == newItem._id
+                    return oldItem.idMovie == newItem.idMovie
                 }
             }
     }

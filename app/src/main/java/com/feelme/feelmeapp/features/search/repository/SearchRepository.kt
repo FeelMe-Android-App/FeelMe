@@ -8,9 +8,9 @@ import com.feelme.feelmeapp.modeldb.Movie
 import com.feelme.feelmeapp.utils.ResponseApi
 
 class SearchRepository(private val context: Context) : BaseRepository() {
-    suspend fun getSearch(query: String): ResponseApi {
+    suspend fun getSearch(query: String, page: Int): ResponseApi {
         return safeApiCall {
-            ApiService.tmdbApi.search(query)
+            ApiService.tmdbApi.search(query, page)
         }
     }
 

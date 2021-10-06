@@ -8,19 +8,10 @@
     android:forceDarkAllowed="false"
     android:background="@color/primary_color"
     >
-    <FrameLayout
-        android:id="@+id/vgSelectStreamLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:lottie_rawRes="@raw/loading"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            android:layout_gravity="center"
-            />
-    </FrameLayout>
+    <include
+        layout="@layout/loader"
+        android:id="@+id/vgLoader" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

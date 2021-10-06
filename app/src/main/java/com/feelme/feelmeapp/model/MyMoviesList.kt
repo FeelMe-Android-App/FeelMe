@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.model
 
-import androidx.recyclerview.widget.DiffUtil
-
-class MyMoviesList : ArrayList<MyMoviesListItem>()
+data class MyMoviesList(
+    val unwatched: List<MyMoviesListItem>?,
+    val watched: List<MyMoviesListItem>?
+)

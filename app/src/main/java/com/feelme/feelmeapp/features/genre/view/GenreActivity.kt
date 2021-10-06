@@ -3,19 +3,17 @@ package com.feelme.feelmeapp.features.genre.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridAdapter
 import com.feelme.feelmeapp.databinding.ActivityGenreBinding
-import com.feelme.feelmeapp.features.genre.adapter.GenreAdapter
 import com.feelme.feelmeapp.features.genre.viewmodel.GenreViewModel
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_CATEGORY_ID
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_CATEGORY_NAME
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,10 +21,10 @@ class GenreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGenreBinding
     private var genreId: Int? = null
     private val viewModel: GenreViewModel by viewModel()
-    private val movieByGenreAdapter: GenreAdapter by lazy {
-        GenreAdapter { Result ->
+    private val pagedMovieGridAdapter: PagedMovieGridAdapter by lazy {
+        PagedMovieGridAdapter { movie ->
             val intent = Intent(applicationContext, MovieDetailsActivity::class.java)
-            intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, Result.id)
+            intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, movie.movieId)
             startActivity(intent)
         }
     }
@@ -55,26 +53,16 @@ class GenreActivity : AppCompatActivity() {
         lifecycleScope.launch {
             genreId?.let {
                 viewModel.getMoviesByGenre(it).collect { pagingData ->
-                    movieByGenreAdapter.submitData(lifecycle = lifecycle, pagingData)
+                    pagedMovieGridAdapter.submitData(pagingData)
                 }
             }
-        }
-        this.let { GenreActivity ->
-            viewModel.onSuccessMoviesByGenre.observe(GenreActivity, { MovieList ->
-                with(binding) {
-
-                    vgWhatToWatchLoading.visibility = View.GONE
-                    vgWhatToWatch.visibility = View.VISIBLE
-
-                }
-            })
         }
     }
 
     private fun setupRecyclerView() {
         binding.rvGenreMovies.apply {
             layoutManager = GridLayoutManager(context, 3)
-            adapter = movieByGenreAdapter
+            adapter = pagedMovieGridAdapter
         }
     }
 

@@ -2,6 +2,7 @@ package com.feelme.feelmeapp.api
 
 import com.feelme.feelmeapp.model.*
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -13,7 +14,12 @@ interface FeelMeUser {
     suspend fun saveMyProfile(@Body body: FeelMeNewUserPost): Response<Any>
 
     @GET("myprofile/unwatchedmovies")
-    suspend fun getUmwatchedMovies(
+    suspend fun getUnwatchedMovies(
+        @Query("page") page: Int
+    ): Response<MyMoviesList>
+
+    @GET("myprofile/watchedmovies")
+    suspend fun getWatchedMovies(
         @Query("page") page: Int
     ): Response<MyMoviesList>
 
@@ -22,4 +28,9 @@ interface FeelMeUser {
         @Path("movie_id") id: Int,
         @Body body: FeelMeMovie
     ): Response<MyMoviesListItem>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieStatus(
+        @Path("movie_id") id: Int,
+    ): Response<FeelMeMovieStatus>
 }

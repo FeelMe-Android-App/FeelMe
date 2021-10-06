@@ -3,7 +3,7 @@ package com.feelme.feelmeapp.features.movieDetails.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
@@ -23,8 +23,8 @@ import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.model.Result
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
-import com.feelme.feelmeapp.utils.Command
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -59,9 +59,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        viewModel.command = MutableLiveData()
-        viewModel.getMovieDetailsScreen(movieId)
-        setupObservables()
 
         binding.rvComments.adapter = commentViewPager
         binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
@@ -110,11 +107,20 @@ class MovieDetailsActivity : AppCompatActivity() {
             dialog.isCancelable = false
             dialog.show(this.supportFragmentManager, "LoginDialog")
         }
+
+        viewModel.command = MutableLiveData()
+        viewModel.getMovieDetailsScreen(movieId)
+        viewModel.getMovieStatus(movieId)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupObservables()
     }
 
     private fun setupObservables() {
         this.let { MovieDetailsActivity ->
-            viewModel.onSuccessMovieDetails.observe(MovieDetailsActivity, { Movie ->
+            viewModel.onSuccessMovieDetails.observe(this, { Movie ->
                 with(binding) {
                     val runTime = Movie.runtime.getDuration() ?: "--h--min"
                     val yearRelease = Movie.releaseDate.getYear() ?: "----"
@@ -135,7 +141,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             })
 
-            viewModel.onSuccessMovieStreaming.observe(MovieDetailsActivity, { Streaming ->
+            viewModel.onSuccessMovieStreaming.observe(this, { Streaming ->
                 if(!Streaming.isNullOrEmpty()) {
                     binding.rvStreamings.adapter = MovieStreamingAdapter(Streaming) {
 
@@ -146,23 +152,16 @@ class MovieDetailsActivity : AppCompatActivity() {
                     binding.tvWatchNow.isVisible = false
                 }
 
-                binding.vgMovieDetailsLoading.isVisible = false
+                binding.vgLoader.vgLoader.isVisible = false
                 binding.vgMovieDetailsFragment.isVisible = true
             })
 
-            viewModel.onSuccessSaveMovie.observe(MovieDetailsActivity, {
-                binding.btSave.background = ResourcesCompat.getDrawable(resources, R.color.green_success, null)
+            viewModel.onSuccessMovieSaved.observe(this, {
+//                binding?.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
             })
 
-            viewModel.command.observe(MovieDetailsActivity, {
-                when(it) {
-                    is Command.Loading -> {
-                        Log.i("CommandLoading", it.toString())
-                    }
-                    is Command.Error -> {
-                        Log.i("CommandError", it.toString())
-                    }
-                }
+            viewModel.onSuccessSaveMovie.observe(this, {
+                binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
             })
         }
     }
