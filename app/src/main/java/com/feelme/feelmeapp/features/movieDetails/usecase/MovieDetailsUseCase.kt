@@ -4,6 +4,7 @@ import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
 import com.feelme.feelmeapp.model.*
 import com.feelme.feelmeapp.model.Genre
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import com.feelme.feelmeapp.modeldb.*
@@ -60,6 +61,18 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
         }
     }
 
+    suspend fun getMovieComments(movieId: Int): ResponseApi {
+        when(val responseApi = movieDetailsRepository.getMovieComments(movieId)) {
+            is ResponseApi.Success -> {
+                val data = responseApi.data as FeelMeComments
+                return ResponseApi.Success(data)
+            }
+            is ResponseApi.Error -> {
+                return responseApi
+            }
+        }
+    }
+
     suspend fun getMovieStreamings(movieId: Int): ResponseApi {
         when(val responseApi = movieDetailsRepository.getMovieStreaming(movieId)) {
             is ResponseApi.Success -> {
@@ -93,9 +106,5 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
                 return ResponseApi.Success(stream)
             }
         }
-    }
-
-    suspend fun saveUnwatchedMovie(movieId: Int, movieDetails: FeelMeMovie): ResponseApi {
-        return this.movieDetailsRepository.saveUnwatchedMovie(movieId, movieDetails)
     }
 }

@@ -7,5 +7,4 @@ class ProfileAdapter(private val fragmentList: List<Fragment>, val fragment: Fra
     override fun getItemCount() = fragmentList.count()
 
     override fun createFragment(position: Int): Fragment = fragmentList[position]
-
 }

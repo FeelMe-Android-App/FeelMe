@@ -1,6 +1,7 @@
 package com.feelme.feelmeapp.api
 
 import com.feelme.feelmeapp.model.*
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import retrofit2.Response
@@ -29,8 +30,24 @@ interface FeelMeUser {
         @Body body: FeelMeMovie
     ): Response<MyMoviesListItem>
 
+    @POST("movie/{movie_id}/watched")
+    suspend fun saveWatchedMovie(
+        @Path("movie_id") id: Int,
+        @Body body: FeelMeMovie
+    ): Response<MyMoviesListItem>
+
+    @DELETE("movie/{movie_id}")
+    suspend fun removeMovie(
+        @Path("movie_id") id: Int
+    ): Response<Any>
+
     @GET("movie/{movie_id}")
     suspend fun getMovieStatus(
         @Path("movie_id") id: Int,
     ): Response<FeelMeMovieStatus>
+
+    @GET("comment/{movie_id}")
+    suspend fun getMovieComments(
+        @Path("movie_id") id: Int,
+    ): Response<FeelMeComments>
 }

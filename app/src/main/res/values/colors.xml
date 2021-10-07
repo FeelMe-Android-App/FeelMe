@@ -6,6 +6,7 @@
     <color name="secondary_color">#EA910C</color>
     <color name="primary_text_color">#FFFFFF</color>
     <color name="primary_color_fifty_percent">#80271047</color>
+    <color name="clean_primary_color">#3D2859</color>
     <color name="black">#FF000000</color>
     <color name="black_forty_percent">#66000000</color>
     <color name="white">#FFFFFFFF</color>

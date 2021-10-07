@@ -12,6 +12,9 @@ import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
 import com.feelme.feelmeapp.features.movieDetails.usecase.MovieDetailsUseCase
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.features.profile.repository.ProfileRepository
+import com.feelme.feelmeapp.features.profile.usecase.ProfileUseCase
+import com.feelme.feelmeapp.features.profile.viewmodel.ProfileViewModel
 import com.feelme.feelmeapp.features.savedMovies.repository.SavedMoviesRepository
 import com.feelme.feelmeapp.features.savedMovies.usecase.SavedMoviesUseCase
 import com.feelme.feelmeapp.features.savedMovies.viewmodel.SavedMoviesViewModel
@@ -44,7 +47,7 @@ val viewModelModule = module {
     single { MovieDetailsRepository(context = get()) }
     single { MovieDetailsUseCase(movieDetailsRepository = get()) }
 
-    viewModel { MovieDetailsViewModel(movieDetailsUseCase = get()) }
+    viewModel { MovieDetailsViewModel(movieDetailsUseCase = get(), context = get()) }
 
     //Search
     single { SearchRepository(get()) }
@@ -76,4 +79,9 @@ val viewModelModule = module {
 
     viewModel { WatchedMoviesModel(watchedMoviesRepository = get(), watchedMoviesUseCase = get()) }
 
+    //Profile
+    single { ProfileRepository() }
+    single { ProfileUseCase(profileRepository = get()) }
+
+    viewModel { ProfileViewModel(profileUseCase = get()) }
 }
