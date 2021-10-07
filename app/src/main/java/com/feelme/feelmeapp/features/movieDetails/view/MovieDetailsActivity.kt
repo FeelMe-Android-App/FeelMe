@@ -38,6 +38,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MovieDetailsActivity : AppCompatActivity() {
     private val viewModel: MovieDetailsViewModel by viewModel()
     private lateinit var binding: ActivityMovieDetailsBinding
+    private var movieSaved: Boolean = false
+    private var movieWatched: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,47 +50,42 @@ class MovieDetailsActivity : AppCompatActivity() {
             finish()
         }
 
-        val comments = listOf(
-            Comment(R.drawable.bruna_silva, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo.", 2),
-            Comment(R.drawable.bruna_silva, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus.", 4),
-            Comment(R.drawable.bruna_silva, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus.", 4)
-        )
-
-        val commentViewPager = CommentsAdapter(comments){
-            Dialog(DialogData(content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt aliquet dui vitae finibus. Nunc gravida dui justo, quis vehicula felis efficitur at. Cras sodales eleifend justo.", image = R.drawable.bruna_silva)).show(this.supportFragmentManager, "CustomDialog")
-        }
-
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
 
-        binding.rvComments.adapter = commentViewPager
-        binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
-
         binding.btSave.setOnClickListener {
-            val user = Firebase.auth.currentUser
-            when(user) {
-                is FirebaseUser -> {
-                    val movieDetails = viewModel.onSuccessMovieDetails.value
-                    movieDetails.let {
-                        viewModel.saveUnwatchedMovie(movieId, FeelMeMovie(backdropPath = it?.backdropPath.toString(), title = it?.title ?: ""))
+            if(movieSaved) {
+                removeMovie(movieId)
+            } else {
+                val user = Firebase.auth.currentUser
+                when(user) {
+                    is FirebaseUser -> {
+                        val movieDetails = viewModel.onSuccessMovieDetails.value
+                        movieDetails.let {
+                            binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                            viewModel.saveUnwatchedMovie(movieId, FeelMeMovie(backdropPath = it?.backdropPath.toString(), title = it?.title ?: ""))
+                        }
                     }
-                }
-                else -> {
-                    Dialog(
-                        DialogData(
-                            title = "Entre",
-                            subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
-                            image = R.drawable.ic_signup,
-                            button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
-                                Log.i("ButtonAction","Teste de Ação Personalizada")
-                            }
-                        )
-                    ).show(this.supportFragmentManager, "LoginDialog")
+                    else -> {
+                        Dialog(
+                            DialogData(
+                                title = "Entre",
+                                subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
+                                image = R.drawable.ic_signup,
+                                button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
+                                    Log.i("ButtonAction","Teste de Ação Personalizada")
+                                }
+                            )
+                        ).show(this.supportFragmentManager, "LoginDialog")
+                    }
                 }
             }
         }
 
         val emojiList = emojiList.map { MoodList ->
             EmojiList(MoodList.icon, MoodList.name, true) {
+                binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
+
                 supportFragmentManager.fragments.forEach { Fragment ->
                     (Fragment as DialogFragment).dismiss()
                 }
@@ -96,21 +93,30 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
         binding.btWatch.setOnClickListener {
-            val dialog = Dialog(
-                DialogData(
-                    title = "Emoji Feeling",
-                    subtitle = "O que você sentiu ao assistir esse filme?",
-                    image = R.drawable.ic_watched_outlined,
-                    emojiList = emojiList
+            val movieDetails = viewModel.onSuccessMovieDetails.value
+
+            if(movieWatched) {
+                removeMovie(movieId)
+            } else {
+                movieDetails?.let {
+                    viewModel.saveWatchedMovie(movieId, FeelMeMovie(backdropPath = it.backdropPath.toString(), title = it.title ?: ""))
+                }
+
+                val dialog = Dialog(
+                    DialogData(
+                        title = "Emoji Feeling",
+                        subtitle = "O que você sentiu ao assistir esse filme?",
+                        image = R.drawable.ic_watched_outlined,
+                        emojiList = emojiList
+                    )
                 )
-            )
-            dialog.isCancelable = false
-            dialog.show(this.supportFragmentManager, "LoginDialog")
+                dialog.isCancelable = false
+                dialog.show(this.supportFragmentManager, "LoginDialog")
+            }
         }
 
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
-        viewModel.getMovieStatus(movieId)
     }
 
     override fun onResume() {
@@ -142,14 +148,14 @@ class MovieDetailsActivity : AppCompatActivity() {
             })
 
             viewModel.onSuccessMovieStreaming.observe(this, { Streaming ->
-                if(!Streaming.isNullOrEmpty()) {
+                if(Streaming.isNullOrEmpty()) {
+                    binding.rvStreamings.isVisible = false
+                    binding.tvWatchNow.isVisible = false
+                } else {
                     binding.rvStreamings.adapter = MovieStreamingAdapter(Streaming) {
 
                     }
                     binding.rvStreamings.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
-                } else {
-                    binding.rvStreamings.isVisible = false
-                    binding.tvWatchNow.isVisible = false
                 }
 
                 binding.vgLoader.vgLoader.isVisible = false
@@ -157,12 +163,35 @@ class MovieDetailsActivity : AppCompatActivity() {
             })
 
             viewModel.onSuccessMovieSaved.observe(this, {
-//                binding?.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                movieSaved = true
             })
 
-            viewModel.onSuccessSaveMovie.observe(this, {
-                binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+            viewModel.onSuccessMovieWatched.observe(this, {
+                binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                movieWatched = true
+            })
+
+            viewModel.onSuccessMovieComments.observe(this, {
+                val commentsAdapter = CommentsAdapter(it) {
+
+                }
+
+                binding.rvComments.adapter = commentsAdapter
+                binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
             })
         }
+    }
+
+    private fun removeMovie(movieId: Int) {
+        binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
+        binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
+        viewModel.removeMovie(movieId)
+    }
+
+    companion object {
+        const val MOVIE_ID = "movieId"
+        const val MOVIE_BACKDROP_PATH = "movieBackdropPath"
+        const val MOVIE_TITLE = "movieTitle"
     }
 }

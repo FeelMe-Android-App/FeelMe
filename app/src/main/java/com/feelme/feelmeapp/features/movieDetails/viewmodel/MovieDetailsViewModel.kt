@@ -1,18 +1,30 @@
 package com.feelme.feelmeapp.features.movieDetails.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import androidx.work.workDataOf
 import com.feelme.feelmeapp.base.BaseViewModel
+import com.feelme.feelmeapp.features.movieDetails.service.RemoveMovieService
+import com.feelme.feelmeapp.features.movieDetails.service.SaveUnwatchedMovieService
+import com.feelme.feelmeapp.features.movieDetails.service.SaveWatchedMovieService
+import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.usecase.MovieDetailsUseCase
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_BACKDROP_PATH
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_ID
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_TITLE
 import com.feelme.feelmeapp.model.Flatrate
 import com.feelme.feelmeapp.model.Result
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase): BaseViewModel() {
+class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase, private val context: Context): BaseViewModel() {
     private val _onSuccessMovieDetails: MutableLiveData<Result> = MutableLiveData()
     val onSuccessMovieDetails: LiveData<Result>
         get() = _onSuccessMovieDetails
@@ -21,9 +33,9 @@ class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase
     val onSuccessMovieStreaming: LiveData<List<Flatrate>>
         get() = _onSuccessMovieStreaming
 
-    private val _onSuccessSaveMovie: MutableLiveData<Boolean> = MutableLiveData()
-    val onSuccessSaveMovie: LiveData<Boolean>
-        get() = _onSuccessSaveMovie
+    private val _onSuccessMovieComments: MutableLiveData<List<Comment>> = MutableLiveData()
+    val onSuccessMovieComments: LiveData<List<Comment>>
+        get() = _onSuccessMovieComments
 
     private val _onSuccessMovieWatched: MutableLiveData<String> = MutableLiveData()
     val onSuccessMovieWatched: LiveData<String>
@@ -51,32 +63,57 @@ class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase
                     }
                 )
             }
-        }
-    }
-
-    fun getMovieStatus(movieId: Int) {
-        viewModelScope.launch {
-            callApi(
-                suspend { movieDetailsUseCase.getMovieStatusId(movieId) },
-                onSuccess = {
-                    val data = it as FeelMeMovieStatus
-                    it.movieDetails?.let {
-                        if(it == "watched") _onSuccessMovieWatched.postValue(it)
-                        else if(it == "saved") _onSuccessMovieSaved.postValue(it)
+            it.launch {
+                callApi(
+                    suspend { movieDetailsUseCase.getMovieStatusId(movieId) },
+                    onSuccess = {
+                        val data = it as FeelMeMovieStatus
+                        it.movieDetails?.let {
+                            if(it == "watched") _onSuccessMovieWatched.postValue(it)
+                            else if(it == "saved") _onSuccessMovieSaved.postValue(it)
+                        }
                     }
-                }
-            )
+                )
+            }
+            it.launch {
+                callApi(
+                    suspend { movieDetailsUseCase.getMovieComments(movieId) },
+                    onSuccess = {
+                        val data = it as FeelMeComments
+                        val comments: MutableList<Comment> = mutableListOf()
+
+                        data.comments.forEach { userComment ->
+                            comments.add(
+                                Comment(
+                                    userComment.uid.photoUrl,
+                                    userComment.comment,
+                                    userComment.uid.uid.toInt()
+                                )
+                            )
+                        }
+
+                        _onSuccessMovieComments.postValue(comments.toList())
+                    }
+                )
+            }
         }
     }
 
     fun saveUnwatchedMovie(movieId: Int, movieDetails: FeelMeMovie) {
-        viewModelScope.launch {
-            callApi(
-                suspend { movieDetailsUseCase.saveUnwatchedMovie(movieId, movieDetails) },
-                onSuccess = {
-                    _onSuccessSaveMovie.postValue(true)
-                }
-            )
-        }
+        val data = workDataOf(MOVIE_ID to movieId, MOVIE_BACKDROP_PATH to movieDetails.backdropPath, MOVIE_TITLE to movieDetails.title )
+        val saveUnwatchedMovieRequest: WorkRequest = OneTimeWorkRequestBuilder<SaveUnwatchedMovieService>().setInputData(data).build()
+        WorkManager.getInstance(context).enqueue(saveUnwatchedMovieRequest)
+    }
+
+    fun saveWatchedMovie(movieId: Int, movieDetails: FeelMeMovie) {
+        val data = workDataOf(MOVIE_ID to movieId, MOVIE_BACKDROP_PATH to movieDetails.backdropPath, MOVIE_TITLE to movieDetails.title )
+        val saveWatchedMovieRequest: WorkRequest = OneTimeWorkRequestBuilder<SaveWatchedMovieService>().setInputData(data).build()
+        WorkManager.getInstance(context).enqueue(saveWatchedMovieRequest)
+    }
+
+    fun removeMovie(movieId: Int) {
+        val data = workDataOf(MOVIE_ID to movieId)
+        val removeMovieRequest: WorkRequest = OneTimeWorkRequestBuilder<RemoveMovieService>().setInputData(data).build()
+        WorkManager.getInstance(context).enqueue(removeMovieRequest)
     }
 }

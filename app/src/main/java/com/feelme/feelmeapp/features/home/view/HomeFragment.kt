@@ -2,6 +2,7 @@ package com.feelme.feelmeapp.features.home.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +87,7 @@ class HomeFragment : Fragment() {
                         val homeText = "Olá, ${it.displayName}"
                         Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(FragmentHome.ivFotoLogin)
                         FragmentHome.tvNomeLogin.text = homeText
+                        Log.i("firebaseToken", it.token.toString())
                     }
                 }
             })

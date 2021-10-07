@@ -3,8 +3,10 @@ package com.feelme.feelmeapp.features.movieDetails.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.CommentItemBinding
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
+import com.squareup.picasso.Picasso
 
 class CommentsAdapter(
     private val comments: List<Comment>,
@@ -29,7 +31,7 @@ class CommentsAdapter(
             onClickListenerProfile: (comment: Comment) -> Unit
         ) {
             binding.tvComment.text = comment.comment
-            binding.ivProfilePicture.setImageResource(comment.image)
+            Picasso.get().load(comment.image).placeholder(R.drawable.ic_no_profile_picture).to(binding.ivProfilePicture)
             binding.clComment.setOnClickListener {
                 onClickListenerProfile(comment)
             }

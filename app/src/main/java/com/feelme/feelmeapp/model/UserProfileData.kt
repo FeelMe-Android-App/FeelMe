@@ -7,5 +7,5 @@ data class UserProfileData(
     val followedCount: Int,
     val name: String,
     val photoUrl: String,
-    val uid: String
+    val uid: String,
 )

@@ -47,7 +47,10 @@ class SavedMoviesFragment : Fragment() {
     private fun setupObservables() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getUnwatchedMoviesList().collect { pagingData ->
-                binding?.let { it.vgLoader.vgLoader.isVisible = false }
+                binding?.let {
+                    it.vgLoader.vgLoader.isVisible = false
+                    it.rvMovieList.isVisible = true
+                }
                 pagedSquareImagesAdapter.submitData(pagingData)
             }
         }
@@ -63,5 +66,9 @@ class SavedMoviesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

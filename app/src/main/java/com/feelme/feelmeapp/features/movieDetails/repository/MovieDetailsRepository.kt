@@ -28,9 +28,27 @@ class MovieDetailsRepository(private val context: Context): BaseRepository() {
         }
     }
 
+    suspend fun saveWatchedMovie(movieId: Int, movieDetails: FeelMeMovie): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.saveWatchedMovie(movieId, movieDetails)
+        }
+    }
+
+    suspend fun removeMovie(movieId: Int): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.removeMovie(movieId)
+        }
+    }
+
     suspend fun getMovieStreaming(movieId: Int): ResponseApi {
         return safeApiCall {
             ApiService.tmdbApi.getMovieStreaming(movieId)
+        }
+    }
+
+    suspend fun getMovieComments(movieId: Int): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.getMovieComments(movieId)
         }
     }
 

@@ -7,12 +7,15 @@
     android:forceDarkAllowed="false"
     android:orientation="horizontal"
     android:background="@color/primary_color">
+    <include
+        layout="@layout/loader"
+        android:id="@+id/vgLoader" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/vgMovieDetailsFragment"
-        android:visibility="gone">
+        android:visibility="invisible">
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btBack"
             android:layout_width="50dp"
@@ -35,7 +38,7 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_save_film"
             android:background="@drawable/layout_bg_round"
-            android:backgroundTint="#3D2859"
+            android:backgroundTint="@color/clean_primary_color"
             app:borderWidth="0dp"
             android:layout_gravity="bottom|right"
             app:fabCustomSize="50dp"
@@ -46,7 +49,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_watched_movie"
-            android:backgroundTint="#3D2859"
+            android:backgroundTint="@color/clean_primary_color"
             app:borderWidth="0dp"
             android:layout_gravity="bottom"
             app:fabCustomSize="50dp"
@@ -185,8 +188,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <include
-        layout="@layout/loader"
-        android:id="@+id/vgLoader" />
 </LinearLayout>
