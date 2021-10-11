@@ -111,7 +111,7 @@ class Dialog(private var params: DialogData) : DialogFragment() {
                 it.btPersonalized.setOnClickListener { view ->
                     it.btPersonalized.isEnabled = false
                     it.btPersonalized.alpha = 0.5F
-                    LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
+                    LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email", "user_friends"))
                 }
             }
         }

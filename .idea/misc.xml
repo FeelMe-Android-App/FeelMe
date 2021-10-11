@@ -48,9 +48,16 @@
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/stream_item.xml" value="0.1712962962962963" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/text_categ_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/layout/watching_movie_item.xml" value="0.36944444444444446" />
+        <entry key="app/src/main/res/layout/activity_genre.xml" value="0.26721014492753625" />
+        <entry key="app/src/main/res/layout/activity_movie_details.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.26721014492753625" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.26721014492753625" />
+        <entry key="app/src/main/res/layout/fragment_what_to_watch.xml" value="0.26721014492753625" />
+        <entry key="app/src/main/res/layout/movie_stream_item.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/snippet_top_profilebar.xml" value="0.4036458333333333" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

@@ -38,6 +38,8 @@
             app:borderWidth="0dp"
             android:layout_marginStart="16dp"
             app:fabCustomSize="50dp"
+            android:tint="@color/white"
+            app:tint="@color/white"
             android:layout_gravity="top|left"/>
 
         <LinearLayout

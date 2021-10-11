@@ -27,6 +27,8 @@
             android:background="@color/primary_color"
             android:backgroundTint="@color/primary_color"
             app:borderWidth="0dp"
+            android:tint="@color/white"
+            app:tint="@color/white"
             android:layout_marginStart="16dp"
             app:fabCustomSize="50dp"
             android:layout_gravity="top|left"/>
@@ -40,6 +42,8 @@
             android:background="@drawable/layout_bg_round"
             android:backgroundTint="@color/clean_primary_color"
             app:borderWidth="0dp"
+            android:tint="@color/white"
+            app:tint="@color/white"
             android:layout_gravity="bottom|right"
             app:fabCustomSize="50dp"
             />
@@ -54,6 +58,8 @@
             android:layout_gravity="bottom"
             app:fabCustomSize="50dp"
             app:layout_anchor="@+id/btSave"
+            android:tint="@color/white"
+            app:tint="@color/white"
             app:useCompatPadding="true" />
 
         <androidx.core.widget.NestedScrollView

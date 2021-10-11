@@ -51,6 +51,10 @@ class SearchActivity : AppCompatActivity() {
         binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
         binding.rvMovies.adapter = pagedMovieGridAdapter
 
+        binding.btBack.setOnClickListener {
+            finish()
+        }
+
         binding.tiSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 hideKeyboard(this@SearchActivity)
