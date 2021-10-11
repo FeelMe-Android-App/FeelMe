@@ -24,8 +24,14 @@
     <string name="what_your_friends_are_watching">O que seus amigos estão assistindo...</string>
     <string name="on_the_rise">Em Alta</string>
     <string name="followers">Seguidores</string>
-    <string name="following">Seguidores</string>
+    <string name="following">Seguindo</string>
     <string name="top_ten">#10 Filmes para ficar</string>
     <string name="save">Salvar</string>
     <string name="skip">Pular</string>
+    <string name="facebook_app_id">314667483762502</string>
+    <string name="fb_login_protocol_scheme">fb314667483762502</string>
+    <string name="hello">Olá!</string>
+    <string name="hello_2">Olá,</string>
+    <string name="facebook_login">Entrar com Facebook</string>
+
 </resources>

@@ -6,5 +6,5 @@ data class DialogData(
     val content: String? = null,
     val image: Int,
     val button: ButtonStyle? = null,
-    val emojiList: List<Any>? = null,
+    val emojiList: List<Any>? = null
 )

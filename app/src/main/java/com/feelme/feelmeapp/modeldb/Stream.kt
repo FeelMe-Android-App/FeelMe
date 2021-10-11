@@ -4,6 +4,8 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.feelme.feelmeapp.model.Flatrate
+import com.feelme.feelmeapp.model.StreamDetails
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -24,3 +26,21 @@ data class Stream (
     @ColumnInfo(name = "provider_name")
     val providerName: String,
 ): Parcelable
+
+fun Stream.toStreamDetails(): StreamDetails {
+    return StreamDetails(
+        providerId = this.providerId,
+        displayPriority = this.displayPriority,
+        logoPath = this.logoPath,
+        providerName = this.providerName
+    )
+}
+
+fun Stream.toFlatrate(): Flatrate {
+    return Flatrate(
+        displayPriority = this.displayPriority,
+        logoPath = this.logoPath,
+        providerId = this.providerId,
+        provider_name = this.providerName
+    )
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.watchedMovies.view.WatchedMoviesFragment"
+    android:background="@color/primary_color">
+
+    <include
+        layout="@layout/loader"
+        android:id="@+id/vgLoader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMovieList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/watching_movie_item"
+        android:visibility="invisible"/>
+
+</FrameLayout>

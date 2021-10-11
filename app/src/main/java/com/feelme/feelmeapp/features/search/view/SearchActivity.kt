@@ -10,20 +10,34 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridAdapter
 import com.feelme.feelmeapp.databinding.ActivitySearchBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.features.search.adapter.MoviesResultAdapter
 import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.utils.Command
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.concurrent.timerTask
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var timer: Timer
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModel()
+    private val pagedMovieGridAdapter: PagedMovieGridAdapter by lazy {
+        PagedMovieGridAdapter { movie ->
+            val intent = Intent(applicationContext, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, movie.movieId)
+            startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +45,15 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         timer = Timer()
-        viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         viewModel.command = MutableLiveData<Command>()
 
         binding.tiSearch.requestFocus()
+        binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
+        binding.rvMovies.adapter = pagedMovieGridAdapter
+
+        binding.btBack.setOnClickListener {
+            finish()
+        }
 
         binding.tiSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -47,31 +66,38 @@ class SearchActivity : AppCompatActivity() {
                     binding.searchLoading.isVisible = false
                     binding.rvMovies.isVisible = false
                 } else {
+                    pagedMovieGridAdapter.submitData(lifecycle, PagingData.empty())
                     binding.searchLoading.isVisible = true
                     binding.rvMovies.isVisible = false
                     timer.cancel()
                     timer = Timer()
                     timer.schedule(timerTask {
-                        viewModel.getSearch(newText)
+                        viewModel.recyclerViewReloaded()
+                        lifecycleScope.launch {
+                            val initialLoad = viewModel.onSuccessSearch.value == "refreshed"
+                            viewModel.getSearchMovies(newText, initialLoad).collectLatest { pagingData ->
+                                pagedMovieGridAdapter.submitData(pagingData)
+                            }
+                        }
                     }, 1000)
                 }
                 return true
             }
         })
-
         setupObservables()
     }
 
     private fun setupObservables() {
         viewModel.onSuccessSearch.observe(this, {
-            binding.rvMovies.adapter = MoviesResultAdapter(it) { Result ->
-                val intent = Intent(applicationContext, MovieDetailsActivity::class.java)
-                intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, Result.id)
-                startActivity(intent)
+            if(it == "refreshed") {
+                binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
+                binding.searchLoading.isVisible = true
+                binding.rvMovies.isVisible = false
+            } else {
+                binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
+                binding.searchLoading.isVisible = false
+                binding.rvMovies.isVisible = true
             }
-            binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
-            binding.searchLoading.isVisible = false
-            binding.rvMovies.isVisible = true
         })
     }
 
