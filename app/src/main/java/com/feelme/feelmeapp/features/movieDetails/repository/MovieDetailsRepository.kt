@@ -6,6 +6,7 @@ import com.feelme.feelmeapp.api.FeelMeApiService
 import com.feelme.feelmeapp.base.BaseRepository
 import com.feelme.feelmeapp.database.FeelMeDatabase
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.utils.ResponseApi
 
@@ -37,6 +38,18 @@ class MovieDetailsRepository(private val context: Context): BaseRepository() {
     suspend fun removeMovie(movieId: Int): ResponseApi {
         return safeApiCall {
             FeelMeApiService.feelMeApiService.removeMovie(movieId)
+        }
+    }
+
+    suspend fun voteMovie(feelingId: Int, movieId: Int): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.voteMovie(feelingId, movieId)
+        }
+    }
+
+    suspend fun postMovieComment(movieId: Int, comment: FeelMeMovieComment): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.postMovieComment(movieId, comment)
         }
     }
 

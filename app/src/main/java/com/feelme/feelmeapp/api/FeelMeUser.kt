@@ -3,6 +3,7 @@ package com.feelme.feelmeapp.api
 import com.feelme.feelmeapp.model.*
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import retrofit2.Response
 import retrofit2.http.*
@@ -41,6 +42,12 @@ interface FeelMeUser {
         @Path("movie_id") id: Int
     ): Response<Any>
 
+    @POST("feeling/{feelingId}/{movieId}/vote")
+    suspend fun voteMovie(
+        @Path("feelingId") feelingId: Int,
+        @Path("movieId") movieId: Int,
+    ): Response<Any>
+
     @GET("movie/{movie_id}")
     suspend fun getMovieStatus(
         @Path("movie_id") id: Int,
@@ -50,4 +57,21 @@ interface FeelMeUser {
     suspend fun getMovieComments(
         @Path("movie_id") id: Int,
     ): Response<FeelMeComments>
+
+    @POST("comment/{movie_id}")
+    suspend fun postMovieComment(
+        @Path("movie_id") movieId: Int,
+        @Body body: FeelMeMovieComment
+    ): Response<Any>
+
+    @POST("")
+    suspend fun saveStream(
+        @Body body: List<Int>
+    ): Response<Any>
+
+    @GET("")
+    suspend fun getSearchFriend(
+        @Query("query") query: String,
+        @Query("page") page: Int,
+    ): Response<Any>
 }

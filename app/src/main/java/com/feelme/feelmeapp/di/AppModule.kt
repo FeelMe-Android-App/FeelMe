@@ -65,7 +65,7 @@ val viewModelModule = module {
     single { DialogRepository(context = get()) }
     single { DialogUseCase(dialogRepository = get()) }
 
-    viewModel { DialogViewModel(dialogUseCase = get()) }
+    viewModel { DialogViewModel(dialogUseCase = get(), context = get()) }
 
     //UnWatchedMovies
     single { SavedMoviesRepository() }

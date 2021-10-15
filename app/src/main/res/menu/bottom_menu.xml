@@ -14,7 +14,7 @@
         android:id="@+id/whatToWatchFragment"
         android:icon="@drawable/what_to_watch_icon"
         android:enabled="true"
-        android:title="O que assistir" />
+        android:title="Recomendações" />
     <item
         android:id="@+id/itSearch"
         android:icon="@drawable/ic_search"

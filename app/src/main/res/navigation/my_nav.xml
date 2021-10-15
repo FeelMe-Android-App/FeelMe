@@ -18,10 +18,23 @@
         android:id="@+id/feedFragment"
         android:name="com.feelme.feelmeapp.features.feed.view.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_searchFriendFragment"
+            app:destination="@id/searchFriendFragment" />
+    </fragment>
     <fragment
         android:id="@+id/whatToWatchFragment"
         android:name="com.feelme.feelmeapp.features.whatToWatch.view.WhatToWatchFragment"
         android:label="fragment_what_to_watch"
         tools:layout="@layout/fragment_what_to_watch" />
+    <fragment
+        android:id="@+id/searchFriendFragment"
+        android:name="com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment"
+        android:label="fragment_search_friend"
+        tools:layout="@layout/fragment_search_friend" >
+        <action
+            android:id="@+id/action_searchFriendFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
 </navigation>

@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.home.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +10,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.ProfileActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
@@ -20,6 +24,7 @@ import com.feelme.feelmeapp.databinding.FragmentHomeBinding
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
 import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.utils.Command
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,10 +51,14 @@ class HomeFragment : Fragment() {
             }
         }
 
+        setupRequests()
+        setupObservables()
+    }
+
+    private fun setupRequests() {
         viewModel.command = MutableLiveData()
         viewModel.getGenres()
         viewModel.getNowPlayingMovies()
-        setupObservables()
     }
 
     private fun setupObservables() {
@@ -88,6 +97,14 @@ class HomeFragment : Fragment() {
                         Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(FragmentHome.ivFotoLogin)
                         FragmentHome.tvNomeLogin.text = homeText
                         Log.i("firebaseToken", it.token.toString())
+                    }
+                }
+            })
+
+            viewModel.command.observe(FragmentActivity, { Command ->
+                when(Command) {
+                    is Command.Error -> {
+
                     }
                 }
             })
