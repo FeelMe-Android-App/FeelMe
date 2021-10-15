@@ -15,6 +15,7 @@ import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivitySelectStreamBinding
 import com.feelme.feelmeapp.features.selectStream.adapter.StreamAdapter
 import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
+import com.feelme.feelmeapp.modeldb.UserStreamList
 import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,12 +37,18 @@ class StreamListActivity() : AppCompatActivity() {
 
         this.let {
             viewModel.command = MutableLiveData()
+            viewModel.getMyStreamListFromDb()
             viewModel.getStreamList()
             setupObservables()
-
         }
 
         binding.btSkipSelectStream.setOnClickListener {
+            if(!streamList.isNullOrEmpty()) {
+                val stream = streamList.map {
+                    UserStreamList(it)
+                }
+                viewModel.saveMyStreamListDb(stream)
+            }
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -69,6 +76,13 @@ class StreamListActivity() : AppCompatActivity() {
 
             binding.vgLoader.vgLoader.visibility = View.GONE
             binding.vgSelectStream.visibility = View.VISIBLE
+        })
+
+        viewModel.onSuccessUserStreamList.observe(this, {
+            if(!it.isNullOrEmpty()) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         })
     }
 }

@@ -4,6 +4,7 @@ import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.selectStream.repository.StreamListRepository
 import com.feelme.feelmeapp.model.Stream
 import com.feelme.feelmeapp.model.toStreamDb
+import com.feelme.feelmeapp.modeldb.UserStreamList
 import com.feelme.feelmeapp.modeldb.toStreamDetails
 import com.feelme.feelmeapp.utils.ResponseApi
 import okhttp3.internal.toImmutableList
@@ -41,5 +42,13 @@ class StreamListUseCase(private val streamListRepository: StreamListRepository) 
                 return ResponseApi.Success(streamList.toImmutableList())
             }
         }
+    }
+
+    suspend fun saveMyStreamListDb(streamList: List<UserStreamList>) {
+        return streamListRepository.saveMyStreamListDb(streamList)
+    }
+
+    suspend fun getMyStreamListFromDb(): List<UserStreamList> {
+        return streamListRepository.getMyStreamListFromDb()
     }
 }

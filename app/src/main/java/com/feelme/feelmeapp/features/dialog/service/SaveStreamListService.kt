@@ -1,26 +1,26 @@
-package com.feelme.feelmeapp.features.movieDetails.service
+package com.feelme.feelmeapp.features.dialog.service
 
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
-import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.features.dialog.repository.DialogRepository
 import com.feelme.feelmeapp.utils.ResponseApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class RemoveMovieService(appContext: Context, workerParams: WorkerParameters): CoroutineWorker(appContext, workerParams),
+class SaveStreamListService(appContext: Context, workerParams: WorkerParameters): CoroutineWorker(appContext, workerParams),
     KoinComponent {
-    private val movieDetailsRepository: MovieDetailsRepository by inject()
+    private val dialogRepository: DialogRepository by inject()
 
     override suspend fun doWork(): Result {
-        val movieId = inputData.getInt(MovieDetailsActivity.MOVIE_ID, 0)
+        val streamList = dialogRepository.getUserStreaming().stream.map {
+            it.providerId
+        }
 
         return withContext(Dispatchers.IO) {
-            when(val responseApi = movieDetailsRepository.removeMovie(movieId)) {
+            when(val responseApi = dialogRepository.saveUserStreamings(streamList)) {
                 is ResponseApi.Success -> {
                     Result.success()
                 }

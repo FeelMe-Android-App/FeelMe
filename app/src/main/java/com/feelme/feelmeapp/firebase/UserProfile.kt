@@ -30,7 +30,8 @@ object UserProfile {
         val token: String? = null,
         val follow: MutableList<Follow> = mutableListOf(),
         val followed: MutableList<Follow> = mutableListOf(),
-        val streaming: MutableList<Int> = mutableListOf()
+        val streaming: MutableList<Int> = mutableListOf(),
+        val uid: String?,
     )
 
     private val currentLiveData: MutableLiveData<User?> = MutableLiveData()
@@ -74,7 +75,8 @@ object UserProfile {
             email = user.email ?: "",
             photoUrl = Profile.getCurrentProfile().getProfilePictureUri(100, 100),
             photoUrlThumb = Profile.getCurrentProfile().getProfilePictureUri(40, 40),
-            token = token
+            token = token,
+            uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
         ))
     }
 }

@@ -1,6 +1,7 @@
 package com.feelme.feelmeapp.features.movieDetails.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,11 +10,13 @@ import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import androidx.work.workDataOf
 import com.feelme.feelmeapp.base.BaseViewModel
+import com.feelme.feelmeapp.features.movieDetails.service.PostCommentService
 import com.feelme.feelmeapp.features.movieDetails.service.RemoveMovieService
 import com.feelme.feelmeapp.features.movieDetails.service.SaveUnwatchedMovieService
 import com.feelme.feelmeapp.features.movieDetails.service.SaveWatchedMovieService
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.usecase.MovieDetailsUseCase
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.COMMENT
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_BACKDROP_PATH
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_TITLE
@@ -21,6 +24,7 @@ import com.feelme.feelmeapp.model.Flatrate
 import com.feelme.feelmeapp.model.Result
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
 import kotlinx.coroutines.launch
 
@@ -83,11 +87,13 @@ class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase
                         val comments: MutableList<Comment> = mutableListOf()
 
                         data.comments.forEach { userComment ->
+                            val photoUrl = if(userComment.uid.photoUrl.isNullOrEmpty()) null else Uri.parse(userComment.uid.photoUrl)
+
                             comments.add(
                                 Comment(
-                                    userComment.uid.photoUrl,
+                                    photoUrl,
                                     userComment.comment,
-                                    userComment.uid.uid.toInt()
+                                    userComment.uid.uid
                                 )
                             )
                         }
@@ -115,5 +121,13 @@ class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase
         val data = workDataOf(MOVIE_ID to movieId)
         val removeMovieRequest: WorkRequest = OneTimeWorkRequestBuilder<RemoveMovieService>().setInputData(data).build()
         WorkManager.getInstance(context).enqueue(removeMovieRequest)
+    }
+
+    fun saveComment(movieId: Int, comment: FeelMeMovieComment) {
+        if(!comment.comment.isNullOrEmpty()) {
+            val data = workDataOf(MOVIE_ID to movieId, COMMENT to comment.comment, MOVIE_BACKDROP_PATH to comment.backdropPath)
+            val postMovieComment: WorkRequest = OneTimeWorkRequestBuilder<PostCommentService>().setInputData(data).build()
+            WorkManager.getInstance(context).enqueue(postMovieComment)
+        }
     }
 }

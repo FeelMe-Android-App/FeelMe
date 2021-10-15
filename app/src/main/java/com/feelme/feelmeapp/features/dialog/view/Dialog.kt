@@ -172,6 +172,7 @@ class Dialog(private var params: DialogData) : DialogFragment() {
                 UserProfile.currentUser.observe(this, { UserProfile ->
                     UserProfile?.let {
                         viewModel.saveUserProfile(FeelMeNewUserPost("", it.photoUrl.toString()))
+                        viewModel.saveUserStreamings()
                     }
                 })
             }

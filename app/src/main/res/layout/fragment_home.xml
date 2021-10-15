@@ -9,6 +9,10 @@
     <include
         layout="@layout/loader"
         android:id="@+id/vgLoader" />
+    <include
+        layout="@layout/no_internet_layout"
+        android:id="@+id/vgNoInternet"
+        android:visibility="invisible"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

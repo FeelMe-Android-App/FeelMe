@@ -3,6 +3,7 @@ package com.feelme.feelmeapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -56,6 +57,10 @@ class MainActivity : AppCompatActivity() {
 
     fun restartMood() {
         binding.bottomNavigationView.selectedItemId = R.id.whatToWatchFragment
+    }
+
+    fun setNavControllerVisibility(visibility: Boolean) {
+        if(visibility) binding.bottomNavigationView.animate().translationY(200F) else binding.bottomNavigationView.animate().translationY(0F)
     }
 
     companion object {

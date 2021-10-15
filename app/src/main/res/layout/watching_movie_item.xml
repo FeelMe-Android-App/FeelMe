@@ -5,15 +5,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/rivMovie"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:src="@drawable/no_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         android:scaleType="centerCrop"
         app:riv_corner_radius="10dp"
         android:adjustViewBounds="true"
         />
+    <com.makeramen.roundedimageview.RoundedImageView
+        app:layout_constraintBottom_toBottomOf="@+id/rivMovie"
+        android:src="@drawable/ic_no_profile_picture"
+        app:layout_constraintEnd_toEndOf="@+id/rivMovie"
+        android:layout_margin="15dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:riv_corner_radius="@dimen/corner_fifty_percent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

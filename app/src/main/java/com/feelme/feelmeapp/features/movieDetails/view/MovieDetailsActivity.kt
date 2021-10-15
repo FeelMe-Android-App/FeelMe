@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.movieDetails.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,14 +18,18 @@ import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
+import com.feelme.feelmeapp.features.genre.view.GenreActivity
+import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.firebase.UserProfile
 import com.feelme.feelmeapp.model.Result
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -33,6 +38,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+import okhttp3.internal.toImmutableList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -40,6 +46,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieDetailsBinding
     private var movieSaved: Boolean = false
     private var movieWatched: Boolean = false
+    private val userProfile = UserProfile.currentUser.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +122,35 @@ class MovieDetailsActivity : AppCompatActivity() {
             }
         }
 
+        binding.vgMovieDetails.viewTreeObserver.addOnScrollChangedListener {
+            if(binding.vgMovieDetails.getChildAt(0).bottom <= binding.vgMovieDetails.height + (binding.vgMovieDetails.scrollY + 150)) {
+                binding.btWatch.isVisible = false
+                binding.btSave.isVisible = false
+            } else {
+                binding.btWatch.isVisible = true
+                binding.btSave.isVisible = true
+            }
+        }
+
+        binding.btPostComment.setOnClickListener {
+            val text = binding.etUserComment.text
+            val comments = mutableListOf(Comment(
+                UserProfile.currentUser.value?.photoUrl,
+                text.toString(),
+                UserProfile.currentUser.value?.uid ?: ""
+            ))
+            viewModel.onSuccessMovieComments.value?.let {
+                comments.addAll((it))
+            }
+
+            val commentsAdapter = CommentsAdapter(comments.toImmutableList()) {
+
+            }
+            binding.rvComments.adapter = commentsAdapter
+
+            viewModel.saveComment(movieId, FeelMeMovieComment(text.toString(), viewModel.onSuccessMovieDetails.value?.backdropPath ?: ""))
+        }
+
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
     }
@@ -137,7 +173,10 @@ class MovieDetailsActivity : AppCompatActivity() {
                     tvMovieReleaseYear.text = released
 
                     rvCategories.adapter = MovieCategoriesAdapter(Movie.genreIds) {
-
+                        val intent = Intent(applicationContext, GenreActivity::class.java)
+                        intent.putExtra(HomeFragment.EXTRA_CATEGORY_ID, it.id)
+                        intent.putExtra(HomeFragment.EXTRA_CATEGORY_NAME, it.name)
+                        startActivity(intent)
                     }
                     rvCategories.isNestedScrollingEnabled = false
                     val layoutManager = FlexboxLayoutManager(applicationContext)
@@ -178,7 +217,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
 
                 binding.rvComments.adapter = commentsAdapter
-                binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+                binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
             })
         }
     }
@@ -193,5 +232,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         const val MOVIE_ID = "movieId"
         const val MOVIE_BACKDROP_PATH = "movieBackdropPath"
         const val MOVIE_TITLE = "movieTitle"
+        const val FEELING_ID = "feelingId"
+        const val COMMENT = "comment"
     }
 }
