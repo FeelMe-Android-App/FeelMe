@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,10 +16,8 @@ import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridAdapte
 import com.feelme.feelmeapp.databinding.ActivitySearchBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.search.adapter.MoviesResultAdapter
 import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.utils.Command
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

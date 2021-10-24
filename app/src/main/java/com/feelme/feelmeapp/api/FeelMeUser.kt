@@ -1,10 +1,8 @@
 package com.feelme.feelmeapp.api
 
 import com.feelme.feelmeapp.model.*
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
+import com.feelme.feelmeapp.model.feelmeapi.*
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeUserProfile
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -69,9 +67,24 @@ interface FeelMeUser {
         @Body body: List<Int>
     ): Response<Any>
 
-    @GET("")
+    @GET("user")
     suspend fun getSearchFriend(
         @Query("query") query: String,
         @Query("page") page: Int,
-    ): Response<Any>
+    ): Response<FeelMeUsersSearch>
+
+    @GET("user/{user_id}")
+    suspend fun getUserProfile(
+        @Path("user_id") uid: String
+    ): Response<FeelMeUserProfile>
+
+    @GET("user/{user_id}/lastmovies")
+    suspend fun getUserLastWatchedMovies(
+        @Path("user_id") uid: String
+    ): Response<MyMoviesList>
+
+    @GET("user/{user_id}/lastcomments")
+    suspend fun getUserLastComments(
+        @Path("user_id") uid: String
+    ): Response<FeelMeComments>
 }

@@ -10,4 +10,19 @@
         layout="@layout/loader"
         android:id="@+id/vgLoader" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:background="@drawable/skeleton"
+        android:padding="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Nenhum Streaming Adicionado"
+            android:textColor="@color/white_fourty_percent"/>
+    </LinearLayout>
+
 </FrameLayout>

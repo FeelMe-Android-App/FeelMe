@@ -97,7 +97,7 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
             }
             is ResponseApi.Error -> {
                 val movieStream = this.movieDetailsRepository.getMovieStreamDb(movieId)
-                if(movieStream.movie.title.isNullOrEmpty()) return responseApi
+                if(movieStream.movie?.title?.isNullOrEmpty()) return responseApi
 
                 val stream = movieStream.stream.map {
                     it.toFlatrate()

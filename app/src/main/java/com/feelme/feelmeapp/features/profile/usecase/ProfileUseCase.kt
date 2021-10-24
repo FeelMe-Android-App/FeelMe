@@ -11,9 +11,7 @@ class ProfileUseCase(private val profileRepository: ProfileRepository) {
                 val data = responseApi.data as UserProfileData
                 return ResponseApi.Success(data)
             }
-            is ResponseApi.Error -> {
-                return responseApi
-            }
+            else -> return responseApi
         }
     }
 }

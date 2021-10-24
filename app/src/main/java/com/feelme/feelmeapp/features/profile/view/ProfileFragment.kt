@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.btBack?.setOnClickListener {
+        binding?.vgProfileHeader?.btBack?.setOnClickListener {
             activity?.onBackPressed()
         }
 
@@ -51,15 +51,15 @@ class ProfileFragment : Fragment() {
         activity?.let {
             UserProfile.currentUser.observe(viewLifecycleOwner, { CurrentUser ->
                 CurrentUser?.let {
-                    Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(binding?.includeUserProfile?.ivFotoLogin)
-                    binding?.tvNomeLogin?.text = "Olá, ${it.displayName}"
+                    Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(binding?.vgProfileHeader?.includeUserProfile?.ivFotoLogin)
+                    binding?.vgProfileHeader?.tvNomeLogin?.text = "Olá, ${it.displayName}"
                 }
             })
 
             viewModel.onSuccessProfile.observe(viewLifecycleOwner, { UserProfileData ->
                 binding?.let {
-                    it.includeUserProfile.tvFollowNumber.text = UserProfileData.followCount.toString()
-                    it.includeUserProfile.tvFollowedNumber.text = UserProfileData.followedCount.toString()
+                    it.vgProfileHeader.includeUserProfile.tvFollowNumber.text = UserProfileData.followCount.toString()
+                    it.vgProfileHeader.includeUserProfile.tvFollowedNumber.text = UserProfileData.followedCount.toString()
                     it.vgLoader.vgLoader.isVisible = false
                     it.vgProfile.isVisible = true
                 }
@@ -85,9 +85,5 @@ class ProfileFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }
