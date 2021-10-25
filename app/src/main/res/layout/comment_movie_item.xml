@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/primary_color"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vgComment"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

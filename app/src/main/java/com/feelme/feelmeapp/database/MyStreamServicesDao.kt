@@ -10,7 +10,7 @@ import com.feelme.feelmeapp.modeldb.UserStreamListWithStream
 interface MyStreamServicesDao {
     @Transaction
     @Query("SELECT * FROM userStream")
-    suspend fun getUserStream(): UserStreamListWithStream
+    suspend fun getUserStream(): List<UserStreamListWithStream>
 
     @Query("SELECT * FROM userStream")
     suspend fun getUserStreamIds(): List<UserStreamList>

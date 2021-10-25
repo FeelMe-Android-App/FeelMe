@@ -7,7 +7,7 @@ data class FeelMeComment(
     val uid: FeelMeCommentUserDetails,
     val comment: String,
     val movieId: Int,
-    val backdropPath: String,
+    var backdropPath: String,
     val createdAt: String,
     val updatedAt: String,
 )

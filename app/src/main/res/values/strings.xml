@@ -17,6 +17,7 @@
     <string name="saved_movies">Salvos</string>
     <string name="watched_movies">Assistidos</string>
     <string name="streaming_services">Meus Serviços de Streamings</string>
+    <string name="streamings">Streamings</string>
     <string name="search_movie_title">Escreva o nome de um filme</string>
     <string name="see_all">ver todas</string>
     <string name="select_streaming">Selecione seus serviços de Streaming</string>
@@ -25,6 +26,8 @@
     <string name="on_the_rise">Em Alta</string>
     <string name="followers">Seguidores</string>
     <string name="following">Seguindo</string>
+    <string name="follow">+ Seguir</string>
+    <string name="followed">Seguindo</string>
     <string name="top_ten">#10 Filmes para ficar</string>
     <string name="save">Salvar</string>
     <string name="skip">Pular</string>
@@ -32,6 +35,19 @@
     <string name="fb_login_protocol_scheme">fb314667483762502</string>
     <string name="hello">Olá!</string>
     <string name="hello_2">Olá,</string>
+    <string name="last_watched">Últimos Assistidos</string>
     <string name="facebook_login">Entrar com Facebook</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="review">Avaliações</string>
+    <string name="add_friends">Adicione amigos</string>
+    <string name="friends_to_feed">Adicione amigos para visualizar as atualizações de seus amigos</string>
 
 </resources>

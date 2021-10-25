@@ -15,8 +15,8 @@ class SaveStreamListService(appContext: Context, workerParams: WorkerParameters)
     private val dialogRepository: DialogRepository by inject()
 
     override suspend fun doWork(): Result {
-        val streamList = dialogRepository.getUserStreaming().stream.map {
-            it.providerId
+        val streamList = dialogRepository.getUserStreaming().map {
+            it.userStream.streamId
         }
 
         return withContext(Dispatchers.IO) {

@@ -19,5 +19,11 @@
         <item name="searchHintIcon">@drawable/ic_search_movie</item>
         <item name="closeIcon">@drawable/ic_close_search</item>
     </style>
+    <style name="Theme.FeelMe.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.FeelMe.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.FeelMe.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
