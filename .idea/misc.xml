@@ -81,6 +81,7 @@
         <entry key="app/src/main/res/layout/snippet_top_profilebar.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/watching_movie_item.xml" value="0.3328125" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3328125" />
+        <entry key="app/src/main/res/menu/profile_menu.xml" value="0.5" />
       </map>
     </option>
   </component>

@@ -24,7 +24,7 @@ class DialogRepository(private val context: Context) : BaseRepository() {
         }
     }
 
-    suspend fun getUserStreaming(): UserStreamListWithStream {
+    suspend fun getUserStreaming(): List<UserStreamListWithStream> {
         return FeelMeDatabase.getDatabase(context).userStream().getUserStream()
     }
 }

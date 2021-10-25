@@ -6,7 +6,7 @@ data class FeelMeUserProfile(
 
 data class FeelMeUserProfileData(
     val follow: Int,
-    val follwed: Int,
+    val followed: Int,
     val uid: String,
     val name: String,
     val email: String?,
@@ -16,6 +16,8 @@ data class FeelMeUserProfileData(
     val unwatched: Int,
     val lastwatched: List<LastWatchedMovies>,
     val lastcomments: List<LastComments>?,
+    val isfollow: Boolean,
+    val isfollowed: Boolean,
 )
 
 data class LastWatchedMovies(

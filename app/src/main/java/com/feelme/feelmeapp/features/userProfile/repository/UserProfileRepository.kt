@@ -10,4 +10,16 @@ class UserProfileRepository() : BaseRepository() {
             FeelMeApiService.feelMeApiService.getUserProfile(uid)
         }
     }
+
+    suspend fun followUser(uid: String): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.followUser(uid)
+        }
+    }
+
+    suspend fun unfollowUser(uid: String): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.unfollowUser(uid)
+        }
+    }
 }

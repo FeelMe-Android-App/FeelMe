@@ -87,4 +87,22 @@ interface FeelMeUser {
     suspend fun getUserLastComments(
         @Path("user_id") uid: String
     ): Response<FeelMeComments>
+
+    @POST("user/{user_id}/follow")
+    suspend fun followUser(
+        @Path("user_id") uid: String
+    ): Response<Any>
+
+    @POST("user/{user_id}/unfollow")
+    suspend fun unfollowUser(
+        @Path("user_id") uid: String
+    ): Response<Any>
+
+    @GET("friendsMovies")
+    suspend fun getFriendsStatus(): Response<FeelMeFriendsMovies>
+
+    @GET("friendscomment")
+    suspend fun getFriendsComments(
+        @Query("page") page: Int,
+    ): Response<FeelMeComments>
 }

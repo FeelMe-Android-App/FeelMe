@@ -70,6 +70,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
         setupObservables()
+        setupSaveButton()
+        setupWatchButton()
     }
 
     private fun anonymousScreen() {
@@ -88,9 +90,6 @@ class MovieDetailsActivity : AppCompatActivity() {
             tvFriendsComments.isVisible = true
             etComment.isVisible = true
 
-            val movieDetails = viewModel.onSuccessMovieDetails.value
-            btSave.setOnClickListener { viewModel.saveUnwatchedMovie(movieId, FeelMeMovie(backdropPath = movieDetails?.backdropPath.toString(), title = movieDetails?.title ?: "")) }
-            btWatch.setOnClickListener { showEmojiFeelingDialog() }
             btPostComment.setOnClickListener {
                 val text = binding.etUserComment.text
                 val comments = mutableListOf(Comment(
@@ -110,43 +109,6 @@ class MovieDetailsActivity : AppCompatActivity() {
                 viewModel.saveComment(movieId, FeelMeMovieComment(text.toString(), viewModel.onSuccessMovieDetails.value?.backdropPath ?: ""))
             }
         }
-    }
-
-    private fun showEmojiFeelingDialog() {
-        val emojiList = emojiList.map { MoodList ->
-            EmojiList(MoodList.icon, MoodList.name, true) {
-                binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
-                binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
-
-                supportFragmentManager.fragments.forEach { Fragment ->
-                    (Fragment as DialogFragment).dismiss()
-                }
-            }
-        }
-
-        val dialog = Dialog(
-            DialogData(
-                title = "Emoji Feeling",
-                subtitle = "O que você sentiu ao assistir esse filme?",
-                image = R.drawable.ic_watched_outlined,
-                emojiList = emojiList
-            )
-        )
-        dialog.isCancelable = false
-        dialog.show(this.supportFragmentManager, "LoginDialog")
-    }
-
-    private fun showLoginFacebookDialog() {
-        Dialog(
-            DialogData(
-                title = "Entre",
-                subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
-                image = R.drawable.ic_signup,
-                button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
-                    Log.i("ButtonAction","Teste de Ação Personalizada")
-                }
-            )
-        ).show(this.supportFragmentManager, "LoginDialog")
     }
 
     private fun setupObservables() {
@@ -208,6 +170,82 @@ class MovieDetailsActivity : AppCompatActivity() {
                 binding.rvComments.adapter = commentsAdapter
                 binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
             })
+        }
+    }
+
+    private fun showEmojiFeelingDialog() {
+        val emojiList = emojiList.map { MoodList ->
+            EmojiList(MoodList.icon, MoodList.name, true) {
+                binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+                binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
+
+                saveWatchedMovie()
+
+                supportFragmentManager.fragments.forEach { Fragment ->
+                    (Fragment as DialogFragment).dismiss()
+                }
+            }
+        }
+
+        val dialog = Dialog(
+            DialogData(
+                title = "Emoji Feeling",
+                subtitle = "O que você sentiu ao assistir esse filme?",
+                image = R.drawable.ic_watched_outlined,
+                emojiList = emojiList
+            )
+        )
+        dialog.isCancelable = false
+        dialog.show(this.supportFragmentManager, "LoginDialog")
+    }
+
+    private fun showLoginFacebookDialog() {
+        Dialog(
+            DialogData(
+                title = "Entre",
+                subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
+                image = R.drawable.ic_signup,
+                button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
+                    Log.i("ButtonAction","Teste de Ação Personalizada")
+                }
+            )
+        ).show(this.supportFragmentManager, "LoginDialog")
+    }
+
+    private fun setupSaveButton() {
+        binding.btSave.setOnClickListener {
+            if(movieSaved && !movieWatched) removeMovie(movieId)
+            else if(!movieSaved) saveUnWatchedMovie()
+        }
+    }
+
+    private fun setupWatchButton() {
+        binding.btWatch.setOnClickListener {
+            if(movieWatched) removeMovie(movieId)
+            else showEmojiFeelingDialog()
+        }
+    }
+
+    private fun saveWatchedMovie() {
+        val movie = viewModel.onSuccessMovieDetails.value
+        movie?.let {
+            viewModel.saveWatchedMovie(it.id, FeelMeMovie(
+                it.posterPath ?: "",
+                title = it.title
+            ))
+        }
+    }
+
+    private fun saveUnWatchedMovie() {
+        binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
+        binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
+
+        val movie = viewModel.onSuccessMovieDetails.value
+        movie?.let {
+            viewModel.saveUnwatchedMovie(it.id, FeelMeMovie(
+                it.posterPath ?: "",
+                title = it.title
+            ))
         }
     }
 
