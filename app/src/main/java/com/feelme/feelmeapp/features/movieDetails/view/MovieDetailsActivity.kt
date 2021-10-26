@@ -195,7 +195,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 emojiList = emojiList
             )
         )
-        dialog.isCancelable = false
+        dialog.isCancelable = true
         dialog.show(this.supportFragmentManager, "LoginDialog")
     }
 

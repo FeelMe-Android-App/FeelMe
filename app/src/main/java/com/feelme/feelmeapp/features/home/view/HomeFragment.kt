@@ -21,10 +21,16 @@ import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.adapters.CategoriesAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
+import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
 import com.feelme.feelmeapp.firebase.UserProfile
 import com.feelme.feelmeapp.utils.Command
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,12 +53,32 @@ class HomeFragment : Fragment() {
         binding?.let { FragmentHome ->
             FragmentHome.vgHomeFragment.isVisible = false
             FragmentHome.ivFotoLogin.setOnClickListener {
-                startActivity(Intent(context, ProfileActivity::class.java))
+                val user = Firebase.auth.currentUser
+                when (user) {
+                    is FirebaseUser -> {
+                        startActivity(Intent(context, ProfileActivity::class.java))
+                    }
+                    else -> {
+                        Dialog(
+                            DialogData(
+                                title = "Entre",
+                                subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
+                                image = R.drawable.ic_signup,
+                                button = ButtonStyle(
+                                    "Logar com Facebook",
+                                    R.drawable.ic_facebook,
+                                    R.color.facebook_bt
+                                ) {
+                                    Log.i("ButtonAction", "Teste de Ação Personalizada")
+                                }
+                            )
+                        ).show(this.parentFragmentManager, "LoginDialog")
+                    }
+                }
             }
+            setupRequests()
+            setupObservables()
         }
-
-        setupRequests()
-        setupObservables()
     }
 
     private fun setupRequests() {
