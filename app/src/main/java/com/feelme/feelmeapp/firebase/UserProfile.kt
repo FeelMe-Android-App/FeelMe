@@ -36,14 +36,16 @@ object UserProfile {
     )
 
     private val currentLiveData: MutableLiveData<User?> = MutableLiveData()
+    private lateinit var auth: FirebaseAuth
 
     val currentUser: LiveData<User?>
         get() = currentLiveData
 
     init {
-        patchInitialValue()
+        val auth = Firebase.auth
+        val user = auth.currentUser
 
-        val user = Firebase.auth.currentUser
+        patchInitialValue()
 
         FirebaseAuth.getInstance().addIdTokenListener(object : IdTokenListener {
             override fun onIdTokenChanged(p0: InternalTokenResult) {
@@ -69,6 +71,10 @@ object UserProfile {
         }
     }
 
+    fun logOut() {
+        resetUserValue()
+    }
+
     private fun patchUserValue(user: FirebaseUser, token: String) {
         currentLiveData.postValue(User(
             providerId = user.providerId,
@@ -79,6 +85,19 @@ object UserProfile {
             token = token,
             uid = FirebaseAuth.getInstance().currentUser?.uid.toString(),
             logged = true
+        ))
+    }
+
+    private fun resetUserValue() {
+        currentLiveData.postValue(User(
+            providerId = null,
+            displayName = null,
+            email = null,
+            photoUrl = null,
+            photoUrlThumb = null,
+            token = null,
+            uid = null,
+            logged = false
         ))
     }
 }

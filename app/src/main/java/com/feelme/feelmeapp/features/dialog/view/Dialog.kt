@@ -48,6 +48,8 @@ class Dialog(private var params: DialogData) : DialogFragment() {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         callbackManager = CallbackManager.Factory.create()
+
+        viewModel.command = MutableLiveData()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -78,12 +80,6 @@ class Dialog(private var params: DialogData) : DialogFragment() {
         setupView()
 
         activity?.let {
-            UserProfile.currentUser.observe(this, { UserProfile ->
-                UserProfile?.token?.let {
-                    viewModel.command = MutableLiveData()
-                }
-            })
-
             viewModel.onSuccessUserProfile.observe(this, {
                 if(params.button !== null) this.dismiss()
             })

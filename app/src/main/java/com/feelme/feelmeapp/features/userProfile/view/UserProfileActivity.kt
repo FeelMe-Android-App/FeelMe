@@ -43,6 +43,8 @@ class UserProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.vgProfileHeader.toolUserProfile.menu.clear()
+
         if(!userId.isNullOrEmpty()) {
             viewModel.command = MutableLiveData()
             viewModel.getUserProfile(userId)

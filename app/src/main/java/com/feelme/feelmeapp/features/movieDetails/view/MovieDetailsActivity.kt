@@ -27,16 +27,12 @@ import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
 import com.feelme.feelmeapp.firebase.UserProfile
-import com.feelme.feelmeapp.model.Result
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import okhttp3.internal.toImmutableList
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,7 +57,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
 
-        if (userProfile != null) {
+        if (userProfile?.logged == true) {
             loggedScreen()
         } else {
             anonymousScreen()
@@ -70,8 +66,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
         setupObservables()
-        setupSaveButton()
-        setupWatchButton()
     }
 
     private fun anonymousScreen() {
@@ -89,6 +83,9 @@ class MovieDetailsActivity : AppCompatActivity() {
             rvComments.isVisible = true
             tvFriendsComments.isVisible = true
             etComment.isVisible = true
+
+            setupSaveButton()
+            setupWatchButton()
 
             btPostComment.setOnClickListener {
                 val text = binding.etUserComment.text
