@@ -27,6 +27,7 @@
             android:textColor="@color/white"
             android:fontFamily="@font/lato"
             android:textSize="@dimen/normal_text"
+            android:minHeight="80dp"
             />
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivProfilePicture"

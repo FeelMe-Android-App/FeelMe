@@ -80,9 +80,9 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private fun loggedScreen() {
         binding.apply {
-            rvComments.isVisible = true
-            tvFriendsComments.isVisible = true
+            rvComments.isVisible = false
             etComment.isVisible = true
+            tvFriendsComments.isVisible = false
 
             setupSaveButton()
             setupWatchButton()
@@ -164,8 +164,18 @@ class MovieDetailsActivity : AppCompatActivity() {
 
                 }
 
-                binding.rvComments.adapter = commentsAdapter
-                binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+                if(it.count() > 0) {
+                    binding.rvComments.isVisible = true
+                    binding.tvFriendsComments.isVisible = true
+                    binding.rvComments.adapter = commentsAdapter
+                    binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+                }
+            })
+
+            UserProfile.currentUser.observe(this, {
+                if(it?.logged == true) {
+                    loggedScreen()
+                }
             })
         }
     }
