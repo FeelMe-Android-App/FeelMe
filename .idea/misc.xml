@@ -66,7 +66,7 @@
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.26721014492753625" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.23666666666666666" />
         <entry key="app/src/main/res/layout/comment_item.xml" value="0.1828125" />
-        <entry key="app/src/main/res/layout/comment_movie_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/comment_movie_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.26721014492753625" />

@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.feed.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,21 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.LastMoviesAdapter.LastMoviesAdapter
+import com.feelme.feelmeapp.adapters.PagingMovieComments.PagedMovieCommentsAdapter
 import com.feelme.feelmeapp.databinding.FragmentFeedBinding
-import com.feelme.feelmeapp.features.feed.adapter.FriendsMoviesAdapter
 import com.feelme.feelmeapp.features.feed.viewmodel.FeedViewModel
-import com.feelme.feelmeapp.features.home.usecase.Films
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.features.home.view.HomeFragment
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedFragment : Fragment() {
     private var binding: FragmentFeedBinding? = null
     private val viewModel: FeedViewModel by viewModel()
+    private val pagedMovieCommentsAdapter: PagedMovieCommentsAdapter by lazy {
+        PagedMovieCommentsAdapter { comment ->
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, comment.movieId)
+            startActivity(intent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +64,20 @@ class FeedFragment : Fragment() {
         viewModel.onSuccessFriendsStatus.observe(viewLifecycleOwner, {
             binding?.let { FeedFragment ->
                 FeedFragment.rvFriendsMovies.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                FeedFragment.rvFriendsMovies.adapter = LastMoviesAdapter(it)
+                FeedFragment.rvFriendsMovies.adapter = LastMoviesAdapter(it) {
+                    val intent = Intent(context, MovieDetailsActivity::class.java)
+                    intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, it.id)
+                    startActivity(intent)
+                }
             }
             showFeed()
         })
+
+        lifecycleScope.launch {
+            viewModel.getFriendsComments().collect { pagingData ->
+                pagedMovieCommentsAdapter.submitData(pagingData)
+            }
+        }
     }
 
     private fun showNoFriends() {
@@ -72,6 +93,10 @@ class FeedFragment : Fragment() {
             it.vgLoader.vgLoader.isVisible = false
             it.vgNoFriends.isVisible = false
             it.vgUserFeed.isVisible = true
+            it.rvFriendsComments.apply {
+                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                adapter = pagedMovieCommentsAdapter
+            }
         }
     }
 

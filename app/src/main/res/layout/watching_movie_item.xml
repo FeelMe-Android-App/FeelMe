@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:id="@+id/vgMovieStatus">
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/rivMovie"
         android:src="@drawable/no_image"

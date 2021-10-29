@@ -1,17 +1,17 @@
-package com.feelme.feelmeapp.adapters.PagingFriendsAdapter
+package com.feelme.feelmeapp.adapters.PagingMovieComments
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import java.lang.Exception
 
-class PagedFriendsPagingSource(
-    val callbackItems: suspend (page: Int) -> List<PagedFriendsModel>
-) : PagingSource<Int, PagedFriendsModel>() {
-    override fun getRefreshKey(state: PagingState<Int, PagedFriendsModel>): Int? {
+class PagedMovieCommentsPagingSource(
+    val callbackItems: suspend (page: Int) -> List<PagedMovieCommentsModel>
+) : PagingSource<Int, PagedMovieCommentsModel>() {
+    override fun getRefreshKey(state: PagingState<Int, PagedMovieCommentsModel>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PagedFriendsModel> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PagedMovieCommentsModel> {
         return try {
             val page: Int = params.key ?: 1
             val response = callbackItems(page)

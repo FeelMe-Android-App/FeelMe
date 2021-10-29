@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.feed.usecase
 
+import com.feelme.feelmeapp.adapters.PagingMovieComments.PagedMovieCommentsModel
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.feed.repository.FeedRepository
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
@@ -18,23 +19,27 @@ class FeedUseCase(private val feedRepository: FeedRepository) {
                 return ResponseApi.Success(lastWatched)
             }
             is ResponseApi.Error -> {
-                responseApi
                 return responseApi
             }
         }
     }
 
-    suspend fun getFriendsComments(page: Int): ResponseApi {
-        when(val responseApi = feedRepository.getFriendsComments(page)) {
-            is ResponseApi.Success -> {
-                val friendsComments = responseApi.data as? FeelMeComments
-                val lastComments = friendsComments?.comments?.map {
-                    it.backdropPath = it.backdropPath.getFullImageUrl()
-                    it
-                }
-                return ResponseApi.Success(lastComments)
-            }
-            else -> return responseApi
+    fun setupMovieCommentsList(list: FeelMeComments?): List<PagedMovieCommentsModel> {
+        val pagedMovieCommentsList: MutableList<PagedMovieCommentsModel> = mutableListOf()
+        list?.comments?.forEach {
+            val backdrop = if(it.backdropPath.isNullOrEmpty()) "null" else it.backdropPath
+            val photoUrl = if(it.uid.photoUrl.isNullOrEmpty()) "null" else it.uid.photoUrl
+
+            pagedMovieCommentsList.add(
+                PagedMovieCommentsModel(
+                    backdropPath = backdrop,
+                    comment = it.comment,
+                    profilePhoto = photoUrl,
+                    uid = it.uid.uid,
+                    movieId = it.movieId
+                )
+            )
         }
+        return pagedMovieCommentsList
     }
 }

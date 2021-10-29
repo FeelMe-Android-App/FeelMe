@@ -119,5 +119,5 @@ val viewModelModule = module {
     single { FeedRepository() }
     single { FeedUseCase(feedRepository = get()) }
 
-    viewModel { FeedViewModel(feedUseCase = get()) }
+    viewModel { FeedViewModel(feedUseCase = get(), feedRepository = get()) }
 }
