@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.profile.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
+import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentProfileBinding
-import com.feelme.feelmeapp.features.comments.view.CommentsFragment
 import com.feelme.feelmeapp.features.profile.adapter.ProfileAdapter
 import com.feelme.feelmeapp.features.profile.viewmodel.ProfileViewModel
 import com.feelme.feelmeapp.features.savedMovies.view.SavedMoviesFragment
@@ -19,6 +19,8 @@ import com.feelme.feelmeapp.features.streamingServices.view.StreamingServicesFra
 import com.feelme.feelmeapp.features.watchedMovies.view.WatchedMoviesFragment
 import com.feelme.feelmeapp.firebase.UserProfile
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -64,6 +66,10 @@ class ProfileFragment : Fragment() {
                     it.vgProfile.isVisible = true
                 }
             })
+
+            UserProfile.currentUser.observe(viewLifecycleOwner, { UserProfile ->
+                if(UserProfile?.logged == false) startActivity(Intent(context, MainActivity::class.java))
+            })
         }
     }
 
@@ -79,6 +85,17 @@ class ProfileFragment : Fragment() {
                 tab.text = titles[position]
                 tab.icon = ResourcesCompat.getDrawable(resources, icons[position], null)
             }.attach()
+
+            it.vgProfileHeader.toolUserProfile.setOnMenuItemClickListener { MenuItem ->
+                when(MenuItem.itemId) {
+                    R.id.itLogout -> {
+                        Firebase.auth.signOut()
+                        UserProfile.logOut()
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
     }
 

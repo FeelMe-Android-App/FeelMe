@@ -49,5 +49,6 @@
     <string name="review">Avaliações</string>
     <string name="add_friends">Adicione amigos</string>
     <string name="friends_to_feed">Adicione amigos para visualizar as atualizações de seus amigos</string>
+    <string name="logout">Sair</string>
 
 </resources>

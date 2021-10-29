@@ -1,6 +1,5 @@
 package com.feelme.feelmeapp.features.home.view
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,17 +9,17 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.ProfileActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.adapters.CategoriesAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
+import com.feelme.feelmeapp.features.dialog.usecase.DialogData
+import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
 import com.feelme.feelmeapp.firebase.UserProfile
@@ -47,7 +46,7 @@ class HomeFragment : Fragment() {
         binding?.let { FragmentHome ->
             FragmentHome.vgHomeFragment.isVisible = false
             FragmentHome.ivFotoLogin.setOnClickListener {
-                startActivity(Intent(context, ProfileActivity::class.java))
+                showLoginFacebookDialog()
             }
         }
 
@@ -93,10 +92,16 @@ class HomeFragment : Fragment() {
             UserProfile.currentUser.observe(FragmentActivity, { CurrentUser ->
                 CurrentUser?.let {
                     binding?.let { FragmentHome ->
-                        val homeText = "Olá, ${it.displayName}"
-                        Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(FragmentHome.ivFotoLogin)
-                        FragmentHome.tvNomeLogin.text = homeText
-                        Log.i("firebaseToken", it.token.toString())
+                        if(it.logged) {
+                            val homeText = "Olá, ${it.displayName}"
+                            Picasso.get().load(it.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(FragmentHome.ivFotoLogin)
+                            FragmentHome.tvNomeLogin.text = homeText
+                            Log.i("firebaseToken", it.token.toString())
+
+                            FragmentHome.ivFotoLogin.setOnClickListener {
+                                startActivity(Intent(context, ProfileActivity::class.java))
+                            }
+                        }
                     }
                 }
             })
@@ -109,6 +114,19 @@ class HomeFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun showLoginFacebookDialog() {
+        Dialog(
+            DialogData(
+                title = "Entre",
+                subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
+                image = R.drawable.ic_signup,
+                button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
+                    Log.i("ButtonAction","Teste de Ação Personalizada")
+                }
+            )
+        ).show(parentFragmentManager, "LoginDialog")
     }
 
     companion object {

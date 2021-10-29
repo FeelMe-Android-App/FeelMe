@@ -3,10 +3,12 @@ package com.feelme.feelmeapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.feelme.feelmeapp.databinding.ActivityMainBinding
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
@@ -16,13 +18,12 @@ import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val currentUser = UserProfile.currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        UserProfile
 
         val navController = Navigation.findNavController(this, R.id.fragmentNavHost)
         setupWithNavController(binding.bottomNavigationView, navController)
@@ -30,6 +31,16 @@ class MainActivity : AppCompatActivity() {
             EmojiList(it.icon, it.name) {
                 openMoodFragment(it.name)
             }
+        }
+        binding.bottomNavigationView.menu.getItem(1).setOnMenuItemClickListener {
+            if(currentUser.value == null || currentUser.value?.logged == false) {
+                showLoginFacebookDialog()
+            }
+            else {
+                findNavController(R.id.fragmentNavHost).navigate(R.id.feedFragment)
+                binding.bottomNavigationView.menu.getItem(1).isChecked = true
+            }
+            true
         }
         binding.bottomNavigationView.menu.getItem(2).setOnMenuItemClickListener {
             Dialog(DialogData(
@@ -53,6 +64,19 @@ class MainActivity : AppCompatActivity() {
 
         findNavController(R.id.fragmentNavHost).navigate(R.id.whatToWatchFragment, arguments)
         binding.bottomNavigationView.menu.getItem(2).isChecked = true
+    }
+
+    private fun showLoginFacebookDialog() {
+        Dialog(
+            DialogData(
+                title = "Entre",
+                subtitle = "Faça login com seu Facebook para acessar esse e outros recursos.",
+                image = R.drawable.ic_signup,
+                button = ButtonStyle("Logar com Facebook",R.drawable.ic_facebook,R.color.facebook_bt) {
+                    Log.i("ButtonAction","Teste de Ação Personalizada")
+                }
+            )
+        ).show(supportFragmentManager, "LoginDialog")
     }
 
     fun restartMood() {
