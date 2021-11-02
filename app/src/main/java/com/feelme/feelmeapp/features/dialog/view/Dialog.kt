@@ -25,12 +25,10 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.lifecycleScope
 import com.facebook.*
-import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.viewmodel.DialogViewModel
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.FeelMeNewUserPost
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FacebookAuthProvider

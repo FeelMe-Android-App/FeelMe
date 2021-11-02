@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 
 class StreamAdapter(
     private val streamingList: List<StreamDetails>,
+    private val selectedStream: ArrayList<Int>? = null,
     private val onClickListener: (streaming: StreamDetails) -> Unit
 ): RecyclerView.Adapter<StreamAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,7 +20,7 @@ class StreamAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(streamingList[position], onClickListener)
+        holder.bind(streamingList[position], selectedStream, onClickListener)
     }
 
     override fun getItemCount() = streamingList.count()
@@ -27,8 +28,16 @@ class StreamAdapter(
     class ViewHolder(val binding: StreamItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
             streaming: StreamDetails,
+            selectedStream: ArrayList<Int>?,
             onClickListener: (streaming: StreamDetails) -> Unit
         ) {
+            selectedStream?.let {
+                val streamingExist = it.find {
+                    it == streaming.providerId
+                }
+                if(streamingExist !== null) streaming.selected = true
+            }
+
             if(streaming.selected) {
                 binding.ivStreamerLogo.scaleX = 1F
                 binding.ivStreamerLogo.scaleY = 1F

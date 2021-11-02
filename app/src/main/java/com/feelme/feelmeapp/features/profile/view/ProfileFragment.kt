@@ -17,7 +17,7 @@ import com.feelme.feelmeapp.features.profile.viewmodel.ProfileViewModel
 import com.feelme.feelmeapp.features.savedMovies.view.SavedMoviesFragment
 import com.feelme.feelmeapp.features.streamingServices.view.StreamingServicesFragment
 import com.feelme.feelmeapp.features.watchedMovies.view.WatchedMoviesFragment
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

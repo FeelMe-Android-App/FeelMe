@@ -1,5 +1,7 @@
 package com.feelme.feelmeapp.features.watchedMovies.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -19,6 +21,9 @@ class WatchedMoviesModel(
     private val watchedMoviesUseCase: WatchedMoviesUseCase
 ): BaseViewModel() {
     private var mPagingData: Flow<PagingData<PagedSquareImagesModel>>? = null
+    private val _noWatchedMovies: MutableLiveData<Boolean> = MutableLiveData()
+    val noWatchedMovies: LiveData<Boolean>
+        get() = _noWatchedMovies
 
     fun getWatchedMoviesList(): Flow<PagingData<PagedSquareImagesModel>> {
         if(mPagingData != null) return mPagingData as Flow<PagingData<PagedSquareImagesModel>>
@@ -30,6 +35,7 @@ class WatchedMoviesModel(
                     ) {
                         is ResponseApi.Success -> {
                             val list = response.data as? MyMoviesList
+                            if(list == null) _noWatchedMovies.postValue(true)
                             watchedMoviesUseCase.setupSquareMoviesList(list)
                         }
                         is ResponseApi.Error -> {

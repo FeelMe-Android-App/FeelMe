@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.features.watchedMovies.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,8 @@ import com.feelme.feelmeapp.adapters.PagingSquareAdapter.PagedSquareImagesAdapte
 import com.feelme.feelmeapp.databinding.FragmentWatchedMoviesBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.savedMovies.viewmodel.SavedMoviesViewModel
 import com.feelme.feelmeapp.features.watchedMovies.viewmodel.WatchedMoviesModel
+import com.feelme.feelmeapp.globalLiveData.UserMoviesList
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class WatchedMoviesFragment : Fragment() {
     private var binding: FragmentWatchedMoviesBinding? = null
     private val viewModel: WatchedMoviesModel by viewModel()
+    private val userMovieListEvents = UserMoviesList
     private val pagedSquareImagesAdapter: PagedSquareImagesAdapter by lazy {
         PagedSquareImagesAdapter { movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
@@ -44,10 +44,17 @@ class WatchedMoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupObservables()
+        getPagedInitialData()
         setupRecyclerView()
     }
 
     private fun setupObservables() {
+        userMovieListEvents.hasWatchedMovieListChanged.observe(viewLifecycleOwner, {
+            pagedSquareImagesAdapter.refresh()
+        })
+    }
+
+    private fun getPagedInitialData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getWatchedMoviesList().collect { pagingData ->
                 binding?.let {
@@ -57,6 +64,9 @@ class WatchedMoviesFragment : Fragment() {
                 pagedSquareImagesAdapter.submitData(pagingData)
             }
         }
+        viewModel.noWatchedMovies.observe(viewLifecycleOwner, {
+            emptyList()
+        })
     }
 
     private fun setupRecyclerView() {
@@ -66,12 +76,16 @@ class WatchedMoviesFragment : Fragment() {
         }
     }
 
+    private fun emptyList() {
+        binding?.let {
+            it.rvMovieList.isVisible = false
+            it.vgLoader.vgLoader.isVisible = false
+            it.vgNoStreaming.isVisible = true
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

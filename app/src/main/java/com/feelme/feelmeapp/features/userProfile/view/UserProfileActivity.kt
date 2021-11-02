@@ -1,9 +1,7 @@
 package com.feelme.feelmeapp.features.userProfile.view
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -19,7 +17,7 @@ import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment.Comp
 import com.feelme.feelmeapp.features.userProfile.adapter.LastCommentsAdapter
 import com.feelme.feelmeapp.features.userProfile.adapter.LastWatchedMoviesAdapter
 import com.feelme.feelmeapp.features.userProfile.viewmodel.UserProfileViewModel
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserProfile
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserProfileActivity : AppCompatActivity() {

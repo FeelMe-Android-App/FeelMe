@@ -13,13 +13,16 @@ class StreamingServicesViewModel(private val streamingServicesUseCase: Streaming
     private val _onSuccessStreamingServices: MutableLiveData<List<UserStreamListWithStream>> = MutableLiveData()
     val onSuccessStreamingServices: LiveData<List<UserStreamListWithStream>>
         get() = _onSuccessStreamingServices
+    private val _noStreamingServices: MutableLiveData<Boolean> = MutableLiveData()
+    val noStreamingServices: LiveData<Boolean>
+        get() = _noStreamingServices
 
     fun getMyStreamingServices() {
         viewModelScope.launch {
             val streamingList = streamingServicesUseCase.getMyStreamingServices()
             if(!streamingList.isNullOrEmpty()) {
                 _onSuccessStreamingServices.postValue(streamingList)
-            }
+            } else _noStreamingServices.postValue(true)
         }
     }
 }

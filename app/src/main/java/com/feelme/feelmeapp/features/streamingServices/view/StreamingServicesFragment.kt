@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.streamingServices.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +9,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
-import com.feelme.feelmeapp.R
+import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListAdapter
+import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListData
 import com.feelme.feelmeapp.databinding.FragmentStreamingServicesBinding
-import com.feelme.feelmeapp.features.selectStream.adapter.StreamAdapter
+import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import com.feelme.feelmeapp.features.streamingServices.viewmodel.StreamingServicesViewModel
-import com.feelme.feelmeapp.model.StreamDetails
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StreamingServicesFragment : Fragment() {
@@ -37,27 +38,46 @@ class StreamingServicesFragment : Fragment() {
 
     fun setupObservables() {
         viewModel.onSuccessStreamingServices.observe(viewLifecycleOwner, {
-            val streamList = mutableListOf<StreamDetails>()
+            val streamList = mutableListOf<UserStreamListData>()
+            val streamIds = mutableListOf<Int>()
             it.forEach {
                 streamList.add(
-                    StreamDetails(
-                        providerId = it.stream.providerId,
-                        displayPriority = it.stream.displayPriority,
+                    UserStreamListData(
                         logoPath = it.stream.logoPath,
-                        providerName = it.stream.providerName,
-                        selected = false
+                        providerId = it.stream.providerId
                     )
                 )
+                streamIds.add(it.stream.providerId)
             }
 
             binding?.let {
                 it.rvStreamingServices.layoutManager = GridLayoutManager(context, 3)
-                it.rvStreamingServices.adapter = StreamAdapter(streamList.toList()) {
+                it.rvStreamingServices.adapter = UserStreamListAdapter(streamList.toList()) {
 
                 }
                 hideLoader()
             }
+
+            binding?.let {
+                it.fbEditStream.setOnClickListener {
+                    val intent = Intent(context, StreamListActivity::class.java)
+                    intent.putExtra(STREAM_LIST, ArrayList(streamIds))
+                    startActivity(intent)
+                }
+            }
         })
+
+        viewModel.noStreamingServices.observe(viewLifecycleOwner, {
+            emptyList()
+        })
+    }
+
+    private fun emptyList() {
+        binding?.let {
+            it.vgLoader.vgLoader.isVisible = false
+            it.vgNoStreaming.isVisible = true
+            it.rvStreamingServices.isVisible = false
+        }
     }
 
     private fun hideLoader() {
@@ -71,5 +91,9 @@ class StreamingServicesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    companion object {
+        const val STREAM_LIST = "stream_list"
     }
 }

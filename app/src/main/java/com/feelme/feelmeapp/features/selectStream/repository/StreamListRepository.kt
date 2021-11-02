@@ -24,6 +24,7 @@ class StreamListRepository(private val context: Context) : BaseRepository() {
     }
 
     suspend fun saveMyStreamListDb(streamList: List<UserStreamList>) {
+        FeelMeDatabase.getDatabase(context).userStream().deleteAll()
         return FeelMeDatabase.getDatabase(context).userStream().insertAllStreams(streamList)
     }
 

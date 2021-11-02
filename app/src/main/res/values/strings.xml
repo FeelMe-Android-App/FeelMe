@@ -50,5 +50,6 @@
     <string name="add_friends">Adicione amigos</string>
     <string name="friends_to_feed">Adicione amigos para visualizar as atualizações de seus amigos</string>
     <string name="logout">Sair</string>
+    <string name="title_activity_follow_followers">FollowFollowersActivity</string>
 
 </resources>
