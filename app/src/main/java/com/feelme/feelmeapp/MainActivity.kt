@@ -13,7 +13,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.search.view.SearchActivity
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 
 class MainActivity : AppCompatActivity() {

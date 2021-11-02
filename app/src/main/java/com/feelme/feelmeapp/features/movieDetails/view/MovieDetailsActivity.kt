@@ -26,7 +26,8 @@ import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
 import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserMoviesList
+import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
@@ -45,6 +46,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var movieSaved: Boolean = false
     private var movieWatched: Boolean = false
     private val userProfile = UserProfile.currentUser.value
+    private val userMovieListEvents = UserMoviesList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -221,6 +223,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private fun setupSaveButton() {
         binding.btSave.setOnClickListener {
+            userMovieListEvents.emitUnwatchedMovieHasChanged(true)
             if(movieSaved && !movieWatched) removeMovie(movieId)
             else if(!movieSaved) saveUnWatchedMovie()
         }
@@ -228,6 +231,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private fun setupWatchButton() {
         binding.btWatch.setOnClickListener {
+            userMovieListEvents.emitWatchedMovieHasChanged(true)
             if(movieWatched) removeMovie(movieId)
             else showEmojiFeelingDialog()
         }

@@ -1,7 +1,7 @@
 package com.feelme.feelmeapp.api
 
 import com.feelme.feelmeapp.BuildConfig
-import com.feelme.feelmeapp.firebase.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.utils.ConstantApp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

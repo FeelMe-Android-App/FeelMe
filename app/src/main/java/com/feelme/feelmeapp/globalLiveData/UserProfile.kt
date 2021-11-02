@@ -1,7 +1,6 @@
-package com.feelme.feelmeapp.firebase
+package com.feelme.feelmeapp.globalLiveData
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.facebook.Profile
@@ -9,7 +8,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.GetTokenResult
 
-import androidx.annotation.NonNull
 import com.feelme.feelmeapp.model.Follow
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task

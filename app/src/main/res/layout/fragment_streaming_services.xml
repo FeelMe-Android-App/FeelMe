@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.streamingServices.view.StreamingServicesFragment"
     android:background="@color/primary_color">
 
@@ -27,15 +28,25 @@
             android:textColor="@color/white_fourty_percent"/>
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbEditStream"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/round_edit_20"
+            app:borderWidth="0dp"
+            android:backgroundTint="@color/secondary_color"
+            app:rippleColor="@color/white"
+            app:tint="@color/white"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvStreamingServices"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    </LinearLayout>
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

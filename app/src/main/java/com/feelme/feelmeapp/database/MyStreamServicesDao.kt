@@ -23,4 +23,7 @@ interface MyStreamServicesDao {
 
     @Delete
     suspend fun delete(stream: UserStreamList)
+
+    @Query("DELETE FROM userStream")
+    suspend fun deleteAll()
 }

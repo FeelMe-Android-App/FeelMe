@@ -15,6 +15,7 @@ import com.feelme.feelmeapp.databinding.FragmentSavedMoviesBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.features.savedMovies.viewmodel.SavedMoviesViewModel
+import com.feelme.feelmeapp.globalLiveData.UserMoviesList
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SavedMoviesFragment : Fragment() {
     private var binding: FragmentSavedMoviesBinding? = null
     private val viewModel: SavedMoviesViewModel by viewModel()
+    private val userMovieListEvents = UserMoviesList
     private val pagedSquareImagesAdapter: PagedSquareImagesAdapter by lazy {
         PagedSquareImagesAdapter { movie ->
             val intent = Intent(context, MovieDetailsActivity::class.java)
@@ -41,10 +43,17 @@ class SavedMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservables()
+        getPagedInitialData()
         setupRecyclerView()
     }
 
     private fun setupObservables() {
+        userMovieListEvents.hasUnwatchedMovieListChanged.observe(viewLifecycleOwner, {
+            pagedSquareImagesAdapter.refresh()
+        })
+    }
+
+    private fun getPagedInitialData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getUnwatchedMoviesList().collect { pagingData ->
                 binding?.let {
@@ -53,6 +62,17 @@ class SavedMoviesFragment : Fragment() {
                 }
                 pagedSquareImagesAdapter.submitData(pagingData)
             }
+        }
+        viewModel.noSavedMovies.observe(viewLifecycleOwner, {
+            emptyList()
+        })
+    }
+
+    private fun emptyList() {
+        binding?.let {
+            it.rvMovieList.isVisible = false
+            it.vgLoader.vgLoader.isVisible = false
+            it.vgNoStreaming.isVisible = true
         }
     }
 
@@ -66,9 +86,5 @@ class SavedMoviesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }
