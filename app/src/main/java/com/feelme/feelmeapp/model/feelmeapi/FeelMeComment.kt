@@ -9,4 +9,5 @@ data class FeelMeComment(
     var backdropPath: String,
     val createdAt: String,
     val updatedAt: String,
+    val _id: String,
 )

@@ -4,6 +4,7 @@ import com.feelme.feelmeapp.adapters.PagingMovieComments.PagedMovieCommentsModel
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.feed.repository.FeedRepository
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeFollow
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeFriendsMovies
 import com.feelme.feelmeapp.utils.ResponseApi
 
@@ -41,5 +42,15 @@ class FeedUseCase(private val feedRepository: FeedRepository) {
             )
         }
         return pagedMovieCommentsList
+    }
+
+    suspend fun getUserFollow(): ResponseApi {
+        when(val responseApi = feedRepository.getUserFollow()) {
+            is ResponseApi.Success -> {
+                val data = responseApi.data as FeelMeFollow
+                return ResponseApi.Success(data)
+            }
+            else -> return responseApi
+        }
     }
 }

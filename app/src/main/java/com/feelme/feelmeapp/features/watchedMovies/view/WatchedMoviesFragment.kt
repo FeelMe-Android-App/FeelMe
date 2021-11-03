@@ -57,15 +57,13 @@ class WatchedMoviesFragment : Fragment() {
     private fun getPagedInitialData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getWatchedMoviesList().collect { pagingData ->
-                binding?.let {
-                    it.vgLoader.vgLoader.isVisible = false
-                    it.rvMovieList.isVisible = true
-                }
+                setupMoviesList()
                 pagedSquareImagesAdapter.submitData(pagingData)
             }
         }
         viewModel.noWatchedMovies.observe(viewLifecycleOwner, {
-            emptyList()
+            if(it) emptyList()
+            else setupMoviesList()
         })
     }
 
@@ -73,6 +71,14 @@ class WatchedMoviesFragment : Fragment() {
         binding?.let {
             it.rvMovieList.adapter = pagedSquareImagesAdapter
             it.rvMovieList.layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
+        }
+    }
+
+    private fun setupMoviesList() {
+        binding?.let {
+            it.rvMovieList.isVisible = true
+            it.vgLoader.vgLoader.isVisible = false
+            it.vgNoStreaming.isVisible = false
         }
     }
 

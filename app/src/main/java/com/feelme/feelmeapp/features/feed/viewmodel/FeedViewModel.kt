@@ -13,6 +13,7 @@ import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.feed.repository.FeedRepository
 import com.feelme.feelmeapp.features.feed.usecase.FeedUseCase
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeFollow
 import com.feelme.feelmeapp.model.feelmeapi.FriendMovieItem
 import com.feelme.feelmeapp.utils.ResponseApi
 import kotlinx.coroutines.launch
@@ -26,6 +27,10 @@ class FeedViewModel(private val feedUseCase: FeedUseCase, private val feedReposi
     private val _noStatus: MutableLiveData<Boolean> = MutableLiveData()
     val noStatus: LiveData<Boolean>
         get() = _noStatus
+
+    private val _onSuccessFollow: MutableLiveData<FeelMeFollow> = MutableLiveData()
+    val onSuccessFollow: LiveData<FeelMeFollow>
+        get() = _onSuccessFollow
 
     var mPagingData: Flow<PagingData<PagedMovieCommentsModel>>? = null
 
@@ -65,5 +70,17 @@ class FeedViewModel(private val feedUseCase: FeedUseCase, private val feedReposi
                 }}
             ).flow.cachedIn(viewModelScope)
         return mPagingData as Flow<PagingData<PagedMovieCommentsModel>>
+    }
+
+    fun getUserFollow() {
+        viewModelScope.launch {
+            callApi(
+                suspend { feedUseCase.getUserFollow() },
+                onSuccess = {
+                    val data = it as FeelMeFollow
+                    _onSuccessFollow.postValue(data)
+                }
+            )
+        }
     }
 }

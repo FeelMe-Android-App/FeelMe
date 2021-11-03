@@ -64,7 +64,8 @@ class SavedMoviesFragment : Fragment() {
             }
         }
         viewModel.noSavedMovies.observe(viewLifecycleOwner, {
-            emptyList()
+            if(it) emptyList()
+            else setupSavedMovies()
         })
     }
 
@@ -73,6 +74,14 @@ class SavedMoviesFragment : Fragment() {
             it.rvMovieList.isVisible = false
             it.vgLoader.vgLoader.isVisible = false
             it.vgNoStreaming.isVisible = true
+        }
+    }
+
+    private fun setupSavedMovies() {
+        binding?.let {
+            it.rvMovieList.isVisible = true
+            it.vgLoader.vgLoader.isVisible = false
+            it.vgNoStreaming.isVisible = false
         }
     }
 

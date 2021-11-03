@@ -1,13 +1,16 @@
 package com.feelme.feelmeapp.features.movieDetails.view
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.SimpleAdapter
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
@@ -21,11 +24,11 @@ import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
-import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
-import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
-import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.*
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment
+import com.feelme.feelmeapp.features.userProfile.view.UserProfileActivity
 import com.feelme.feelmeapp.globalLiveData.UserMoviesList
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
@@ -47,6 +50,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var movieWatched: Boolean = false
     private val userProfile = UserProfile.currentUser.value
     private val userMovieListEvents = UserMoviesList
+    private lateinit var commentsAdapter: CommentsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,20 +95,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
             btPostComment.setOnClickListener {
                 val text = binding.etUserComment.text
-                val comments = mutableListOf(Comment(
-                    UserProfile.currentUser.value?.photoUrl,
-                    text.toString(),
-                    UserProfile.currentUser.value?.uid ?: ""
-                ))
-                viewModel.onSuccessMovieComments.value?.let {
-                    comments.addAll((it))
-                }
-
-                val commentsAdapter = CommentsAdapter(comments.toImmutableList()) {
-
-                }
-                binding.rvComments.adapter = commentsAdapter
-
                 viewModel.saveComment(movieId, FeelMeMovieComment(text.toString(), viewModel.onSuccessMovieDetails.value?.backdropPath ?: ""))
             }
         }
@@ -161,12 +151,30 @@ class MovieDetailsActivity : AppCompatActivity() {
                 movieWatched = true
             })
 
-            viewModel.onSuccessMovieComments.observe(this, {
-                val commentsAdapter = CommentsAdapter(it) {
-
+            viewModel.onSuccessMovieComments.observe(this, { CommentsList ->
+                commentsAdapter = CommentsAdapter(CommentsList.toMutableList()) {
+                    val intent = Intent(applicationContext, UserProfileActivity::class.java)
+                    intent.putExtra(SearchFriendFragment.USER_ID, it.profileId)
+                    startActivity(intent)
                 }
 
-                if(it.count() > 0) {
+                val userCommentPosition: MutableList<Int> = mutableListOf()
+                CommentsList.forEachIndexed { index, comment -> if(comment.profileId == UserProfile.currentUser.value?.uid) userCommentPosition.add(index) }
+
+                val swipeHandler = object : SwipeToDeleteCallback(context = applicationContext, userCommentPosition) {
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        if(userComments.contains(viewHolder.absoluteAdapterPosition)) {
+                            val adapter = binding.rvComments.adapter as CommentsAdapter
+                            val commentId = CommentsList[viewHolder.absoluteAdapterPosition]._id
+                            viewModel.deleteComment(commentId)
+                            adapter.removeAt(viewHolder.absoluteAdapterPosition)
+                        }
+                    }
+                }
+                val itemTouchHelper = ItemTouchHelper(swipeHandler)
+                itemTouchHelper.attachToRecyclerView(binding.rvComments)
+
+                if(CommentsList.count() > 0) {
                     binding.rvComments.isVisible = true
                     binding.tvFriendsComments.isVisible = true
                     binding.rvComments.adapter = commentsAdapter
@@ -179,6 +187,15 @@ class MovieDetailsActivity : AppCompatActivity() {
                     loggedScreen()
                 }
             })
+
+            viewModel.onSuccessPostedComments.observe(this, {
+                commentsAdapter.addItem(Comment(
+                    Uri.parse(it.uid.photoUrl),
+                    it.comment,
+                    it.uid.uid,
+                    it._id
+                ))
+            })
         }
     }
 
@@ -188,6 +205,8 @@ class MovieDetailsActivity : AppCompatActivity() {
                 binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
                 binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
 
+                movieSaved = false
+                movieWatched = true
                 saveWatchedMovie()
 
                 supportFragmentManager.fragments.forEach { Fragment ->
@@ -224,15 +243,24 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.btSave.setOnClickListener {
             userMovieListEvents.emitUnwatchedMovieHasChanged(true)
-            if(movieSaved && !movieWatched) removeMovie(movieId)
-            else if(!movieSaved) saveUnWatchedMovie()
+            if(movieSaved && !movieWatched) {
+                movieSaved = false
+                removeMovie(movieId)
+            }
+            else if(!movieSaved && !movieWatched) {
+                saveUnWatchedMovie()
+            }
         }
     }
 
     private fun setupWatchButton() {
         binding.btWatch.setOnClickListener {
             userMovieListEvents.emitWatchedMovieHasChanged(true)
-            if(movieWatched) removeMovie(movieId)
+            if(movieWatched) {
+                movieWatched = false
+                movieSaved = false
+                removeMovie(movieId)
+            }
             else showEmojiFeelingDialog()
         }
     }
@@ -272,5 +300,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         const val MOVIE_TITLE = "movieTitle"
         const val FEELING_ID = "feelingId"
         const val COMMENT = "comment"
+        const val COMMENT_ID = "commentId"
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 }

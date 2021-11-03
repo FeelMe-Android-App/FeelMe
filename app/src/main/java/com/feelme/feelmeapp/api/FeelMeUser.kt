@@ -60,7 +60,7 @@ interface FeelMeUser {
     suspend fun postMovieComment(
         @Path("movie_id") movieId: Int,
         @Body body: FeelMeMovieComment
-    ): Response<Any>
+    ): Response<FeelMePostComment>
 
     @POST("")
     suspend fun saveStream(
@@ -105,4 +105,12 @@ interface FeelMeUser {
     suspend fun getFriendsComments(
         @Query("page") page: Int,
     ): Response<FeelMeComments>
+
+    @DELETE("comment/{comment_id}")
+    suspend fun deleteComment(
+        @Path("comment_id") commentId: String
+    ): Response<Any>
+
+    @GET("myprofile/follow")
+    suspend fun getUserFollow(): Response<FeelMeFollow>
 }
