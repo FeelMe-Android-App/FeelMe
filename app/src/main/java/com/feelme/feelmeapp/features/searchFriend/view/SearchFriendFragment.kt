@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +16,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.PagingFriendsAdapter.PagedFriendsAdapter
 import com.feelme.feelmeapp.databinding.FragmentSearchFriendBinding
-import com.feelme.feelmeapp.features.home.view.HomeFragment
-import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.features.searchFriend.viewmodel.SearchFriendViewModel
 import com.feelme.feelmeapp.features.userProfile.view.UserProfileActivity
 import kotlinx.coroutines.flow.collectLatest
