@@ -27,6 +27,7 @@
             android:orientation="horizontal"
             android:layout_gravity="center_vertical">
             <LinearLayout
+                android:id="@+id/clickFollowing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -49,6 +50,7 @@
                     android:fontFamily="@font/lato"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/clicKFollow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

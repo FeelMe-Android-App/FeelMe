@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.social.view.SocialActivity">
+
+    <include
+        layout="@layout/loader"
+        android:id="@+id/vgLoader"
+        />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/barra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            style="@style/Widget.AppCompat.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/primary_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:titleTextColor="@color/primary_text_color">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top|left"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/white_seventy_percent"
+                android:backgroundTint="@color/white_ten_percent"
+                android:paddingEnd="5dp"
+                android:paddingBottom="9dp"
+                android:src="@drawable/ic_back_arrow"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:fabCustomSize="50dp"
+                android:tint="@color/white"
+                app:tint="@color/white"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:id="@+id/tvNomeLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:layout_toEndOf="@id/btBack"
+                android:fontFamily="@font/lato_bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_2"
+                android:layout_gravity="center_vertical"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tlSocialTabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_color"
+            android:backgroundTint="@color/primary_color"
+            app:tabRippleColor="@color/white"
+            app:tabTextColor="@color/white"
+            app:tabIconTint="@color/white"
+            app:layout_collapseMode="pin"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seguindo"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seguidores"
+                />
+
+        </com.google.android.material.tabs.TabLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpSocial"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/primary_color"
+            android:background="@color/primary_text_color"
+            />
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

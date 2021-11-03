@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_profile.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_social.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/activity_user_profile.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_feed.xml" value="0.18" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_follow.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_following.xml" value="0.16041666666666668" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/loader.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/profile_header_component.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/search_item.xml" value="0.1" />
+        <entry key="..\:/Users/natal/AndroidStudioProjects/FeelMe/app/src/main/res/layout/snippet_top_profilebar.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/paulo/.gradle/caches/transforms-3/1f7445aa4ab89da6aa82abfa55ae8bc9/transformed/appcompat-1.3.1/res/drawable/abc_ic_search_api_material.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable-v24/layout_bg_round.xml" value="0.3828125" />
         <entry key="..\:/Users/paulo/AndroidStudioProjects/FeelMe/app/src/main/res/drawable/ic_close_search.xml" value="0.12135416666666667" />
