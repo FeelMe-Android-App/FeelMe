@@ -4,6 +4,7 @@
     package="com.feelme.feelmeapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AppAplication"
@@ -14,18 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <activity
-            android:name=".features.followFollowers.view.FollowFollowersActivity"
-            android:exported="false"
-            android:label="@string/title_activity_follow_followers"
-            android:theme="@style/Theme.FeelMe.NoActionBar" />
-        <activity
             android:name=".features.userProfile.view.UserProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_user_profile"
             android:theme="@style/Theme.FeelMe.NoActionBar" />
-        <activity
-            android:name=".features.movieDetails.view.MovieDetailsLoggedActivity"
-            android:exported="true" />
         <activity
             android:name=".features.genre.view.GenreActivity"
             android:exported="true" />

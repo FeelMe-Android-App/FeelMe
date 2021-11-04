@@ -87,6 +87,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
         binding.btShare.setOnClickListener { getScreenShot() }
+        Picasso.get().load(UserProfile.currentUser.value?.photoUrl.toString() ?: "no-image").into(binding.ivFotoLogin)
         setupObservables()
     }
 
@@ -186,7 +187,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     it._id
                 )
 
-                val commentsList = commentsAdapter.getList()
+                val commentsList = if(this::commentsAdapter.isInitialized) commentsAdapter.getList() else mutableListOf()
 
                 if(commentsList.isNullOrEmpty()) setupCommentsRecyclerView(mutableListOf(newComment))
                 else commentsAdapter.addItem(newComment)

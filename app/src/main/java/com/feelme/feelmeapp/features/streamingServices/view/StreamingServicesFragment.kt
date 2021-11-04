@@ -14,6 +14,7 @@ import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListData
 import com.feelme.feelmeapp.databinding.FragmentStreamingServicesBinding
 import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import com.feelme.feelmeapp.features.streamingServices.viewmodel.StreamingServicesViewModel
+import com.feelme.feelmeapp.globalLiveData.UserStreamings
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StreamingServicesFragment : Fragment() {
@@ -50,20 +51,14 @@ class StreamingServicesFragment : Fragment() {
                 streamIds.add(it.stream.providerId)
             }
 
+            UserStreamings.setUserStreamings(streamIds)
+
             binding?.let {
                 it.rvStreamingServices.layoutManager = GridLayoutManager(context, 3)
                 it.rvStreamingServices.adapter = UserStreamListAdapter(streamList.toList()) {
 
                 }
                 hideLoader()
-            }
-
-            binding?.let {
-                it.fbEditStream.setOnClickListener {
-                    val intent = Intent(context, StreamListActivity::class.java)
-                    intent.putExtra(STREAM_LIST, ArrayList(streamIds))
-                    startActivity(intent)
-                }
             }
         })
 

@@ -25,6 +25,7 @@ class LastMoviesAdapter(private val movies: List<FriendMovieItem>, private val s
         fun bind(movie: FriendMovieItem) {
             with(binding) {
                 Picasso.get().load(Uri.parse(movie.backdropPath)).placeholder(R.drawable.no_image).into(rivMovie)
+                Picasso.get().load(movie.uid.photoUrl).placeholder(R.drawable.no_image).into(rivUserProfile)
                 vgMovieStatus.setOnClickListener { setOnClickListener(movie) }
             }
         }
