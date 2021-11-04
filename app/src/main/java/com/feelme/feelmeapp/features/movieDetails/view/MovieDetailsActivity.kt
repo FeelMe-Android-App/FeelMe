@@ -87,6 +87,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
         binding.btShare.setOnClickListener { getScreenShot() }
+        Picasso.get().load(UserProfile.currentUser.value?.photoUrl.toString() ?: "no-image").into(binding.ivFotoLogin)
         setupObservables()
     }
 

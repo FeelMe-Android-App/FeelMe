@@ -20,6 +20,7 @@
         android:adjustViewBounds="true"
         />
     <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/rivUserProfile"
         app:layout_constraintBottom_toBottomOf="@+id/rivMovie"
         android:src="@drawable/ic_no_profile_picture"
         app:layout_constraintEnd_toEndOf="@+id/rivMovie"
