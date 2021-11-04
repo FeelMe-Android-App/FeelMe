@@ -15,9 +15,12 @@ import com.feelme.feelmeapp.databinding.FragmentProfileBinding
 import com.feelme.feelmeapp.features.profile.adapter.ProfileAdapter
 import com.feelme.feelmeapp.features.profile.viewmodel.ProfileViewModel
 import com.feelme.feelmeapp.features.savedMovies.view.SavedMoviesFragment
+import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import com.feelme.feelmeapp.features.streamingServices.view.StreamingServicesFragment
 import com.feelme.feelmeapp.features.watchedMovies.view.WatchedMoviesFragment
 import com.feelme.feelmeapp.globalLiveData.UserProfile
+import com.feelme.feelmeapp.globalLiveData.UserStreamings
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -85,6 +88,22 @@ class ProfileFragment : Fragment() {
                 tab.text = titles[position]
                 tab.icon = ResourcesCompat.getDrawable(resources, icons[position], null)
             }.attach()
+
+            it.tlUserProfile.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    it.fbEditStream.isVisible = tab?.position == 2
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            })
+
+            it.fbEditStream.setOnClickListener {
+                val intent = Intent(context, StreamListActivity::class.java)
+                intent.putExtra(StreamingServicesFragment.STREAM_LIST, ArrayList(UserStreamings.getUserStreamings.value ?: mutableListOf()))
+                startActivity(intent)
+            }
 
             it.vgProfileHeader.toolUserProfile.setOnMenuItemClickListener { MenuItem ->
                 when(MenuItem.itemId) {

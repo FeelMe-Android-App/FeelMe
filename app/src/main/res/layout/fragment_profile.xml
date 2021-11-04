@@ -17,8 +17,20 @@
         android:id="@+id/vgProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:visibility="invisible">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbEditStream"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/round_edit_20"
+            app:borderWidth="0dp"
+            android:backgroundTint="@color/secondary_color"
+            app:rippleColor="@color/white"
+            app:tint="@color/white"
+            android:visibility="invisible"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,11 +64,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/ic_streamings"
-                    />
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_watched_movies"
                     />
             </com.google.android.material.tabs.TabLayout>
             <View

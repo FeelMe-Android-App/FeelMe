@@ -186,7 +186,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     it._id
                 )
 
-                val commentsList = commentsAdapter.getList()
+                val commentsList = if(this::commentsAdapter.isInitialized) commentsAdapter.getList() else mutableListOf()
 
                 if(commentsList.isNullOrEmpty()) setupCommentsRecyclerView(mutableListOf(newComment))
                 else commentsAdapter.addItem(newComment)
