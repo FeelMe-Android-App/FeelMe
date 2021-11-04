@@ -12,9 +12,14 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -324,9 +329,10 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     fun getScreenShot() {
-        val view = this.window.decorView.rootView
+        val view = findViewById<ConstraintLayout>(R.id.vgMovieDetailsScreen)
+        val movieText = view.findViewById<TextView>(R.id.tvMovieDescription).bottom + 40
         val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-        val returnedBitmat = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val returnedBitmat = Bitmap.createBitmap(view.width, movieText, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(returnedBitmat)
         val bgDrawable = view.background
         if(bgDrawable != null) bgDrawable.draw(canvas)
