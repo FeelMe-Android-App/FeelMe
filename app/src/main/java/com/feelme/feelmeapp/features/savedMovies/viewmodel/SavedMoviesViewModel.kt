@@ -35,10 +35,11 @@ class SavedMoviesViewModel(
                 ) {
                     is ResponseApi.Success -> {
                         val list = response.data as? MyMoviesList
-                        if(list == null) _noSavedMovies.postValue(true)
                         savedMoviesUseCase.setupSquareMoviesList(list)
                     }
                     is ResponseApi.Error -> {
+                        if(page == 1 || page == 0) _noSavedMovies.postValue(true)
+                        else _noSavedMovies.postValue(false)
                         listOf()
                     }
                 }

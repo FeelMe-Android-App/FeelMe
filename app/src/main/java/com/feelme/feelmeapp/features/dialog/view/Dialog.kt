@@ -165,7 +165,8 @@ class Dialog(private var params: DialogData) : DialogFragment() {
                 UserProfile.patchInitialValue()
                 UserProfile.currentUser.observe(this, { UserProfile ->
                     UserProfile?.let {
-                        viewModel.saveUserProfile(FeelMeNewUserPost("", it.photoUrl.toString()))
+                        val userPicture = Profile.getCurrentProfile().getProfilePictureUri(100, 100)
+                        viewModel.saveUserProfile(FeelMeNewUserPost(userPicture.toString()))
                         viewModel.saveUserStreamings()
                     }
                 })

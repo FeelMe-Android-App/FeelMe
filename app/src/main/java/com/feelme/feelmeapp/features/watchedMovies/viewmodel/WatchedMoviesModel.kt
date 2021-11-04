@@ -35,10 +35,12 @@ class WatchedMoviesModel(
                     ) {
                         is ResponseApi.Success -> {
                             val list = response.data as? MyMoviesList
-                            if(list == null) _noWatchedMovies.postValue(true)
+                            if(page == 1 && list == null) _noWatchedMovies.postValue(true)
                             watchedMoviesUseCase.setupSquareMoviesList(list)
                         }
                         is ResponseApi.Error -> {
+                            if(page == 1 || page == 0) _noWatchedMovies.postValue(true)
+                            else _noWatchedMovies.postValue(false)
                             listOf()
                         }
                     }

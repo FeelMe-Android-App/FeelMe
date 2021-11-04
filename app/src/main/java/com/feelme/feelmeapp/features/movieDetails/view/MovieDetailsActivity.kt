@@ -1,13 +1,23 @@
 package com.feelme.feelmeapp.features.movieDetails.view
 
+import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
@@ -21,11 +31,11 @@ import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
-import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
-import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
-import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.*
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment
+import com.feelme.feelmeapp.features.userProfile.view.UserProfileActivity
 import com.feelme.feelmeapp.globalLiveData.UserMoviesList
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
@@ -35,8 +45,11 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.squareup.picasso.Picasso
-import okhttp3.internal.toImmutableList
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import kotlin.properties.Delegates
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -47,6 +60,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var movieWatched: Boolean = false
     private val userProfile = UserProfile.currentUser.value
     private val userMovieListEvents = UserMoviesList
+    private lateinit var commentsAdapter: CommentsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +81,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
+        binding.btShare.setOnClickListener { getScreenShot() }
         setupObservables()
     }
 
@@ -91,20 +106,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
             btPostComment.setOnClickListener {
                 val text = binding.etUserComment.text
-                val comments = mutableListOf(Comment(
-                    UserProfile.currentUser.value?.photoUrl,
-                    text.toString(),
-                    UserProfile.currentUser.value?.uid ?: ""
-                ))
-                viewModel.onSuccessMovieComments.value?.let {
-                    comments.addAll((it))
-                }
-
-                val commentsAdapter = CommentsAdapter(comments.toImmutableList()) {
-
-                }
-                binding.rvComments.adapter = commentsAdapter
-
                 viewModel.saveComment(movieId, FeelMeMovieComment(text.toString(), viewModel.onSuccessMovieDetails.value?.backdropPath ?: ""))
             }
         }
@@ -161,23 +162,32 @@ class MovieDetailsActivity : AppCompatActivity() {
                 movieWatched = true
             })
 
-            viewModel.onSuccessMovieComments.observe(this, {
-                val commentsAdapter = CommentsAdapter(it) {
-
-                }
-
-                if(it.count() > 0) {
-                    binding.rvComments.isVisible = true
-                    binding.tvFriendsComments.isVisible = true
-                    binding.rvComments.adapter = commentsAdapter
-                    binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
-                }
+            viewModel.onSuccessMovieComments.observe(this, { CommentsList ->
+                if(CommentsList.count() > 0) setupCommentsRecyclerView(CommentsList)
+                setupCommentsToDelete(CommentsList)
             })
 
             UserProfile.currentUser.observe(this, {
                 if(it?.logged == true) {
                     loggedScreen()
                 }
+            })
+
+            viewModel.onSuccessPostedComments.observe(this, {
+                val newComment = Comment(
+                    Uri.parse(it.photoUrl),
+                    it.comment,
+                    it.uid,
+                    it._id
+                )
+
+                val commentsList = commentsAdapter.getList()
+
+                if(commentsList.isNullOrEmpty()) setupCommentsRecyclerView(mutableListOf(newComment))
+                else commentsAdapter.addItem(newComment)
+
+                binding.etUserComment.text = null
+                setupCommentsToDelete(commentsList)
             })
         }
     }
@@ -188,6 +198,8 @@ class MovieDetailsActivity : AppCompatActivity() {
                 binding.btWatch.background.setTint(ContextCompat.getColor(applicationContext, R.color.secondary_color))
                 binding.btSave.background.setTint(ContextCompat.getColor(applicationContext, R.color.clean_primary_color))
 
+                movieSaved = false
+                movieWatched = true
                 saveWatchedMovie()
 
                 supportFragmentManager.fragments.forEach { Fragment ->
@@ -221,18 +233,63 @@ class MovieDetailsActivity : AppCompatActivity() {
         ).show(this.supportFragmentManager, "LoginDialog")
     }
 
+    private fun setupCommentsRecyclerView(commentsList: List<Comment>) {
+        commentsAdapter = CommentsAdapter(commentsList.toMutableList()) {
+            val intent = Intent(applicationContext, UserProfileActivity::class.java)
+            intent.putExtra(SearchFriendFragment.USER_ID, it.profileId)
+            startActivity(intent)
+        }
+
+        binding.rvComments.isVisible = true
+        binding.tvFriendsComments.isVisible = true
+        binding.rvComments.adapter = commentsAdapter
+        binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+    }
+
+    private fun setupCommentsToDelete(commentsList: List<Comment>) {
+        val userCommentPosition: MutableList<Int> = mutableListOf()
+        commentsList.forEachIndexed { index, comment -> if(comment.profileId == UserProfile.currentUser.value?.uid) userCommentPosition.add(index) }
+
+        val swipeHandler = object : SwipeToDeleteCallback(context = applicationContext, userCommentPosition) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if(userComments.contains(viewHolder.absoluteAdapterPosition)) {
+                    val adapter = binding.rvComments.adapter as CommentsAdapter
+                    val commentId = adapter.getPosition(viewHolder.absoluteAdapterPosition)
+                    viewModel.deleteComment(commentId)
+                    adapter.removeAt(viewHolder.absoluteAdapterPosition)
+
+                    if(adapter.itemCount == 0) {
+                        binding.rvComments.isVisible = false
+                        binding.tvFriendsComments.isVisible = false
+                    }
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(binding.rvComments)
+    }
+
     private fun setupSaveButton() {
         binding.btSave.setOnClickListener {
             userMovieListEvents.emitUnwatchedMovieHasChanged(true)
-            if(movieSaved && !movieWatched) removeMovie(movieId)
-            else if(!movieSaved) saveUnWatchedMovie()
+            if(movieSaved && !movieWatched) {
+                movieSaved = false
+                removeMovie(movieId)
+            }
+            else if(!movieSaved && !movieWatched) {
+                saveUnWatchedMovie()
+            }
         }
     }
 
     private fun setupWatchButton() {
         binding.btWatch.setOnClickListener {
             userMovieListEvents.emitWatchedMovieHasChanged(true)
-            if(movieWatched) removeMovie(movieId)
+            if(movieWatched) {
+                movieWatched = false
+                movieSaved = false
+                removeMovie(movieId)
+            }
             else showEmojiFeelingDialog()
         }
     }
@@ -266,11 +323,56 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.removeMovie(movieId)
     }
 
+    fun getScreenShot() {
+        val view = this.window.decorView.rootView
+        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+        val returnedBitmat = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(returnedBitmat)
+        val bgDrawable = view.background
+        if(bgDrawable != null) bgDrawable.draw(canvas)
+        else canvas.drawColor(Color.WHITE)
+        view.draw(canvas)
+        val bytes = ByteArrayOutputStream()
+        returnedBitmat.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+
+        var fos: OutputStream?
+        val filename = "screenshot.jpg"
+        var uri: Uri?
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            applicationContext.contentResolver.also { resolver ->
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                uri = imageUri
+                fos = imageUri?.let { resolver.openOutputStream(it) }
+            }
+        } else {
+            val imagesDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val image = File(imagesDir, filename)
+            uri = image.toUri()
+            fos = FileOutputStream(image)
+        }
+
+        fos?.use {
+            returnedBitmat.compress(Bitmap.CompressFormat.JPEG, 100, it)
+        }
+
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        startActivity(intent)
+    }
+
     companion object {
         const val MOVIE_ID = "movieId"
         const val MOVIE_BACKDROP_PATH = "movieBackdropPath"
         const val MOVIE_TITLE = "movieTitle"
         const val FEELING_ID = "feelingId"
         const val COMMENT = "comment"
+        const val COMMENT_ID = "commentId"
     }
 }

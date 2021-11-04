@@ -9,7 +9,7 @@ import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.squareup.picasso.Picasso
 
 class CommentsAdapter(
-    private val comments: List<Comment>,
+    private var comments: MutableList<Comment>,
     private val onClickListenerProfile: (comment: Comment) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -31,10 +31,27 @@ class CommentsAdapter(
             onClickListenerProfile: (comment: Comment) -> Unit
         ) {
             binding.tvComment.text = comment.comment
-            Picasso.get().load(comment.image).placeholder(R.drawable.ic_no_profile_picture).to(binding.ivProfilePicture)
+            Picasso.get().load(comment.image).placeholder(R.drawable.ic_no_profile_picture).into(binding.ivProfilePicture)
             binding.clComment.setOnClickListener {
                 onClickListenerProfile(comment)
             }
         }
+    }
+
+    fun getList() = comments
+
+    fun getPosition(position: Int): String {
+        return comments.get(position)._id
+    }
+
+    fun removeAt(position: Int) {
+        comments.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun addItem(item: Comment) {
+        if(comments.isNullOrEmpty()) comments = mutableListOf(item)
+        else comments.add(0, item)
+        notifyDataSetChanged()
     }
 }

@@ -6,4 +6,5 @@ data class Comment (
     val image: Uri?,
     val comment: String,
     val profileId: String,
+    val _id: String,
 )

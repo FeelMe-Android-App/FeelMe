@@ -16,4 +16,10 @@ class FeedRepository() : BaseRepository() {
             FeelMeApiService.feelMeApiService.getFriendsComments(page)
         }
     }
+
+    suspend fun getUserFollow(): ResponseApi {
+        return safeApiCall {
+            FeelMeApiService.feelMeApiService.getUserFollow()
+        }
+    }
 }

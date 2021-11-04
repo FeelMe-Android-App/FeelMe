@@ -57,6 +57,7 @@ class FeedFragment : Fragment() {
 
         viewModel.command = MutableLiveData()
         viewModel.getFriendsStatus()
+        viewModel.getUserFollow()
         setupObservables()
     }
 
@@ -78,6 +79,10 @@ class FeedFragment : Fragment() {
                 pagedMovieCommentsAdapter.submitData(pagingData)
             }
         }
+
+        viewModel.onSuccessFollow.observe(viewLifecycleOwner, {
+            if(it.follow.count() == 0) showNoFriends()
+        })
     }
 
     private fun showNoFriends() {

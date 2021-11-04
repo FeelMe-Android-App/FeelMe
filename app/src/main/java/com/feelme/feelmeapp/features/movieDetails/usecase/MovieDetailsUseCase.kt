@@ -3,18 +3,14 @@ package com.feelme.feelmeapp.features.movieDetails.usecase
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
 import com.feelme.feelmeapp.model.*
-import com.feelme.feelmeapp.model.Genre
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
+import com.feelme.feelmeapp.model.feelmeapi.*
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.utils.ResponseApi
-import okhttp3.internal.toImmutableList
 
 class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsRepository) {
 
     suspend fun getMovieById(id: Int): ResponseApi {
-        when(val responseApi = movieDetailsRepository.getMovieById(id)) {
+        return when(val responseApi = movieDetailsRepository.getMovieById(id)) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as Result
                 data.posterPath?.let { data.posterPath = it.getFullImageUrl() }
@@ -46,6 +42,7 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
 
                 return ResponseApi.Success(movie)
             }
+            else -> return responseApi
         }
     }
 
@@ -104,6 +101,18 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
                 }
 
                 return ResponseApi.Success(stream)
+            }
+        }
+    }
+
+    suspend fun postMovieComment(movieId: Int, comment: FeelMeMovieComment): ResponseApi {
+        when(val responseApi = movieDetailsRepository.postMovieComment(movieId, comment)) {
+            is ResponseApi.Success -> {
+                val data = responseApi.data as FeelMePostComment
+                return ResponseApi.Success(data)
+            }
+            is ResponseApi.Error -> {
+                return responseApi
             }
         }
     }

@@ -73,6 +73,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintHeight_default="spread">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btShare"
+                    android:layout_width="50dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingBottom="9dp"
+                    android:src="@drawable/round_share_24"
+                    android:background="@color/primary_color"
+                    android:backgroundTint="@color/primary_color"
+                    app:borderWidth="0dp"
+                    android:tint="@color/white"
+                    app:tint="@color/white"
+                    android:layout_marginEnd="16dp"
+                    app:fabCustomSize="50dp" />
 
                 <ImageView
                     android:id="@+id/imgPoster"

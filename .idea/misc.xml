@@ -51,6 +51,7 @@
         <entry key="app/src/main/res/drawable-v24/layout_bg_round.xml" value="0.3489583333333333" />
         <entry key="app/src/main/res/drawable/ic_no_profile_picture.xml" value="0.3489583333333333" />
         <entry key="app/src/main/res/drawable/outline_add_24.xml" value="0.35" />
+        <entry key="app/src/main/res/drawable/round_delete_forever_24.xml" value="0.35" />
         <entry key="app/src/main/res/drawable/round_edit_20.xml" value="0.35" />
         <entry key="app/src/main/res/drawable/skeleton.xml" value="0.3489583333333333" />
         <entry key="app/src/main/res/drawable/skeleton_circle.xml" value="0.3489583333333333" />

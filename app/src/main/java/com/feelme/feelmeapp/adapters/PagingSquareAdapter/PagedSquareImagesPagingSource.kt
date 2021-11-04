@@ -18,7 +18,7 @@ class PagedSquareImagesPagingSource(
 
             LoadResult.Page(
                 data = response,
-                prevKey = if(page == 1) null else page.minus(1),
+                prevKey = if(page == 1 || page == 0) null else page.minus(1),
                 nextKey = if(response.isEmpty()) null else page.plus(1)
             )
         } catch (e: Exception) {
