@@ -163,34 +163,8 @@ class MovieDetailsActivity : AppCompatActivity() {
             })
 
             viewModel.onSuccessMovieComments.observe(this, { CommentsList ->
-                commentsAdapter = CommentsAdapter(CommentsList.toMutableList()) {
-                    val intent = Intent(applicationContext, UserProfileActivity::class.java)
-                    intent.putExtra(SearchFriendFragment.USER_ID, it.profileId)
-                    startActivity(intent)
-                }
-
-                val userCommentPosition: MutableList<Int> = mutableListOf()
-                CommentsList.forEachIndexed { index, comment -> if(comment.profileId == UserProfile.currentUser.value?.uid) userCommentPosition.add(index) }
-
-                val swipeHandler = object : SwipeToDeleteCallback(context = applicationContext, userCommentPosition) {
-                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        if(userComments.contains(viewHolder.absoluteAdapterPosition)) {
-                            val adapter = binding.rvComments.adapter as CommentsAdapter
-                            val commentId = CommentsList[viewHolder.absoluteAdapterPosition]._id
-                            viewModel.deleteComment(commentId)
-                            adapter.removeAt(viewHolder.absoluteAdapterPosition)
-                        }
-                    }
-                }
-                val itemTouchHelper = ItemTouchHelper(swipeHandler)
-                itemTouchHelper.attachToRecyclerView(binding.rvComments)
-
-                if(CommentsList.count() > 0) {
-                    binding.rvComments.isVisible = true
-                    binding.tvFriendsComments.isVisible = true
-                    binding.rvComments.adapter = commentsAdapter
-                    binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
-                }
+                if(CommentsList.count() > 0) setupCommentsRecyclerView(CommentsList)
+                setupCommentsToDelete(CommentsList)
             })
 
             UserProfile.currentUser.observe(this, {
@@ -200,12 +174,20 @@ class MovieDetailsActivity : AppCompatActivity() {
             })
 
             viewModel.onSuccessPostedComments.observe(this, {
-                commentsAdapter.addItem(Comment(
-                    Uri.parse(it.uid.photoUrl),
+                val newComment = Comment(
+                    Uri.parse(it.photoUrl),
                     it.comment,
-                    it.uid.uid,
+                    it.uid,
                     it._id
-                ))
+                )
+
+                val commentsList = commentsAdapter.getList()
+
+                if(commentsList.isNullOrEmpty()) setupCommentsRecyclerView(mutableListOf(newComment))
+                else commentsAdapter.addItem(newComment)
+
+                binding.etUserComment.text = null
+                setupCommentsToDelete(commentsList)
             })
         }
     }
@@ -249,6 +231,42 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             )
         ).show(this.supportFragmentManager, "LoginDialog")
+    }
+
+    private fun setupCommentsRecyclerView(commentsList: List<Comment>) {
+        commentsAdapter = CommentsAdapter(commentsList.toMutableList()) {
+            val intent = Intent(applicationContext, UserProfileActivity::class.java)
+            intent.putExtra(SearchFriendFragment.USER_ID, it.profileId)
+            startActivity(intent)
+        }
+
+        binding.rvComments.isVisible = true
+        binding.tvFriendsComments.isVisible = true
+        binding.rvComments.adapter = commentsAdapter
+        binding.rvComments.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+    }
+
+    private fun setupCommentsToDelete(commentsList: List<Comment>) {
+        val userCommentPosition: MutableList<Int> = mutableListOf()
+        commentsList.forEachIndexed { index, comment -> if(comment.profileId == UserProfile.currentUser.value?.uid) userCommentPosition.add(index) }
+
+        val swipeHandler = object : SwipeToDeleteCallback(context = applicationContext, userCommentPosition) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if(userComments.contains(viewHolder.absoluteAdapterPosition)) {
+                    val adapter = binding.rvComments.adapter as CommentsAdapter
+                    val commentId = adapter.getPosition(viewHolder.absoluteAdapterPosition)
+                    viewModel.deleteComment(commentId)
+                    adapter.removeAt(viewHolder.absoluteAdapterPosition)
+
+                    if(adapter.itemCount == 0) {
+                        binding.rvComments.isVisible = false
+                        binding.tvFriendsComments.isVisible = false
+                    }
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(binding.rvComments)
     }
 
     private fun setupSaveButton() {

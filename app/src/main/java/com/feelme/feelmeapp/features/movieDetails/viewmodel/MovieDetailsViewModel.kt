@@ -44,8 +44,8 @@ class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase
     val onSuccessMovieSaved: LiveData<String>
         get() = _onSuccessMovieSaved
 
-    private val _onSuccessPostedComments: MutableLiveData<FeelMeComment> = MutableLiveData()
-    val onSuccessPostedComments: LiveData<FeelMeComment>
+    private val _onSuccessPostedComments: MutableLiveData<FeelMePostComment> = MutableLiveData()
+    val onSuccessPostedComments: LiveData<FeelMePostComment>
         get() = _onSuccessPostedComments
 
     fun getMovieDetailsScreen(movieId: Int) {
@@ -128,7 +128,7 @@ class MovieDetailsViewModel(private val movieDetailsUseCase: MovieDetailsUseCase
             callApi(
                 suspend { movieDetailsUseCase.postMovieComment(movieId, comment) },
                 onSuccess = {
-                    _onSuccessPostedComments.postValue(it as FeelMeComment)
+                    _onSuccessPostedComments.postValue(it as FeelMePostComment)
                 }
             )
         }

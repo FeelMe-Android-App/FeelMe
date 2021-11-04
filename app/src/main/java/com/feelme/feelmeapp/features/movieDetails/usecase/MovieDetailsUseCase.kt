@@ -109,7 +109,7 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
         when(val responseApi = movieDetailsRepository.postMovieComment(movieId, comment)) {
             is ResponseApi.Success -> {
                 val data = responseApi.data as FeelMePostComment
-                return ResponseApi.Success(data.comments)
+                return ResponseApi.Success(data)
             }
             is ResponseApi.Error -> {
                 return responseApi
