@@ -85,13 +85,6 @@ class FeedFragment : Fragment() {
         viewModel.onSuccessFollow.observe(viewLifecycleOwner, {
             if(it.follow.count() == 0) showNoFriends()
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            if(it is Command.Error) {
-                val intent = Intent(context, NoInternetActivity::class.java)
-                startActivity(intent)
-            }
-        })
     }
 
     private fun showNoFriends() {

@@ -67,13 +67,6 @@ class StreamingServicesFragment : Fragment() {
         viewModel.noStreamingServices.observe(viewLifecycleOwner, {
             emptyList()
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            if(it is Command.Error) {
-                val intent = Intent(context, NoInternetActivity::class.java)
-                startActivity(intent)
-            }
-        })
     }
 
     private fun emptyList() {

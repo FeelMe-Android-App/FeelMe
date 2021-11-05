@@ -97,13 +97,6 @@ class SearchActivity : AppCompatActivity() {
                 binding.rvMovies.isVisible = true
             }
         })
-
-        viewModel.command.observe(this, {
-            if(it is Command.Error) {
-                val intent = Intent(applicationContext, NoInternetActivity::class.java)
-                startActivity(intent)
-            }
-        })
     }
 
     fun hideKeyboard(activity: Activity) {
