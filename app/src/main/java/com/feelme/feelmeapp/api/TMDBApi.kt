@@ -36,21 +36,4 @@ interface TMDBApi {
     @GET("genre/movie/list")
     suspend fun getGenres(): Response<Genres>
 
-
-
-//    DEIXEI COMO EXEMPLO PARA AS FUTURAS CHAMADAS
-
-//    @GET("movie/popular")
-//    suspend fun getPopularMovies(): Response<Popular>
-//
-//    @GET("movie/{movie_id}")
-//    suspend fun getMovieById(
-//        @Path("movie_id") movieId: Int
-//    ): Response<Movie>
-//
-//    @POST("movie/save")
-//    suspend fun saveMovie(
-//        @Body movie: Movie
-//    ): Response<ResponseBody>
-
 }
