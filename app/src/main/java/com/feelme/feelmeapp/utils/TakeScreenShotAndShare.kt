@@ -46,7 +46,7 @@ class TakeScreenShotAndShare(private val context: Context, private val view: Vie
         } else {
             val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             val image = File(imagesDir, filename)
-            uri = FileProvider.getUriForFile(context, "com.feelme.feelmeapp.provider", image)
+            uri = FileProvider.getUriForFile(context, "com.feelme.feelmeapp.fileprovider", image)
             fos = FileOutputStream(image)
         }
 
