@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
         viewModel.command = MutableLiveData()
         viewModel.getGenres()
         viewModel.getNowPlayingMovies()
+        viewModel.getLastRelease()
     }
 
     private fun setupObservables() {
@@ -74,6 +75,20 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     FragmentHome.vgLoader.vgLoader.isVisible = false
                     FragmentHome.vgHomeFragment.isVisible = true
+                }
+            })
+
+            viewModel.onSuccessLastRelease.observe(FragmentActivity, {
+                binding?.let { FragmentHome ->
+                    FragmentHome.rvLancamentos.adapter = EmAltaAdapter(it) { Result ->
+                        val intent = Intent(context, MovieDetailsActivity::class.java)
+                        intent.putExtra(EXTRA_MOVIE_ID, Result.id)
+                        startActivity(intent)
+                    }
+                    FragmentHome.rvLancamentos.adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                    FragmentHome.rvLancamentos.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    FragmentHome.rvLancamentos.isVisible = true
+                    FragmentHome.tvLancamentos.isVisible = true
                 }
             })
 

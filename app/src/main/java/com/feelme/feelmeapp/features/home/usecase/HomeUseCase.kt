@@ -12,11 +12,10 @@ import okhttp3.internal.toImmutableList
 import kotlin.Result
 
 class HomeUseCase(private val homeRepository: HomeRepository) {
-    suspend fun getNowPlayingMovies(): ResponseApi {
-
-        when (val responseApi = homeRepository.getNowPlayingMovies()) {
+    suspend fun getNowPlayingMovies(providers: String): ResponseApi {
+        when (val responseApi = homeRepository.getNowPlayingMovies(providers)) {
             is ResponseApi.Success -> {
-                val data = responseApi.data as? NowPlaying
+                val data = responseApi.data as? DiscoverMovies
                 val result = data?.results?.map { Result ->
                     Result.backdropPath?.let { Result.backdropPath = it.getFullImageUrl() }
                     Result.posterPath?.let { Result.posterPath = it.getFullImageUrl() }
@@ -50,6 +49,24 @@ class HomeUseCase(private val homeRepository: HomeRepository) {
                 }
 
                 return ResponseApi.Success(movieNowPlayingDb)
+            }
+        }
+    }
+
+    suspend fun getLastRelease(providers: String): ResponseApi {
+        when (val responseApi = homeRepository.getLastRelease(providers)) {
+            is ResponseApi.Success -> {
+                val data = responseApi.data as? DiscoverMovies
+                val result = data?.results?.map { Result ->
+                    Result.backdropPath?.let { Result.backdropPath = it.getFullImageUrl() }
+                    Result.posterPath?.let { Result.posterPath = it.getFullImageUrl() }
+                    Result
+                }
+
+                return ResponseApi.Success(result)
+            }
+            is ResponseApi.Error -> {
+                return responseApi
             }
         }
     }

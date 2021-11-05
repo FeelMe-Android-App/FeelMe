@@ -14,7 +14,7 @@
         android:id="@+id/whatToWatchFragment"
         android:icon="@drawable/what_to_watch_icon"
         android:enabled="true"
-        android:title="Recomendações" />
+        android:title="FeelMe" />
     <item
         android:id="@+id/itSearch"
         android:icon="@drawable/ic_search"

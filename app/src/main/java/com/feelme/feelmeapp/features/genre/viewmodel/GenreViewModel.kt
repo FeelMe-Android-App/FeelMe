@@ -15,13 +15,13 @@ import kotlinx.coroutines.flow.Flow
 class GenreViewModel(private val genreUseCase: GenreUseCase, private val genreRepository: GenreRepository): BaseViewModel() {
     var mPagingData: Flow<PagingData<PagedMovieGridModel>>? = null
 
-    fun getMoviesByGenre(genreId: Int): Flow<PagingData<PagedMovieGridModel>> {
+    fun getMoviesByGenre(providers: String, genreId: Int): Flow<PagingData<PagedMovieGridModel>> {
         if(mPagingData != null) return mPagingData as Flow<PagingData<PagedMovieGridModel>>
         else
             mPagingData = Pager(config = PagingConfig(pageSize = PAGE_SIZE),
             pagingSourceFactory = { PagedMovieGridPagingSource { page ->
                 when(
-                    val response = genreRepository.getMoviesByGenre(genreId, page)
+                    val response = genreRepository.getMoviesByGenre(providers, genreId, page)
                 ) {
                     is ResponseApi.Success -> {
                         val list = response.data as? DiscoverMovies

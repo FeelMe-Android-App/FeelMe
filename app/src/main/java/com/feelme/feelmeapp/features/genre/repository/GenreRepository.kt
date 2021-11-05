@@ -10,9 +10,9 @@ import com.feelme.feelmeapp.modeldb.MovieGenreCrossRef
 import com.feelme.feelmeapp.utils.ResponseApi
 
 class GenreRepository(private val context: Context): BaseRepository() {
-    suspend fun getMoviesByGenre(genreId: Int, page: Int): ResponseApi {
+    suspend fun getMoviesByGenre(providers: String, genreId: Int, page: Int): ResponseApi {
         return safeApiCall {
-            ApiService.tmdbApi.getDiscoverMovies(providers = "", genres = genreId.toString(), sortBy = "popularity.desc", page = page)
+            ApiService.tmdbApi.getDiscoverMovies(providers = providers, genres = genreId.toString(), sortBy = "popularity.desc", page = page)
         }
     }
 

@@ -11,4 +11,8 @@ object UserStreamings {
     fun setUserStreamings(streamIds: MutableList<Int>) {
         userStreamings.postValue(streamIds)
     }
+
+    fun getUserStreamingsServices(): String {
+        return userStreamings.value?.joinToString("|") ?: ""
+    }
 }

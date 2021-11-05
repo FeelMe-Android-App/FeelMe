@@ -8,9 +8,15 @@ import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.utils.ResponseApi
 
 class HomeRepository(private val context: Context) : BaseRepository() {
-    suspend fun getNowPlayingMovies(): ResponseApi {
+    suspend fun getNowPlayingMovies(providers: String): ResponseApi {
         return safeApiCall {
-            ApiService.tmdbApi.getNowPlayingMovies()
+            ApiService.tmdbApi.getDiscoverMovies(providers = providers, genres = "", sortBy = "popularity.desc", page = 1)
+        }
+    }
+
+    suspend fun getLastRelease(providers: String): ResponseApi {
+        return safeApiCall {
+            ApiService.tmdbApi.getDiscoverMovies(providers = providers, genres = "", sortBy = "release_date.desc", page = 1)
         }
     }
 
