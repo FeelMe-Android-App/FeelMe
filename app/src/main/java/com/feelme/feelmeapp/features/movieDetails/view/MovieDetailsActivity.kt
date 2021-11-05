@@ -1,11 +1,15 @@
 package com.feelme.feelmeapp.features.movieDetails.view
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -39,8 +43,11 @@ import com.feelme.feelmeapp.utils.TakeScreenShotAndShare
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.security.Permission
+import java.util.jar.Manifest
 import kotlin.properties.Delegates
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -52,6 +59,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private val userProfile = UserProfile.currentUser.value
     private val userMovieListEvents = UserMoviesList
     private lateinit var commentsAdapter: CommentsAdapter
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +76,11 @@ class MovieDetailsActivity : AppCompatActivity() {
             loggedScreen()
         } else {
             anonymousScreen()
+        }
+
+        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if(isGranted) shareScreenShot()
+            else Snackbar.make(binding.btShare, "Permissão não concedida", Snackbar.LENGTH_LONG).show()
         }
 
         viewModel.command = MutableLiveData()
@@ -316,6 +329,20 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     fun getScreenShot() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) shareScreenShot()
+        else {
+            when {
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                    shareScreenShot()
+                }
+                else -> {
+                    requestPermissionLauncher.launch(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }
+        }
+    }
+
+    fun shareScreenShot() {
         val view = findViewById<ConstraintLayout>(R.id.vgMovieDetailsScreen)
         val screenShot = TakeScreenShotAndShare(applicationContext, view, view.findViewById<TextView>(R.id.tvMovieDescription).bottom + 40, view.width)
         val uri: Uri? = screenShot.getScreenShotUri()

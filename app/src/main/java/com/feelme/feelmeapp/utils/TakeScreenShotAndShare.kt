@@ -1,9 +1,7 @@
 package com.feelme.feelmeapp.utils
 
-import android.Manifest
 import android.content.ContentValues
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,17 +10,13 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class TakeScreenShotAndShare(private val context: Context, private val view: View, private val height: Int, private val width: Int): AppCompatActivity() {
+class TakeScreenShotAndShare(private val context: Context, private val view: View, private val height: Int, private val width: Int) {
     fun getScreenShotUri(): Uri? {
         val returnedBitmat = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(returnedBitmat)
@@ -50,17 +44,10 @@ class TakeScreenShotAndShare(private val context: Context, private val view: Vie
                 fos = imageUri?.let { resolver.openOutputStream(it) }
             }
         } else {
-            if(verifyUserPermission()) {
-                val imagesDir =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                val image = File(imagesDir, filename)
-                uri = image.toUri()
-                fos = FileOutputStream(image)
-            } else {
-                uri = null
-                fos = null
-                Snackbar.make(view, "Permissão não concedida.", Snackbar.LENGTH_LONG)
-            }
+            val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val image = File(imagesDir, filename)
+            uri = image.toUri()
+            fos = FileOutputStream(image)
         }
 
         fos?.use {
@@ -68,26 +55,5 @@ class TakeScreenShotAndShare(private val context: Context, private val view: Vie
         }
 
         return uri
-    }
-
-    fun verifyUserPermission(): Boolean {
-        var permission = false
-
-        val requestPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestPermission()
-            ) { isGranted: Boolean ->
-                permission = isGranted
-            }
-
-        when { ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
-                permission =  true
-            }
-            else -> {
-                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-        }
-
-        return permission
     }
 }
