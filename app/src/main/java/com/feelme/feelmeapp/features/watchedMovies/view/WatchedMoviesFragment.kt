@@ -54,13 +54,6 @@ class WatchedMoviesFragment : Fragment() {
         userMovieListEvents.hasWatchedMovieListChanged.observe(viewLifecycleOwner, {
             pagedSquareImagesAdapter.refresh()
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            if(it is Command.Error) {
-                val intent = Intent(context, NoInternetActivity::class.java)
-                startActivity(intent)
-            }
-        })
     }
 
     private fun getPagedInitialData() {

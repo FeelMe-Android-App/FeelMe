@@ -76,13 +76,6 @@ class WhatToWatchFragment : Fragment() {
                 binding.vgWhatToWatchLoading.visibility = View.GONE
                 binding.vgWhatToWatch.visibility = View.VISIBLE
             })
-
-            viewModel.command.observe(viewLifecycleOwner, {
-                if(it is Command.Error) {
-                    val intent = Intent(context, NoInternetActivity::class.java)
-                    startActivity(intent)
-                }
-            })
         }
     }
 }

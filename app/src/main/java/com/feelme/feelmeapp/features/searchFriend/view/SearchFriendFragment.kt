@@ -103,13 +103,6 @@ class SearchFriendFragment : Fragment() {
                 showFriendsResult()
             }
         })
-
-        viewModel.command.observe(viewLifecycleOwner, {
-            if(it is Command.Error) {
-                val intent = Intent(context, NoInternetActivity::class.java)
-                startActivity(intent)
-            }
-        })
     }
 
     fun hideLoader() {

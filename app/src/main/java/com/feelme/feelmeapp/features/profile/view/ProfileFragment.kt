@@ -75,13 +75,6 @@ class ProfileFragment : Fragment() {
             UserProfile.currentUser.observe(viewLifecycleOwner, { UserProfile ->
                 if(UserProfile?.logged == false) startActivity(Intent(context, MainActivity::class.java))
             })
-
-            viewModel.command.observe(viewLifecycleOwner, {
-                if(it is Command.Error) {
-                    val intent = Intent(context, NoInternetActivity::class.java)
-                    startActivity(intent)
-                }
-            })
         }
     }
 

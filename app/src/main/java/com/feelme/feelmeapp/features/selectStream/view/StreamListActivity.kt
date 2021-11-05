@@ -101,12 +101,5 @@ class StreamListActivity() : AppCompatActivity() {
                 finish()
             }
         })
-
-        viewModel.command.observe(this, {
-            if(it is Command.Error) {
-                val intent = Intent(applicationContext, NoInternetActivity::class.java)
-                startActivity(intent)
-            }
-        })
     }
 }
