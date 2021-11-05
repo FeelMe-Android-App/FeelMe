@@ -16,6 +16,7 @@ import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridAdapte
 import com.feelme.feelmeapp.databinding.ActivitySearchBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collectLatest
@@ -94,6 +95,13 @@ class SearchActivity : AppCompatActivity() {
                 binding.rvMovies.layoutManager = GridLayoutManager(applicationContext, 3)
                 binding.searchLoading.isVisible = false
                 binding.rvMovies.isVisible = true
+            }
+        })
+
+        viewModel.command.observe(this, {
+            if(it is Command.Error) {
+                val intent = Intent(applicationContext, NoInternetActivity::class.java)
+                startActivity(intent)
             }
         })
     }

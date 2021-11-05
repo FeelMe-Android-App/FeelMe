@@ -14,8 +14,10 @@ import com.feelme.feelmeapp.adapters.PagingSquareAdapter.PagedSquareImagesAdapte
 import com.feelme.feelmeapp.databinding.FragmentSavedMoviesBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.savedMovies.viewmodel.SavedMoviesViewModel
 import com.feelme.feelmeapp.globalLiveData.UserMoviesList
+import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,6 +52,12 @@ class SavedMoviesFragment : Fragment() {
     private fun setupObservables() {
         userMovieListEvents.hasUnwatchedMovieListChanged.observe(viewLifecycleOwner, {
             pagedSquareImagesAdapter.refresh()
+        })
+        viewModel.command.observe(viewLifecycleOwner, {
+            if(it is Command.Error) {
+                val intent = Intent(context, NoInternetActivity::class.java)
+                startActivity(intent)
+            }
         })
     }
 

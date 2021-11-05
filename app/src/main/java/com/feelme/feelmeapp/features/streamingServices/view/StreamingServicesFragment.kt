@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListAdapter
 import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListData
 import com.feelme.feelmeapp.databinding.FragmentStreamingServicesBinding
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import com.feelme.feelmeapp.features.streamingServices.viewmodel.StreamingServicesViewModel
 import com.feelme.feelmeapp.globalLiveData.UserStreamings
+import com.feelme.feelmeapp.utils.Command
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StreamingServicesFragment : Fragment() {
@@ -64,6 +66,13 @@ class StreamingServicesFragment : Fragment() {
 
         viewModel.noStreamingServices.observe(viewLifecycleOwner, {
             emptyList()
+        })
+
+        viewModel.command.observe(viewLifecycleOwner, {
+            if(it is Command.Error) {
+                val intent = Intent(context, NoInternetActivity::class.java)
+                startActivity(intent)
+            }
         })
     }
 

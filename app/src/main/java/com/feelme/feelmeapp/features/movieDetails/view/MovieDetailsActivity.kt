@@ -32,12 +32,14 @@ import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVI
 import com.feelme.feelmeapp.features.movieDetails.adapter.*
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment
 import com.feelme.feelmeapp.features.userProfile.view.UserProfileActivity
 import com.feelme.feelmeapp.globalLiveData.UserMoviesList
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
+import com.feelme.feelmeapp.utils.Command
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 import com.feelme.feelmeapp.utils.TakeScreenShotAndShare
 import com.google.android.flexbox.FlexDirection
@@ -193,6 +195,13 @@ class MovieDetailsActivity : AppCompatActivity() {
 
                 binding.etUserComment.text = null
                 setupCommentsToDelete(commentsList)
+            })
+
+            viewModel.command.observe(this, {
+                if(it is Command.Error) {
+                    binding.vgNoInternet.vgNoInternet.isVisible = true
+                    binding.vgLoader.vgLoader.isVisible = false
+                }
             })
         }
     }

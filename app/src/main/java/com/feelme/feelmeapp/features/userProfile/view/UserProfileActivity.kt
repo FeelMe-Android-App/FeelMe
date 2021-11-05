@@ -13,11 +13,13 @@ import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivityUserProfileBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment.Companion.USER_ID
 import com.feelme.feelmeapp.features.userProfile.adapter.LastCommentsAdapter
 import com.feelme.feelmeapp.features.userProfile.adapter.LastWatchedMoviesAdapter
 import com.feelme.feelmeapp.features.userProfile.viewmodel.UserProfileViewModel
 import com.feelme.feelmeapp.globalLiveData.UserProfile
+import com.feelme.feelmeapp.utils.Command
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -128,6 +130,13 @@ class UserProfileActivity : AppCompatActivity() {
                     intent.putExtra(HomeFragment.EXTRA_MOVIE_ID, it.movieId)
                     startActivity(intent)
                 }
+            }
+        })
+
+        viewModel.command.observe(this, {
+            if(it is Command.Error) {
+                val intent = Intent(applicationContext, NoInternetActivity::class.java)
+                startActivity(intent)
             }
         })
     }

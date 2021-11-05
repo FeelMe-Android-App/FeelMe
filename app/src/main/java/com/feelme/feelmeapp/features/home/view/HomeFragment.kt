@@ -22,6 +22,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.utils.Command
 import com.squareup.picasso.Picasso
@@ -121,11 +122,10 @@ class HomeFragment : Fragment() {
                 }
             })
 
-            viewModel.command.observe(FragmentActivity, { Command ->
-                when(Command) {
-                    is Command.Error -> {
-
-                    }
+            viewModel.command.observe(viewLifecycleOwner, {
+                if(it is Command.Error) {
+                    val intent = Intent(context, NoInternetActivity::class.java)
+                    startActivity(intent)
                 }
             })
         }

@@ -11,6 +11,10 @@
         layout="@layout/loader"
         android:id="@+id/vgLoader" />
 
+    <include
+        layout="@layout/no_internet_layout"
+        android:id="@+id/vgNoInternet" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
