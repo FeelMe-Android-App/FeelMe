@@ -13,7 +13,9 @@ import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_CATEGORY_ID
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_CATEGORY_NAME
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.globalLiveData.UserStreamings
+import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,6 +61,13 @@ class GenreActivity : AppCompatActivity() {
                 }
             }
         }
+
+        viewModel.command.observe(this, {
+            if(it is Command.Error) {
+                val intent = Intent(applicationContext, NoInternetActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun setupRecyclerView() {

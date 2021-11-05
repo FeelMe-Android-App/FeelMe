@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -46,7 +47,7 @@ class TakeScreenShotAndShare(private val context: Context, private val view: Vie
         } else {
             val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             val image = File(imagesDir, filename)
-            uri = image.toUri()
+            uri = FileProvider.getUriForFile(context, "com.feelme.feelmeapp.provider", image)
             fos = FileOutputStream(image)
         }
 

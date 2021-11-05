@@ -19,6 +19,8 @@ import com.feelme.feelmeapp.databinding.FragmentFeedBinding
 import com.feelme.feelmeapp.features.feed.viewmodel.FeedViewModel
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
+import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -82,6 +84,13 @@ class FeedFragment : Fragment() {
 
         viewModel.onSuccessFollow.observe(viewLifecycleOwner, {
             if(it.follow.count() == 0) showNoFriends()
+        })
+
+        viewModel.command.observe(viewLifecycleOwner, {
+            if(it is Command.Error) {
+                val intent = Intent(context, NoInternetActivity::class.java)
+                startActivity(intent)
+            }
         })
     }
 
