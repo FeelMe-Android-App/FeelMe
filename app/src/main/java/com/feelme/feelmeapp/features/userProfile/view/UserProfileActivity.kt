@@ -62,14 +62,15 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun setupBtUnfollow(uid: String, followers: Int) {
         with(binding) {
-            btFollow.setBackgroundTintList(ContextCompat.getColorStateList(applicationContext, R.color.secondary_color))
+            btFollow.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.secondary_color)
             btFollow.text = resources.getString(R.string.followed)
             btFollow.setOnClickListener {
                 if(isFollowed == true) {
                     isFollowed = false
                     val newFollowers = followers - 1
                     vgProfileHeader.includeUserProfile.tvFollowedNumber.text = newFollowers.toString()
-                    btFollow.setBackgroundTintList(ContextCompat.getColorStateList(applicationContext, R.color.white_ten_percent))
+                    btFollow.backgroundTintList =
+                        ContextCompat.getColorStateList(applicationContext, R.color.white_ten_percent)
                     btFollow.text = resources.getString(R.string.follow)
                     viewModel.unfollowUser(uid)
                 }
@@ -84,7 +85,8 @@ class UserProfileActivity : AppCompatActivity() {
                     isFollowed = true
                     val newFollowers = followers + 1
                     vgProfileHeader.includeUserProfile.tvFollowedNumber.text = newFollowers.toString()
-                    btFollow.setBackgroundTintList(ContextCompat.getColorStateList(applicationContext, R.color.secondary_color))
+                    btFollow.backgroundTintList =
+                        ContextCompat.getColorStateList(applicationContext, R.color.secondary_color)
                     btFollow.text = resources.getString(R.string.followed)
                     viewModel.followUser(uid)
                 }

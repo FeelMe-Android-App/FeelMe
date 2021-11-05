@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.ProfileActivity
 import com.feelme.feelmeapp.R
-import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.adapters.CategoriesAdapter
 import com.feelme.feelmeapp.adapters.EmAltaAdapter
 import com.feelme.feelmeapp.databinding.FragmentHomeBinding
@@ -22,6 +21,7 @@ import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.viewmodel.HomeViewModel
+import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel

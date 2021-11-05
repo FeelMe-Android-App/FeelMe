@@ -5,7 +5,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.utils.ResponseApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

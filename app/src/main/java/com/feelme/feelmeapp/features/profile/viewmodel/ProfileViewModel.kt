@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.profile.usecase.ProfileUseCase
 import com.feelme.feelmeapp.model.UserProfileData
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeFollow
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val profileUseCase: ProfileUseCase): BaseViewModel() {

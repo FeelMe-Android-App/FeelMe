@@ -15,7 +15,7 @@ class StreamListUseCase(private val streamListRepository: StreamListRepository) 
             is ResponseApi.Success -> {
                 val data = responseApi.data as? Stream
                 val results = data?.results?.map { StreamDetails ->
-                    StreamDetails.logoPath?.let { StreamDetails.logoPath = StreamDetails.logoPath.getFullImageUrl() }
+                    StreamDetails.logoPath.let { StreamDetails.logoPath = StreamDetails.logoPath.getFullImageUrl() }
                     StreamDetails
                 }
 

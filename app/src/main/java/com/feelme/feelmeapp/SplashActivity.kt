@@ -2,9 +2,9 @@ package com.feelme.feelmeapp
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.feelme.feelmeapp.databinding.ActivitySplashBinding
 import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import java.util.*

@@ -4,12 +4,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -29,7 +29,10 @@ import com.feelme.feelmeapp.features.dialog.view.Dialog
 import com.feelme.feelmeapp.features.genre.view.GenreActivity
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
-import com.feelme.feelmeapp.features.movieDetails.adapter.*
+import com.feelme.feelmeapp.features.movieDetails.adapter.CommentsAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.MovieCategoriesAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.MovieStreamingAdapter
+import com.feelme.feelmeapp.features.movieDetails.adapter.SwipeToDeleteCallback
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
 import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment
@@ -85,7 +88,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.command = MutableLiveData()
         viewModel.getMovieDetailsScreen(movieId)
         binding.btShare.setOnClickListener { getScreenShot() }
-        Picasso.get().load(UserProfile.currentUser.value?.photoUrl.toString() ?: "no-image").into(binding.ivFotoLogin)
+        Picasso.get().load(UserProfile.currentUser.value?.photoUrl.toString()).into(binding.ivFotoLogin)
         setupObservables()
     }
 

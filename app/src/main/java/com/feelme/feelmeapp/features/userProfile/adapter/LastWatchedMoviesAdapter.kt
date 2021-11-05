@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.StreamItemBinding
-import com.feelme.feelmeapp.model.MyMoviesListItem
 import com.feelme.feelmeapp.model.feelmeapi.LastWatchedMovies
 import com.squareup.picasso.Picasso
 

@@ -16,8 +16,8 @@ import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeFollow
 import com.feelme.feelmeapp.model.feelmeapi.FriendMovieItem
 import com.feelme.feelmeapp.utils.ResponseApi
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class FeedViewModel(private val feedUseCase: FeedUseCase, private val feedRepository: FeedRepository): BaseViewModel() {
     private val _onSuccessFriendsStatus: MutableLiveData<List<FriendMovieItem>> = MutableLiveData()

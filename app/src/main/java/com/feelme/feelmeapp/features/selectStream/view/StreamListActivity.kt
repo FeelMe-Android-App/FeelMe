@@ -1,9 +1,9 @@
 package com.feelme.feelmeapp.features.selectStream.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,7 +19,7 @@ import com.feelme.feelmeapp.modeldb.UserStreamList
 import com.google.android.material.button.MaterialButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StreamListActivity() : AppCompatActivity() {
+class StreamListActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectStreamBinding
     private var streamList = mutableListOf<Int>()
     private val viewModel: StreamListViewModel by viewModel()

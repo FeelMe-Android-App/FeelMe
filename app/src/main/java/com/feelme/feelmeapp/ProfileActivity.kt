@@ -1,7 +1,7 @@
 package com.feelme.feelmeapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.feelme.feelmeapp.databinding.ActivityProfileBinding
 import com.feelme.feelmeapp.features.profile.view.ProfileFragment
 

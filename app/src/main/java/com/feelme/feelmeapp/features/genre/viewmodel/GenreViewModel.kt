@@ -1,7 +1,10 @@
 package com.feelme.feelmeapp.features.genre.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridModel
 import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridPagingSource
 import com.feelme.feelmeapp.base.BaseViewModel

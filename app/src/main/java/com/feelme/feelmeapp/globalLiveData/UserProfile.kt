@@ -4,17 +4,16 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.facebook.Profile
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.auth.GetTokenResult
-
 import com.feelme.feelmeapp.model.Follow
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.internal.IdTokenListener
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.internal.InternalTokenResult
+import com.google.firebase.ktx.Firebase
 
 
 object UserProfile {

@@ -1,5 +1,6 @@
 package com.feelme.feelmeapp.features.dialog.view
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,30 +9,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.feelme.feelmeapp.databinding.FragmentDialogBinding
 import com.feelme.feelmeapp.features.dialog.adapter.EmojiListAdapter
+import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.usecase.DialogData
 import com.feelme.feelmeapp.features.dialog.usecase.EmojiList
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import android.content.Intent
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
-import com.facebook.*
-import com.feelme.feelmeapp.features.dialog.usecase.ButtonStyle
 import com.feelme.feelmeapp.features.dialog.viewmodel.DialogViewModel
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.FeelMeNewUserPost
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

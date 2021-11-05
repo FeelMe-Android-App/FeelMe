@@ -2,12 +2,12 @@ package com.feelme.feelmeapp.features.profile.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.R

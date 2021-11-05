@@ -2,8 +2,14 @@ package com.feelme.feelmeapp.features.movieDetails.usecase
 
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.movieDetails.repository.MovieDetailsRepository
-import com.feelme.feelmeapp.model.*
-import com.feelme.feelmeapp.model.feelmeapi.*
+import com.feelme.feelmeapp.model.Flatrate
+import com.feelme.feelmeapp.model.MovieStreamings
+import com.feelme.feelmeapp.model.Result
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeComments
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
+import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieStatus
+import com.feelme.feelmeapp.model.feelmeapi.FeelMePostComment
+import com.feelme.feelmeapp.model.toMovieDb
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.utils.ResponseApi
 
@@ -15,7 +21,7 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
                 val data = responseApi.data as Result
                 data.posterPath?.let { data.posterPath = it.getFullImageUrl() }
 
-                data?.let { MovieResult ->
+                data.let { MovieResult ->
                     this.movieDetailsRepository.saveMovieDb(MovieResult.toMovieDb())
 
                     val movieGenreDb: MutableList<MovieGenreCrossRef> = mutableListOf()
@@ -77,7 +83,7 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
                 var streamingsList: List<Flatrate> = listOf()
                 var movieStreamDb: MutableList<MovieStreamCrossRef> = mutableListOf()
 
-                data?.results?.BR?.flatrate?.let { FlatrateList ->
+                data.results.BR?.flatrate?.let { FlatrateList ->
                     streamingsList = FlatrateList.map { Item ->
                         Item.logoPath?.let { Item.logoPath = it.getFullImageUrl() }
                         Item
@@ -94,7 +100,7 @@ class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsReposi
             }
             is ResponseApi.Error -> {
                 val movieStream = this.movieDetailsRepository.getMovieStreamDb(movieId)
-                if(movieStream.movie?.title?.isNullOrEmpty()) return responseApi
+                if(movieStream.movie.title.isNullOrEmpty()) return responseApi
 
                 val stream = movieStream.stream.map {
                     it.toFlatrate()

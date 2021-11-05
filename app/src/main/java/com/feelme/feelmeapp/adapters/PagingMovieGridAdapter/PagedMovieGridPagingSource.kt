@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.adapters.PagingMovieGridAdapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import java.lang.Exception
 
 class PagedMovieGridPagingSource(
     val callbackItens: suspend (page: Int) -> List<PagedMovieGridModel>

@@ -13,10 +13,8 @@ import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.genre.view.GenreActivity.Companion.PAGE_SIZE
 import com.feelme.feelmeapp.features.search.repository.SearchRepository
 import com.feelme.feelmeapp.features.search.usecase.SearchUseCase
-import com.feelme.feelmeapp.model.Result
 import com.feelme.feelmeapp.model.Search
 import com.feelme.feelmeapp.utils.ResponseApi
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 
 class SearchViewModel(private val searchUseCase: SearchUseCase, private val searchRepository: SearchRepository): BaseViewModel() {

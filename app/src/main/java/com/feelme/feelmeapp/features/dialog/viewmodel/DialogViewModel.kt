@@ -8,11 +8,9 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.feelme.feelmeapp.base.BaseViewModel
-import com.feelme.feelmeapp.database.FeelMeDatabase
 import com.feelme.feelmeapp.features.dialog.service.SaveStreamListService
 import com.feelme.feelmeapp.features.dialog.usecase.DialogUseCase
 import com.feelme.feelmeapp.model.FeelMeNewUserPost
-import com.feelme.feelmeapp.modeldb.UserStreamListWithStream
 import kotlinx.coroutines.launch
 
 class DialogViewModel(private val dialogUseCase: DialogUseCase, private val context: Context): BaseViewModel() {
@@ -25,7 +23,7 @@ class DialogViewModel(private val dialogUseCase: DialogUseCase, private val cont
             callApi(
                 suspend { dialogUseCase.saveUserProfile(userData) },
                 onSuccess = {
-                    _onSuccessUserProfile.postValue(it.toString());
+                    _onSuccessUserProfile.postValue(it.toString())
                 },
                 onError = {
 

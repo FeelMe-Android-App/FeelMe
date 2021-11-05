@@ -3,8 +3,8 @@ package com.feelme.feelmeapp.database
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.Query
 import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.Query
 import com.feelme.feelmeapp.modeldb.Genre
 import com.feelme.feelmeapp.modeldb.GenreMovie
 
