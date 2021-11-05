@@ -2,11 +2,11 @@ package com.feelme.feelmeapp.features.feed.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,8 +19,6 @@ import com.feelme.feelmeapp.databinding.FragmentFeedBinding
 import com.feelme.feelmeapp.features.feed.viewmodel.FeedViewModel
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
-import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

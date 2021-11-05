@@ -11,7 +11,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream

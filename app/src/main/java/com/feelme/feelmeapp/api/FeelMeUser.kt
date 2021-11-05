@@ -1,8 +1,10 @@
 package com.feelme.feelmeapp.api
 
-import com.feelme.feelmeapp.model.*
+import com.feelme.feelmeapp.model.FeelMeNewUserPost
+import com.feelme.feelmeapp.model.MyMoviesList
+import com.feelme.feelmeapp.model.MyMoviesListItem
+import com.feelme.feelmeapp.model.UserProfileData
 import com.feelme.feelmeapp.model.feelmeapi.*
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeUserProfile
 import retrofit2.Response
 import retrofit2.http.*
 

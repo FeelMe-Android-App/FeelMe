@@ -19,10 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.adapters.PagingFriendsAdapter.PagedFriendsAdapter
 import com.feelme.feelmeapp.databinding.FragmentSearchFriendBinding
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.searchFriend.viewmodel.SearchFriendViewModel
 import com.feelme.feelmeapp.features.userProfile.view.UserProfileActivity
-import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -14,7 +14,6 @@ import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment
 import com.feelme.feelmeapp.features.userProfile.service.FollowUserService
 import com.feelme.feelmeapp.features.userProfile.service.UnfollowUserService
 import com.feelme.feelmeapp.features.userProfile.usecase.UserProfileUseCase
-import com.feelme.feelmeapp.model.MyMoviesListItem
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeUserProfile
 import com.feelme.feelmeapp.model.feelmeapi.LastComments
 import com.feelme.feelmeapp.model.feelmeapi.LastWatchedMovies
@@ -38,11 +37,11 @@ class UserProfileViewModel(private val context: Context, private val userProfile
             callApi(
                 suspend { userProfileUseCase.getUserProfile(uid) },
                 onSuccess = { UserProfile ->
-                    val lastWatched = (UserProfile as FeelMeUserProfile).userprofile.lastwatched?.map {
+                    val lastWatched = (UserProfile as FeelMeUserProfile).userprofile.lastwatched.map {
                         it.backdropPath = it.backdropPath.getFullImageUrl()
                         it
                     }
-                    val lastComments = (UserProfile as FeelMeUserProfile).userprofile.lastcomments?.map {
+                    val lastComments = UserProfile.userprofile.lastcomments?.map {
                         it.backdropPath = it.backdropPath.getFullImageUrl()
                         it.photoUrl = UserProfile.userprofile.photoUrl
                         it

@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.adapters.PagingSquareAdapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import java.lang.Exception
 
 class PagedSquareImagesPagingSource(
     val callbackItens: suspend (page: Int) -> List<PagedSquareImagesModel>

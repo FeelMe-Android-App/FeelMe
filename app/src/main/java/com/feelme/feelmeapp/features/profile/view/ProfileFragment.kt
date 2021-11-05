@@ -2,17 +2,16 @@ package com.feelme.feelmeapp.features.profile.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentProfileBinding
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.profile.adapter.ProfileAdapter
 import com.feelme.feelmeapp.features.profile.viewmodel.ProfileViewModel
 import com.feelme.feelmeapp.features.savedMovies.view.SavedMoviesFragment
@@ -21,7 +20,6 @@ import com.feelme.feelmeapp.features.streamingServices.view.StreamingServicesFra
 import com.feelme.feelmeapp.features.watchedMovies.view.WatchedMoviesFragment
 import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.globalLiveData.UserStreamings
-import com.feelme.feelmeapp.utils.Command
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth

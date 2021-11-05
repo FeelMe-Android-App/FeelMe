@@ -3,13 +3,10 @@ package com.feelme.feelmeapp.features.home.usecase
 import com.feelme.feelmeapp.extensions.getFullImageUrl
 import com.feelme.feelmeapp.features.home.repository.HomeRepository
 import com.feelme.feelmeapp.model.*
-import com.feelme.feelmeapp.model.NowPlaying
 import com.feelme.feelmeapp.modeldb.*
 import com.feelme.feelmeapp.modeldb.Genre
-import com.feelme.feelmeapp.modeldb.Movie
 import com.feelme.feelmeapp.utils.ResponseApi
 import okhttp3.internal.toImmutableList
-import kotlin.Result
 
 class HomeUseCase(private val homeRepository: HomeRepository) {
     suspend fun getNowPlayingMovies(providers: String): ResponseApi {
@@ -84,7 +81,7 @@ class HomeUseCase(private val homeRepository: HomeRepository) {
                         genreDb.add(it.toGenreDb())
                     }
 
-                    this.homeRepository.saveGenres(genreDb);
+                    this.homeRepository.saveGenres(genreDb)
                 }
 
                 return ResponseApi.Success(result)

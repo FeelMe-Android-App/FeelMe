@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.adapters.PagingFriendsAdapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import java.lang.Exception
 
 class PagedFriendsPagingSource(
     val callbackItems: suspend (page: Int) -> List<PagedFriendsModel>

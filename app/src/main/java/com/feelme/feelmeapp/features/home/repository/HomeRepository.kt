@@ -4,7 +4,10 @@ import android.content.Context
 import com.feelme.feelmeapp.api.ApiService
 import com.feelme.feelmeapp.base.BaseRepository
 import com.feelme.feelmeapp.database.FeelMeDatabase
-import com.feelme.feelmeapp.modeldb.*
+import com.feelme.feelmeapp.modeldb.Genre
+import com.feelme.feelmeapp.modeldb.Movie
+import com.feelme.feelmeapp.modeldb.MovieAndNowPlaying
+import com.feelme.feelmeapp.modeldb.MovieNowPlaying
 import com.feelme.feelmeapp.utils.ResponseApi
 
 class HomeRepository(private val context: Context) : BaseRepository() {

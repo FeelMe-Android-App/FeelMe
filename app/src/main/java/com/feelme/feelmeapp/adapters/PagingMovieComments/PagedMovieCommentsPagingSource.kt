@@ -2,7 +2,6 @@ package com.feelme.feelmeapp.adapters.PagingMovieComments
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import java.lang.Exception
 
 class PagedMovieCommentsPagingSource(
     val callbackItems: suspend (page: Int) -> List<PagedMovieCommentsModel>

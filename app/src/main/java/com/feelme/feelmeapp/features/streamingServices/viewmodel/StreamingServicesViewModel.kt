@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.streamingServices.usecase.StreamingServicesUseCase
-import com.feelme.feelmeapp.modeldb.Stream
 import com.feelme.feelmeapp.modeldb.UserStreamListWithStream
 import kotlinx.coroutines.launch
 

@@ -1,6 +1,5 @@
 package com.feelme.feelmeapp.extensions
 
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit

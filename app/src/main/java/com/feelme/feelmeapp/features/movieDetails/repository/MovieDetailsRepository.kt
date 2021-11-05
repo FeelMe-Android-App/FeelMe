@@ -5,7 +5,6 @@ import com.feelme.feelmeapp.api.ApiService
 import com.feelme.feelmeapp.api.FeelMeApiService
 import com.feelme.feelmeapp.base.BaseRepository
 import com.feelme.feelmeapp.database.FeelMeDatabase
-import com.feelme.feelmeapp.model.feelmeapi.FeelMeCommentDelete
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.modeldb.*

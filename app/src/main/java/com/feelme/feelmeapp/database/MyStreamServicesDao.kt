@@ -1,8 +1,6 @@
 package com.feelme.feelmeapp.database
 
 import androidx.room.*
-import com.feelme.feelmeapp.modeldb.MovieGenreCrossRef
-import com.feelme.feelmeapp.modeldb.StreamWithMovies
 import com.feelme.feelmeapp.modeldb.UserStreamList
 import com.feelme.feelmeapp.modeldb.UserStreamListWithStream
 

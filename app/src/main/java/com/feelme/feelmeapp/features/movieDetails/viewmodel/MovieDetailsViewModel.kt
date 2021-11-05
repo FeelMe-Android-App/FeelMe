@@ -10,10 +10,12 @@ import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import androidx.work.workDataOf
 import com.feelme.feelmeapp.base.BaseViewModel
-import com.feelme.feelmeapp.features.movieDetails.service.*
+import com.feelme.feelmeapp.features.movieDetails.service.DeleteCommentService
+import com.feelme.feelmeapp.features.movieDetails.service.RemoveMovieService
+import com.feelme.feelmeapp.features.movieDetails.service.SaveUnwatchedMovieService
+import com.feelme.feelmeapp.features.movieDetails.service.SaveWatchedMovieService
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.usecase.MovieDetailsUseCase
-import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.COMMENT
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.COMMENT_ID
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_BACKDROP_PATH
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity.Companion.MOVIE_ID
