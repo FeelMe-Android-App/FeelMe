@@ -14,10 +14,8 @@ import com.feelme.feelmeapp.adapters.PagingSquareAdapter.PagedSquareImagesAdapte
 import com.feelme.feelmeapp.databinding.FragmentWatchedMoviesBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.watchedMovies.viewmodel.WatchedMoviesModel
 import com.feelme.feelmeapp.globalLiveData.UserMoviesList
-import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

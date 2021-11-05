@@ -13,13 +13,11 @@ import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivityUserProfileBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment.Companion.USER_ID
 import com.feelme.feelmeapp.features.userProfile.adapter.LastCommentsAdapter
 import com.feelme.feelmeapp.features.userProfile.adapter.LastWatchedMoviesAdapter
 import com.feelme.feelmeapp.features.userProfile.viewmodel.UserProfileViewModel
 import com.feelme.feelmeapp.globalLiveData.UserProfile
-import com.feelme.feelmeapp.utils.Command
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

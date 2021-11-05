@@ -32,7 +32,6 @@ import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVI
 import com.feelme.feelmeapp.features.movieDetails.adapter.*
 import com.feelme.feelmeapp.features.movieDetails.usecase.Comment
 import com.feelme.feelmeapp.features.movieDetails.viewmodel.MovieDetailsViewModel
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.searchFriend.view.SearchFriendFragment
 import com.feelme.feelmeapp.features.userProfile.view.UserProfileActivity
 import com.feelme.feelmeapp.globalLiveData.UserMoviesList
@@ -48,8 +47,6 @@ import com.google.android.flexbox.JustifyContent
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.security.Permission
-import java.util.jar.Manifest
 import kotlin.properties.Delegates
 
 class MovieDetailsActivity : AppCompatActivity() {

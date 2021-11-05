@@ -11,13 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feelme.feelmeapp.MainActivity
 import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.ActivitySelectStreamBinding
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.selectStream.adapter.StreamAdapter
 import com.feelme.feelmeapp.features.selectStream.viewmodel.StreamListViewModel
 import com.feelme.feelmeapp.features.streamingServices.view.StreamingServicesFragment.Companion.STREAM_LIST
 import com.feelme.feelmeapp.globalLiveData.UserStreamings
 import com.feelme.feelmeapp.modeldb.UserStreamList
-import com.feelme.feelmeapp.utils.Command
 import com.google.android.material.button.MaterialButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

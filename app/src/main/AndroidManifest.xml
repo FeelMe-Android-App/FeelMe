@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelMe">
         <provider
-            android:authorities="com.feelme.feelmeapp.MainActivity"
+            android:authorities="com.feelme.feelmeapp.fileprovider"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -23,9 +23,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path"/>
         </provider>
-        <activity
-            android:name=".features.noInternet.view.NoInternetActivity"
-            android:exported="false" />
         <activity
             android:name=".features.userProfile.view.UserProfileActivity"
             android:exported="false"

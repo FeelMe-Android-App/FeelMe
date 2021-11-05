@@ -16,7 +16,6 @@ import com.feelme.feelmeapp.adapters.PagingMovieGridAdapter.PagedMovieGridAdapte
 import com.feelme.feelmeapp.databinding.ActivitySearchBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.search.viewmodel.SearchViewModel
 import com.feelme.feelmeapp.utils.Command
 import kotlinx.coroutines.flow.collectLatest

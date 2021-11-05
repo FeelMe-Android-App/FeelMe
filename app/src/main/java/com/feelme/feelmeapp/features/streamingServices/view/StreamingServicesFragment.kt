@@ -1,6 +1,5 @@
 package com.feelme.feelmeapp.features.streamingServices.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListAdapter
 import com.feelme.feelmeapp.adapters.UserStreamListAdapter.UserStreamListData
 import com.feelme.feelmeapp.databinding.FragmentStreamingServicesBinding
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
-import com.feelme.feelmeapp.features.selectStream.view.StreamListActivity
 import com.feelme.feelmeapp.features.streamingServices.viewmodel.StreamingServicesViewModel
 import com.feelme.feelmeapp.globalLiveData.UserStreamings
 import com.feelme.feelmeapp.utils.Command
