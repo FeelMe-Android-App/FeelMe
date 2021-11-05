@@ -16,10 +16,8 @@ import com.feelme.feelmeapp.R
 import com.feelme.feelmeapp.databinding.FragmentWhatToWatchBinding
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_MOVIE_ID
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
-import com.feelme.feelmeapp.features.noInternet.view.NoInternetActivity
 import com.feelme.feelmeapp.features.whatToWatch.adapter.MoviesMoodListAdapter
 import com.feelme.feelmeapp.features.whatToWatch.viewmodel.WhatToWatchViewModel
-import com.feelme.feelmeapp.utils.Command
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
 
 class WhatToWatchFragment : Fragment() {
