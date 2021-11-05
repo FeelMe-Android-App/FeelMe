@@ -18,6 +18,7 @@ import com.feelme.feelmeapp.features.userProfile.adapter.LastCommentsAdapter
 import com.feelme.feelmeapp.features.userProfile.adapter.LastWatchedMoviesAdapter
 import com.feelme.feelmeapp.features.userProfile.viewmodel.UserProfileViewModel
 import com.feelme.feelmeapp.globalLiveData.UserProfile
+import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserProfileActivity : AppCompatActivity() {
@@ -101,6 +102,7 @@ class UserProfileActivity : AppCompatActivity() {
                 tvUnWatchedMovies.text = it.userprofile.unwatched.toString()
                 tvWacthed.text = it.userprofile.watched.toString()
                 isFollowed = it.userprofile.isfollowed
+                Picasso.get().load(it.userprofile.photoUrl).placeholder(R.drawable.ic_no_profile_picture).into(vgProfileHeader.includeUserProfile.ivFotoLogin)
                 if(it.userprofile.isfollowed) setupBtUnfollow(it.userprofile.uid, it.userprofile.followed)
                 else setupBtFollow(it.userprofile.uid, it.userprofile.followed)
                 hideLoader()

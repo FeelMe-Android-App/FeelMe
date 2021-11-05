@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.feelme.feelmeapp.base.BaseViewModel
 import com.feelme.feelmeapp.features.whatToWatch.usecase.WhatToWatchUseCase
+import com.feelme.feelmeapp.globalLiveData.UserStreamings
 import com.feelme.feelmeapp.model.Result
 import kotlinx.coroutines.launch
 
@@ -14,10 +15,10 @@ class WhatToWatchViewModel: BaseViewModel() {
     val onSuccessWhatToWatch: LiveData<List<Result>>
         get() = _onSuccessWhatToWatch
 
-    fun getDiscoverMovies(providers: String = "", genres: String = "") {
+    fun getDiscoverMovies(genres: String = "") {
         viewModelScope.launch {
             callApi(
-                suspend { whatToWatchUseCase.getDiscoverMovies(providers, genres) },
+                suspend { whatToWatchUseCase.getDiscoverMovies(UserStreamings.getUserStreamingsServices(), genres) },
                 onSuccess = {
                     _onSuccessWhatToWatch.postValue((it as List<*>).filterIsInstance<Result>())
                 }

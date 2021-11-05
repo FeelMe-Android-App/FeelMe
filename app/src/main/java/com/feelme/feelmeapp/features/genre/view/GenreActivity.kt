@@ -13,6 +13,7 @@ import com.feelme.feelmeapp.features.home.view.HomeFragment
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_CATEGORY_ID
 import com.feelme.feelmeapp.features.home.view.HomeFragment.Companion.EXTRA_CATEGORY_NAME
 import com.feelme.feelmeapp.features.movieDetails.view.MovieDetailsActivity
+import com.feelme.feelmeapp.globalLiveData.UserStreamings
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -52,7 +53,8 @@ class GenreActivity : AppCompatActivity() {
     private fun setupObservables() {
         lifecycleScope.launch {
             genreId?.let {
-                viewModel.getMoviesByGenre(it).collect { pagingData ->
+                val streamings = UserStreamings.getUserStreamingsServices()
+                viewModel.getMoviesByGenre(streamings, it).collect { pagingData ->
                     pagedMovieGridAdapter.submitData(pagingData)
                 }
             }

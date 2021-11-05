@@ -117,11 +117,42 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvLancamentos"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvEmAlta"
                 tools:listitem="@layout/list_categorias"
+                android:paddingEnd="15dp"
+                android:clipToPadding="false"/>
+
+            <TextView
+                android:id="@+id/tvLancamentos"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/last"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_goneMarginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_categoria"
+                app:layout_constraintBottom_toTopOf="@+id/rvLancamentos"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLancamentos"
+                android:visibility="invisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLancamentos"
+                tools:listitem="@layout/list_em_alta"
                 android:paddingEnd="15dp"
                 android:clipToPadding="false"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
