@@ -1,25 +1,14 @@
 package com.feelme.feelmeapp.features.movieDetails.view
 
-import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
-import androidx.core.view.children
 import androidx.core.view.isVisible
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -46,15 +35,12 @@ import com.feelme.feelmeapp.globalLiveData.UserProfile
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovie
 import com.feelme.feelmeapp.model.feelmeapi.FeelMeMovieComment
 import com.feelme.feelmeapp.utils.ConstantApp.Emojis.emojiList
+import com.feelme.feelmeapp.utils.TakeScreenShotAndShare
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 import kotlin.properties.Delegates
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -331,47 +317,13 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     fun getScreenShot() {
         val view = findViewById<ConstraintLayout>(R.id.vgMovieDetailsScreen)
-        val movieText = view.findViewById<TextView>(R.id.tvMovieDescription).bottom + 40
-        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-        val returnedBitmat = Bitmap.createBitmap(view.width, movieText, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(returnedBitmat)
-        val bgDrawable = view.background
-        if(bgDrawable != null) bgDrawable.draw(canvas)
-        else canvas.drawColor(Color.WHITE)
-        view.draw(canvas)
-        val bytes = ByteArrayOutputStream()
-        returnedBitmat.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-
-        var fos: OutputStream?
-        val filename = "screenshot.jpg"
-        var uri: Uri?
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            applicationContext.contentResolver.also { resolver ->
-                val contentValues = ContentValues().apply {
-                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-                }
-                val imageUri: Uri? =
-                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-                uri = imageUri
-                fos = imageUri?.let { resolver.openOutputStream(it) }
-            }
-        } else {
-            val imagesDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val image = File(imagesDir, filename)
-            uri = image.toUri()
-            fos = FileOutputStream(image)
+        val screenShot = TakeScreenShotAndShare(applicationContext, view, view.findViewById<TextView>(R.id.tvMovieDescription).bottom + 40, view.width)
+        val uri: Uri? = screenShot.getScreenShotUri()
+        if(uri is Uri) {
+            val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+            intent.putExtra(Intent.EXTRA_STREAM, uri)
+            startActivity(intent)
         }
-
-        fos?.use {
-            returnedBitmat.compress(Bitmap.CompressFormat.JPEG, 100, it)
-        }
-
-        intent.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(intent)
     }
 
     companion object {
